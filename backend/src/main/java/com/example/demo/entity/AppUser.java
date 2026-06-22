@@ -1,6 +1,7 @@
 package com.example.demo.entity;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
@@ -8,6 +9,7 @@ import jakarta.persistence.Table;
 @Table(name = "app_users")
 public class AppUser {
  @Id
- @Generated
+ @GeneratedValue(strategy = GenerationType.IDENTITY
+ )
     
 }
