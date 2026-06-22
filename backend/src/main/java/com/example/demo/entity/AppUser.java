@@ -16,19 +16,19 @@ import jakarta.persistence.Table;
 public class AppUser {
  @Id
  @GeneratedValue(strategy = GenerationType.IDENTITY)
- long Id;
+ private long Id;
  @Column(unique = true,nullable = false)
- String username;
+ private String username;
  @Column(unique = true,nullable = false)
- String email;
+ private String email;
  @Column(nullable = false)
- String password;
+ private String password;
  @Enumerated(EnumType.STRING)
  @Column(name="domain_role")
  domainRole domainRole;
 
  public AppUser() {
-    
+
 }
  public AppUser(long id, String username, String email, String password, com.example.demo.entity.domainRole domainRole) {
     Id = id;
