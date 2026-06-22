@@ -21,8 +21,9 @@ public class AppUser {
  String username;
  @Column(unique = true,nullable = false)
  String email;
- @Column()
+ @Column(nullable = false)
  String password;
+ @
   
   
     
