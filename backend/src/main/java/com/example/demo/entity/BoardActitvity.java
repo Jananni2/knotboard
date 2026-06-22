@@ -8,6 +8,7 @@ import jakarta.persistence.Table;
 @Table(name = "boards")
 public class BoardActitvity {
 @Id
-@GenertedValue(strategy =GenerationType)
+@GenertedValue(strategy =GenerationType.IDENTITY)
+private
     
 }
