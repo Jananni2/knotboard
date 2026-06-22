@@ -25,7 +25,7 @@ public class AppUser {
  private String password;
  @Enumerated(EnumType.STRING)
  @Column(name="domain_role")
- domainRole domainRole;
+ private domainRole domainRole;
 
  public AppUser() {
 
