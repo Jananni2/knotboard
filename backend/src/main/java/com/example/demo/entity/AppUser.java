@@ -2,6 +2,7 @@ package com.example.demo.entity;
 
 import org.hibernate.cache.spi.support.DomainDataRegionTemplate;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -16,10 +17,12 @@ public class AppUser {
  @Id
  @GeneratedValue(strategy = GenerationType.IDENTITY)
  long Id;
+ @Column(unique = true,nullable = false)
  String username;
+ @Column
  String email;
  String password;
- @Enumerated(EnumType.STRING)
- DomainRole DomainRole;
+  
+  
     
 }
