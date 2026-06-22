@@ -17,5 +17,6 @@ private String title;
 private String description;
 @Enumerated(EnumType.STRING)
 status status;
-@Column(name)
+@Column(name="max_note_capacity")
+Integer maxNoteCapacity;
 }
