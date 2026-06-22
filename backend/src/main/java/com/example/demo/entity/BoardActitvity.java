@@ -1,5 +1,7 @@
 package com.example.demo.entity;
 
+import java.time.LocalDateTime;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -16,7 +18,9 @@ private Long id;
 private String title;
 private String description;
 @Enumerated(EnumType.STRING)
-status status;
+BoardStatus status;
 @Column(name="max_note_capacity")
 Integer maxNoteCapacity;
+Integer currentNoteCount;
+LocalDateTime createdAt;
 }
