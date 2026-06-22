@@ -7,7 +7,7 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "app_users")
 public class AppUser {
-@Id
-@
+ @Id
+ @Generated
     
 }
