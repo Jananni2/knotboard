@@ -9,6 +9,8 @@ import jakarta.persistence.Table;
 public class BoardActitvity {
 @Id
 @GenertedValue(strategy =GenerationType.IDENTITY)
-private
+private Long id;
+private String title;
+
     
 }
