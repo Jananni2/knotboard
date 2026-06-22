@@ -26,13 +26,17 @@ public class AppUser {
  @Enumerated(EnumType.STRING)
  @Column(name="domain_role")
  domainRole domainRole;
- 
- public long getId() {
-    return Id;
- }
- public void setId(long id) {
+
+ public AppUser() {
+    
+}
+ public AppUser(long id, String username, String email, String password, com.example.demo.entity.domainRole domainRole) {
     Id = id;
- }
+    this.username = username;
+    this.email = email;
+    this.password = password;
+    this.domainRole = domainRole;
+}
  public String getUsername() {
     return username;
  }
