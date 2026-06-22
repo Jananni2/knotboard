@@ -19,8 +19,9 @@ public class AppUser {
  long Id;
  @Column(unique = true,nullable = false)
  String username;
- @Column
+ @Column(unique = true,nullable = false)
  String email;
+ @Column()
  String password;
   
   
