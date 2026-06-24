@@ -22,7 +22,7 @@ public List<AppUser> getUsers(){
 }
 @PostMapping("/add")
 public AppUser addUser(@RequestBody AppUser user){
-    return service.addUser();
+    return service.addUser(user);
 }
     
 }
