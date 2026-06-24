@@ -10,6 +10,7 @@ import com.example.demo.service.AuthService;
 public class AuthController {
     @Autowired
 private AuthService service;
-@GetMapping("")
+@GetMapping("/get")
+public List<AppUser> get
     
 }
