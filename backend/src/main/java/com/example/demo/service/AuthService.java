@@ -16,4 +16,9 @@ public class AuthService {
     public List<AppUser> getUsers() {
         return repo.findAll();
     }
+
+    public AppUser addUser() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'addUser'");
+    }
 }
