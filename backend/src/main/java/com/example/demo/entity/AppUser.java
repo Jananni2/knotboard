@@ -10,13 +10,16 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-
-
+@Setter
 @Table(name = "app_users")
 public class AppUser {
  @Id
@@ -31,6 +34,7 @@ public class AppUser {
  @Enumerated(EnumType.STRING)
  @Column(name="domain_role")
  private domainRole domainRole;
- 
-
+ public enum DomainRole{
+   FACILITATOR,
+ }
 }
