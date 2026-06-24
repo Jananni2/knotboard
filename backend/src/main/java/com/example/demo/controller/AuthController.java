@@ -11,6 +11,8 @@ public class AuthController {
     @Autowired
 private AuthService service;
 @GetMapping("/get")
-public List<AppUser> get
+public List<AppUser> getUsers(){
+    return service.getUsers;
+}
     
 }
