@@ -12,6 +12,11 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+
+
 @Table(name = "app_users")
 public class AppUser {
  @Id
@@ -26,40 +31,6 @@ public class AppUser {
  @Enumerated(EnumType.STRING)
  @Column(name="domain_role")
  private domainRole domainRole;
-
- public AppUser() {
-
-}
- public AppUser(long id, String username, String email, String password, com.example.demo.entity.domainRole domainRole) {
-    Id = id;
-    this.username = username;
-    this.email = email;
-    this.password = password;
-    this.domainRole = domainRole;
-}
- public String getUsername() {
-    return username;
- }
- public void setUsername(String username) {
-    this.username = username;
- }
- public String getEmail() {
-    return email;
- }
- public void setEmail(String email) {
-    this.email = email;
- }
- public String getPassword() {
-    return password;
- }
- public void setPassword(String password) {
-    this.password = password;
- }
- public domainRole getDomainRole() {
-    return domainRole;
- }
- public void setDomainRole(domainRole domainRole) {
-    this.domainRole = domainRole;
- }
+ 
 
 }
