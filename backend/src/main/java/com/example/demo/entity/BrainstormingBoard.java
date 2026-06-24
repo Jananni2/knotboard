@@ -12,5 +12,6 @@ public class BrainstormingBoard {
 private Long id;
 private String title;
 private String description;
-
+private BoardStatus status;
+private Integer 
 }
