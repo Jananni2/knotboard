@@ -12,7 +12,7 @@ public class AuthController {
 private AuthService service;
 @GetMapping("/get")
 public List<AppUser> getUsers(){
-    return service.getUsers;
+    return service.getUsers();
 }
     
 }
