@@ -15,4 +15,5 @@ public class BrainstormingBoard {
     private String title;
     private String description;
     private BoardStatus status;
+    
 }
