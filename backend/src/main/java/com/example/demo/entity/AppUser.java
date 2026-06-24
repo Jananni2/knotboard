@@ -34,7 +34,8 @@ public class AppUser {
  @Enumerated(EnumType.STRING)
  @Column(name="domain_role")
  private domainRole domainRole;
+ 
  public enum DomainRole{
-   FACILITATOR,
+   FACILITATOR,CONTRIBUTOR,STAKEHOLDER;
  }
 }
