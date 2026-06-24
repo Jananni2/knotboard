@@ -7,11 +7,12 @@ import jakarta.persistence.Id;
 
 @Entity
 public class BrainstormingBoard {
-@Id
-@GeneratedValue(strategy = GenerationType.IDENTITY)
-private Long id;
-private String title;
-private String description;
-private BoardStatus status;
-private Integer 
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String title;
+    private String description;
+    private BoardStatus status;
 }
