@@ -33,8 +33,8 @@ public class AppUser {
  private String password;
  @Enumerated(EnumType.STRING)
  @Column(name="domain_role")
- private domainRole domainRole;
- 
+ private DomainRole domainRole;
+
  public enum DomainRole{
    FACILITATOR,CONTRIBUTOR,STAKEHOLDER;
  }
