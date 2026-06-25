@@ -24,5 +24,5 @@ public List<AppUser> getUsers(){
 public AppUser addUser(@RequestBody AppUser user){
     return service.addUser(user);
 }
-    
+@DeleteMapping("/")
 }
