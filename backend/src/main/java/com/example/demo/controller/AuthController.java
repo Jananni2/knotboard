@@ -19,10 +19,10 @@ public class AuthController {
      @Autowired
 private AuthService service;
 
-@GetMapping("/get")
-public List<AppUser> getUsers(){
-    return service.getUsers();
-}
+// @GetMapping("/get")
+// public List<AppUser> getUsers(){
+//     return service.getUsers();
+// }
 @PostMapping("/api/auth/register")
 public AppUser addUser(@RequestBody AppUser user){
     return service.addUser(user);
