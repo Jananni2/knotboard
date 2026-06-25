@@ -22,7 +22,7 @@ private AuthService service;
 public List<AppUser> getUsers(){
     return service.getUsers();
 }
-@PostMapping("/add")
+@PostMapping("/api/auth/register")
 public AppUser addUser(@RequestBody AppUser user){
     return service.addUser(user);
 }
