@@ -20,4 +20,8 @@ public class AuthService {
     public AppUser addUser(AppUser user) {
         return repo.save(user);
     }
+
+    public String delAcc(Long id) {
+         
+    }
 }
