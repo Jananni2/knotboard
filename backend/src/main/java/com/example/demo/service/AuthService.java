@@ -25,4 +25,8 @@ public class AuthService {
          repo.deleteById(id);
          return "User deleted successfully";
     }
+
+    public AppUser updatAppUser(Long id, AppUser user) {
+      AppUser user = 
+    }
 }
