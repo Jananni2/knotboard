@@ -32,7 +32,7 @@ public AppUser addUser(@RequestBody AppUser user){
 
 @PostMapping("/api/auth/login")
 public AppUser loginUser(@RequestBody AppUser user){
-    return service.addUser(user);
+    return service.loginUser(user);
 }
 
 @DeleteMapping("/del/{id}")

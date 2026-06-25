@@ -14,11 +14,15 @@ public class AuthService {
     @Autowired
     private AppUserRepository repo;
 
-    public List<AppUser> getUsers() {
-        return repo.findAll();
-    }
+    // public List<AppUser> getUsers() {
+    //     return repo.findAll();
+    // }
 
     public AppUser addUser(AppUser user) {
+        return repo.save(user);
+    }
+
+    public AppUser loginUser(AppUser user) {
         return repo.save(user);
     }
 
@@ -33,4 +37,6 @@ public class AuthService {
         Syste
       }
     }
+
+     
 }
