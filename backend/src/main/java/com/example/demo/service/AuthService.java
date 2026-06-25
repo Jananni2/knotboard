@@ -1,7 +1,7 @@
 package com.example.demo.service;
 
-import java.util.List;
-import java.util.Optional;
+// import java.util.List;
+// import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,12 +31,12 @@ public class AuthService {
          return "User deleted successfully";
     }
 
-    public AppUser updatAppUser(Long id, AppUser user) {
-      Optional<AppUser> u = repo.findById(id);
-      if(u.isPresent()){
-        Syste
-      }
-    }
+    // public AppUser updatAppUser(Long id, AppUser user) {
+    //   Optional<AppUser> u = repo.findById(id);
+    //   if(u.isPresent()){
+    //     Syste
+    //   }
+    // }
 
      
 }

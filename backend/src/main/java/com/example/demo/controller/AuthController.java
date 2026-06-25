@@ -35,12 +35,12 @@ public AppUser loginUser(@RequestBody AppUser user){
     return service.loginUser(user);
 }
 
-@DeleteMapping("/del/{id}")
-public String delAcc(@PathVariable Long id){
-    return service.delAcc(id);
-}
-@PutMapping("/update/{id}")
-public AppUser updatAppUser(@PathVariable Long id,@RequestBody AppUser user){
-    return service.updatAppUser(id,user);
-}
+// @DeleteMapping("/del/{id}")
+// public String delAcc(@PathVariable Long id){
+//     return service.delAcc(id);
+// }
+// @PutMapping("/update/{id}")
+// public AppUser updatAppUser(@PathVariable Long id,@RequestBody AppUser user){
+//     return service.updatAppUser(id,user);
+// }
 }
