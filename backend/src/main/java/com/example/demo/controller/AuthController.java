@@ -31,7 +31,7 @@ public AppUser addUser(@RequestBody AppUser user){
 }
 
 @PostMapping("/api/auth/login")
-public AppUser addUser(@RequestBody AppUser user){
+public AppUser loginUser(@RequestBody AppUser user){
     return service.addUser(user);
 }
 
