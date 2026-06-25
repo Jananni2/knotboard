@@ -22,6 +22,7 @@ public class AuthService {
     }
 
     public String delAcc(Long id) {
-         
+         repo.deleteById(id);
+         return "User deleted successfully";
     }
 }
