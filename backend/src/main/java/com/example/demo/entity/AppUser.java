@@ -24,7 +24,7 @@ import lombok.Setter;
 public class AppUser {
  @Id
  @GeneratedValue(strategy = GenerationType.IDENTITY)
- private long Id;
+ private long id;
  @Column(unique = true,nullable = false)
  private String username;
  @Column(unique = true,nullable = false)
@@ -38,5 +38,5 @@ public class AppUser {
  public enum DomainRole{
    FACILITATOR,CONTRIBUTOR,STAKEHOLDER;
  }
- 
+
 }
