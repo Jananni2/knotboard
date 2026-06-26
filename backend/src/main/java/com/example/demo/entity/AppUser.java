@@ -39,5 +39,6 @@ public class AppUser {
  public enum DomainRole{
    FACILITATOR,CONTRIBUTOR,STAKEHOLDER;
  }
+ 
 
 }
