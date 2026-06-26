@@ -1,6 +1,6 @@
 package com.example.demo.entity;
 
-import org.hibernate.cache.spi.support.DomainDataRegionTemplate;
+ 
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -38,4 +38,5 @@ public class AppUser {
  public enum DomainRole{
    FACILITATOR,CONTRIBUTOR,STAKEHOLDER;
  }
+ 
 }
