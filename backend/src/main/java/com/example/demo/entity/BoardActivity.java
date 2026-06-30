@@ -8,15 +8,23 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = )
+@Table(name = "board_activities")
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class BoardActivity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = )
     private BrainstormingBoard board;
 
     @ManyToOne
