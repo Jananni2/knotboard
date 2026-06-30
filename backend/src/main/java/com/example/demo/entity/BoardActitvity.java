@@ -12,16 +12,18 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Table(name = "boards")
+@Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
-@Setter
 public class BoardActitvity {
 @Id
 @GeneratedValue(strategy =GenerationType.IDENTITY)
@@ -40,6 +42,6 @@ Integer currentNoteCount;
 @Column(name="created_at")
 LocalDateTime createdAt;
 public enum BoardStatus{
-    ACTIVE
+    ACTIVE,ARCHIVED
 }
 }
