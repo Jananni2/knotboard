@@ -29,8 +29,9 @@ public class StickyNote {
     private Integer xPos;
     @Column(name = "y_pos",nullable =false)
     private Integer yPos;
-    @Version(optimistic locking)
+    @Version
     private Long version;
+    @Column(name="deleted_at")
     private LocalDateTime deletedAt;
     private LocalDateTime createdAt;
 
