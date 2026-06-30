@@ -11,8 +11,8 @@ import com.example.demo.repository.AppUserRepository;
 
 @Service
 public class AuthService {
-    // @Autowired
-    // private AppUserRepository repo;
+     @Autowired
+     private AppUserRepository repo;
 
     // // public List<AppUser> getUsers() {
     // //     return repo.findAll();
