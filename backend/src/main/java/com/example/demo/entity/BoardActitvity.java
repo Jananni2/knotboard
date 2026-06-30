@@ -27,6 +27,7 @@ public class BoardActitvity {
 private Long id;
 private String title;
 private String description;
+
 @Enumerated(EnumType.STRING)
 BoardStatus status;
 @Column(name="max_note_capacity")
