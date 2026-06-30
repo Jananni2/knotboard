@@ -37,5 +37,9 @@ private BoardStatus status;
 Integer maxNoteCapacity;
 @Column(name="current_note_count")
 Integer currentNoteCount;
+@Column(name="created_at")
 LocalDateTime createdAt;
+public enum BoardStatus{
+    ACTIVE
+}
 }
