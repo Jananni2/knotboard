@@ -1,9 +1,8 @@
 package com.example.demo.dto;
 
-/**
- * BoardCreateDto
- */
+@
 public class BoardCreateDto {
-
-    
+private String title;
+private String description;
+private Integer maxCapacity;    
 }
