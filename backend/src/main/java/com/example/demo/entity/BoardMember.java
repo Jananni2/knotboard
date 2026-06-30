@@ -31,6 +31,7 @@ public class BoardMember {
     private BrainstormingBoard board;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="user_id")
     private AppUser user;
     
     @Column(name = "access_level")
