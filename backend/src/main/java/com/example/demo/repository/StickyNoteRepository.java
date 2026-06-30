@@ -3,7 +3,9 @@ package com.example.demo.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import com.example.demo.entity.StickyNote;
+
 @Repository
-public interface StickyNoteRepository extends JpaRepository<{
-    
+public interface StickyNoteRepository extends JpaRepository<StickyNote,Long>{
+    @Q
 }
