@@ -22,7 +22,9 @@ public class StickyNote {
     private AppUser creator;
     @Column(columnDefinition = "TEXT",nullable=false)
     private String content;
+    @Column(name="color_code",nullable=false)
     private String colorCode;
+    @Column(name = "x_pos",nullable = false)
     private Integer xPos;
     private Integer yPos;
     private Long version;
