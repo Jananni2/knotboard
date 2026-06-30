@@ -35,6 +35,7 @@ private AppUser facilitator;
 private BoardStatus status;
 @Column(name="max_note_capacity")
 Integer maxNoteCapacity;
+@Column(name="current_note_count")
 Integer currentNoteCount;
 LocalDateTime createdAt;
 }
