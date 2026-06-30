@@ -8,7 +8,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 @Entity
-@
+@Table(nam)
 public class BoardMember {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
