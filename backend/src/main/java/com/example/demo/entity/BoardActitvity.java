@@ -26,10 +26,12 @@ public class BoardActitvity {
 @Id
 @GeneratedValue(strategy =GenerationType.IDENTITY)
 private Long id;
+@Column(nullable=false)
 private String title;
 private String description;
 @ManyToOne
 private AppUser facilitator;
+@Enumerated(EnumType.STRING)
 private BoardStatus status;
 @Column(name="max_note_capacity")
 Integer maxNoteCapacity;
