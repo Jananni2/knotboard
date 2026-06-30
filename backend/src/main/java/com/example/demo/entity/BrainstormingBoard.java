@@ -25,7 +25,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class BrainstormingB{
+public class BrainstormingBoard{
 @Id
 @GeneratedValue(strategy =GenerationType.IDENTITY)
 private Long id;
