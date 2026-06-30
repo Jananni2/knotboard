@@ -9,6 +9,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -27,9 +28,9 @@ public class BoardActitvity {
 private Long id;
 private String title;
 private String description;
-private AppUser facilita
-@Enumerated(EnumType.STRING)
-BoardStatus status;
+@ManyToOne
+private AppUser facilitator;
+private BoardStatus status;
 @Column(name="max_note_capacity")
 Integer maxNoteCapacity;
 Integer currentNoteCount;
