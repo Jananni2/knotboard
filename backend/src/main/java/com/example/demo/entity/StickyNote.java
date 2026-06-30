@@ -10,9 +10,17 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Version;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "sticky_notes")
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class StickyNote {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,6 +41,7 @@ public class StickyNote {
     private Long version;
     @Column(name="deleted_at")
     private LocalDateTime deletedAt;
+    @Column(name = "created_at")
     private LocalDateTime createdAt;
 
 }
