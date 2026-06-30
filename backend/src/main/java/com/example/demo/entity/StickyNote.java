@@ -9,6 +9,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.Version;
 
 @Entity
 @Table(name = "sticky_notes")
@@ -26,7 +27,9 @@ public class StickyNote {
     private String colorCode;
     @Column(name = "x_pos",nullable = false)
     private Integer xPos;
+    @Column(name = "y_pos",nullable =false)
     private Integer yPos;
+    @Version(optimistic )
     private Long version;
     private LocalDateTime deletedAt;
     private LocalDateTime createdAt;
