@@ -29,7 +29,7 @@ public class StickyNote {
     private Integer xPos;
     @Column(name = "y_pos",nullable =false)
     private Integer yPos;
-    @Version(optimistic )
+    @Version(optimistic locking)
     private Long version;
     private LocalDateTime deletedAt;
     private LocalDateTime createdAt;
