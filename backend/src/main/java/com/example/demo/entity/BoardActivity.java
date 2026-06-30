@@ -1,5 +1,7 @@
 package com.example.demo.entity;
 
+import java.time.LocalDateTime;
+
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
@@ -12,5 +14,10 @@ public class BoardActivity {
     @ManyToOne
     private BrainstormingBoard board;
 
-    
+    @ManyToOne
+    private AppUser actor;
+
+    private String actionDescription;
+
+    private LocalDateTime timestamp;
 }
