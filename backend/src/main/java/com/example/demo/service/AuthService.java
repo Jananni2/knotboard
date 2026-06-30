@@ -11,32 +11,32 @@ import com.example.demo.repository.AppUserRepository;
 
 @Service
 public class AuthService {
-    @Autowired
-    private AppUserRepository repo;
+    // @Autowired
+    // private AppUserRepository repo;
 
-    // public List<AppUser> getUsers() {
-    //     return repo.findAll();
+    // // public List<AppUser> getUsers() {
+    // //     return repo.findAll();
+    // // }
+
+    // public AppUser addUser(AppUser user) {
+    //     return repo.save(user);
     // }
 
-    public AppUser addUser(AppUser user) {
-        return repo.save(user);
-    }
-
-    public AppUser loginUser(AppUser user) {
-        return repo.save(user);
-    }
-
-    public String delAcc(Long id) {
-         repo.deleteById(id);
-         return "User deleted successfully";
-    }
-
-    // public AppUser updatAppUser(Long id, AppUser user) {
-    //   Optional<AppUser> u = repo.findById(id);
-    //   if(u.isPresent()){
-    //     
-    //   }
+    // public AppUser loginUser(AppUser user) {
+    //     return repo.save(user);
     // }
+
+    // public String delAcc(Long id) {
+    //      repo.deleteById(id);
+    //      return "User deleted successfully";
+    // }
+
+    // // public AppUser updatAppUser(Long id, AppUser user) {
+    // //   Optional<AppUser> u = repo.findById(id);
+    // //   if(u.isPresent()){
+    // //     
+    // //   }
+    // // }
 
      
 }
