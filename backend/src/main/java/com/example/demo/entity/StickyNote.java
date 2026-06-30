@@ -2,6 +2,7 @@ package com.example.demo.entity;
 
 import java.time.LocalDateTime;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -19,7 +20,7 @@ public class StickyNote {
     private BrainstormingBoard board;
     @ManyToOne
     private AppUser creator;
-    @Column(columnDefinition = "")
+    @Column(columnDefinition = "TEXT",nullable=false)
     private String content;
     private String colorCode;
     private Integer xPos;
