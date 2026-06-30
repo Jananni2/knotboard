@@ -19,6 +19,9 @@ public class StickyNote {
     private AppUser creator;
     private String content;
     private String colorCode;
-    private 
+    private Integer xPos;
+    private Integer yPos;
+    private Long version;
+    
 
 }
