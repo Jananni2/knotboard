@@ -2,6 +2,7 @@ package com.example.demo.entity;
 
 import java.time.LocalDateTime;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -29,6 +30,10 @@ public class BoardMember {
 
     @ManyToOne
     private AppUser user;
+    
+    @Column(name = "access_level")
     private String accessLevel;
+    
+    @Column(name = "joined_at")
     private LocalDateTime joinedAt;
 }
