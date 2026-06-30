@@ -32,7 +32,8 @@ public class StickyNote {
     @JoinColumn(name = "board_id",nullable = false)
     private BrainstormingBoard board;
 
-    @ManyToOne(fa)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "creator_id",nullable = false)
     private AppUser creator;
 
     @Column(columnDefinition = "TEXT",nullable=false)
