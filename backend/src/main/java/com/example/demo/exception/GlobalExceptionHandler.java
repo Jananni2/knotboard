@@ -25,7 +25,7 @@ public class GlobalExceptionHandler {
         }
     @ExceptionHandler(ObjectOptimisticLockingFailureException.class)
     public ResponseEntity<Map<String,String>> handleOptimisticLocking(Exceptionn ex){
-        return ResponseEntity.status(HttpStatus.CONFLICT).body(Map.of("message":"Conflict: This record has been modified by another user.")
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(Map.of("message","Conflict: This record has been modified by another user."));
     }
     
     }
