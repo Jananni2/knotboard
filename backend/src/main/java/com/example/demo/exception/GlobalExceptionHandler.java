@@ -15,9 +15,9 @@ public class GlobalExceptionHandler {
         }
     @ExceptionHandler(NoteConflictException.class)
         public ResponseEntity<Map<String,String>> handleConflict(NoteConflictException ex){
-            return ResponseEntity.status(HttpStatus) 
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(Map.of("message",ex.getMessage())); 
             }
-        }
+    @Exception  
     
     }
-}
+
