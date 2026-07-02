@@ -25,7 +25,7 @@ public class GlobalExceptionHandler {
         }
     @ExceptionHandler(ObjectOptimisticLockingFailureException.class)
     public ResponseEntity<Map<String,String>> handleOptimisticLocking(Exceptionn ex){
-        return ResponseEntity.status(HttpStatus.)
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(Map.of("message":)
     }
     
     }
