@@ -15,7 +15,7 @@ public class GlobalExceptionHandler {
         }
     @ExceptionHandler(NoteConflictException.class)
         public ResponseEntity<Map<String,String>> handleConflict(NoteConflictException ex){
-            return ResponseEntity<Map<String,String>> handleRuntimeException(Runtime)
+            return ResponseEntity<Map<String,String>> handleRuntimeException(RuntimeException)
         }
     
     }
