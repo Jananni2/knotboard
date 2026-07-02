@@ -24,7 +24,9 @@ public class GlobalExceptionHandler {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("message",ex.getMessage()));
         }
     @ExceptionHandler(ObjectOptimisticLockingFailureException.class)
-    public ResponseEntity<Map<String,String>> 
+    public ResponseEntity<Map<String,String>> handleOptimisticLocking(Exceptionn ex){
+        return ResponseEntity.status(HttpStatus.)
+    }
     
     }
 
