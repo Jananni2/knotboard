@@ -13,5 +13,6 @@ public class GlobalExceptionHandler {
         public ResponseEntity<Map<String,String>> handleNotFound(StickyNoteNotFoundException ex){
              return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("messege",ex.getMessage()));
         }
+    @ExceptionHandler(NoteConflictException.class)
     }
 }
