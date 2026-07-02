@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class GlobalExceptionHandler {
     @ExceptionHandler(StickyNoteNotFoundException.class){
         public ResponseEntity<Map<String,String>> handleNotFound(StickyNoteNotFoundException ex){
-             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.)
+             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("messege",ex.getMessage()));
         }
     }
 }
