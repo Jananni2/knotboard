@@ -10,7 +10,7 @@ import com.example.demo.repository.AppUserRepository;
 public class AuthService {
   private final AppUserRepository appUserRepository;
   private final PasswordEncoder passwordEncoder;
-  private final JwtUtil jwtutil;
-  
+  private final JwtAuthenticationUtil jwtutil;
+
      
 }
