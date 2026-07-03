@@ -27,9 +27,12 @@ public class AuthService {
     .domainRole(AppUser.DomainRole.valueOf(request.getRole()))
     .build();
 
-    AppUser saveUser = appUserRepository.save(user);
+    AppUser savedUser = appUserRepository.save(user);
 
-    String token = jwtutil.get
+    String token = jwtutil.generateToken(savedUser);
+
+    return AuthResponseDto.builder()
+    .token(token)
   }
 
      
