@@ -14,7 +14,7 @@ public class BoardService{
     @Transactional
       public BoardDto createBoard(BoardCreateDto dto,AppUser facilitator){
         BrainstormingBoard board = BrainstormingBoard.builder()
-        .
+        .dto.getT
       }
     
 }
