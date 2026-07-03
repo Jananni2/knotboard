@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.dto.AuthResponseDto;
 import com.example.demo.dto.RegisterRequestDto;
+import com.example.demo.entity.AppUser;
 import com.example.demo.repository.AppUserRepository;
 import com.example.demo.util.JwtUtil;
 
@@ -19,7 +20,10 @@ public class AuthService {
   private final AuthenticationManager authenticationManager;
 
   public AuthResponseDto register(RegisterRequestDto request){
-    AppUser user = 
+    AppUser user = AppUser.builder()
+    .username(request.getUsername())
+    .email(request.getEmail())
+    .password(passwordEncoder.get)
   }
 
      
