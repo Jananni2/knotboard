@@ -24,8 +24,10 @@ public class AuthService {
     .username(request.getUsername())
     .email(request.getEmail())
     .password(passwordEncoder.encode(request.getPassword()))
-    .role(AppUser.DomainRole.valueOf(request.getRole()))
-    .build()
+    .domainRole(AppUser.DomainRole.valueOf(request.getRole()))
+    .build();
+
+    
   }
 
      
