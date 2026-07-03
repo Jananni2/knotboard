@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 // import java.util.List;
 // import java.util.Optional;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -43,7 +44,10 @@ public class AuthService {
 
   }
 
-  public AuthResponseDto login(AuthRequestDto )
+  public AuthResponseDto login(AuthRequestDto request){
+    authenticationManager.authenticate(
+      new UsernamePasswordAuthenticationToken(request.getUsername(), request.get))
+  }
 
      
 }
