@@ -1,9 +1,13 @@
 package com.example.demo.service;
 
+import org.springframework.security.authentication.AuthenticationManager;
 // import java.util.List;
 // import java.util.Optional;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import com.example.demo.dto.AuthResponseDto;
+import com.example.demo.dto.RegisterRequestDto;
 import com.example.demo.repository.AppUserRepository;
 import com.example.demo.util.JwtUtil;
 
@@ -12,7 +16,11 @@ public class AuthService {
   private final AppUserRepository appUserRepository;
   private final PasswordEncoder passwordEncoder;
   private final JwtUtil jwtutil;
-  private final AuthenticationManager authenticationManager
+  private final AuthenticationManager authenticationManager;
+
+  public AuthResponseDto register(RegisterRequestDto request){
+    AppUser user = 
+  }
 
      
 }
