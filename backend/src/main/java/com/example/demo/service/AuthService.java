@@ -6,13 +6,17 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.dto.AuthRequestDto;
 import com.example.demo.dto.AuthResponseDto;
 import com.example.demo.dto.RegisterRequestDto;
 import com.example.demo.entity.AppUser;
 import com.example.demo.repository.AppUserRepository;
 import com.example.demo.util.JwtUtil;
 
+import lombok.RequiredArgsConstructor;
+
 @Service
+@RequiredArgsConstructor
 public class AuthService {
   private final AppUserRepository appUserRepository;
   private final PasswordEncoder passwordEncoder;
@@ -36,8 +40,10 @@ public class AuthService {
     .username(savedUser.getUsername())
     .role(savedUser.getDomainRole().name())
     .build();
-    
+
   }
+
+  public AuthResponseDto login(AuthRequestDto )
 
      
 }
