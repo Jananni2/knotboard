@@ -15,7 +15,10 @@ public class BoardService{
       public BoardDto createBoard(BoardCreateDto dto,AppUser facilitator){
         BrainstormingBoard board = BrainstormingBoard.builder()
         .title(dto.getTitle())
-        .description(dto.)
+        .description(dto.getDescription())
+        .facilitator(facilitator)
+        .status( "ACTIVE")
+        .maxNoteCapacity(null)
       }
     
 }
