@@ -23,7 +23,9 @@ public class AuthService {
     AppUser user = AppUser.builder()
     .username(request.getUsername())
     .email(request.getEmail())
-    .password(passwordEncoder.get)
+    .password(passwordEncoder.encode(request.getPassword()))
+    .role(AppUser.DomainRole.valueOf(request.getRole()))
+    .build()
   }
 
      
