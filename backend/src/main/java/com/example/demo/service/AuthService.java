@@ -53,7 +53,12 @@ public class AuthService {
     .findByUsername(request.getUsername())
     .orElseThrow(()-> new RuntimeException("User not found"));
 
-    String token = jwtutil.generateToken(user)
+    String token = jwtutil.generateToken(user);
+
+    return AuthResponseDto.builder()
+    .token(token)
+    .username(user.getUsername())
+    .
   }
 
      
