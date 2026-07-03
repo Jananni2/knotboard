@@ -49,7 +49,9 @@ public class AuthService {
       new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword())
     );
 
-    AppUser user = appUserRepository.findByUsername(request.getUsername())
+    AppUser user = appUserRepository
+    .findByUsername(request.getUsername())
+    .orElseThrow(new RuntimeException("User not found"));
   }
 
      
