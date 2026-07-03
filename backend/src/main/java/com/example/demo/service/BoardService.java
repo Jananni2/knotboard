@@ -18,7 +18,9 @@ public class BoardService{
         .description(dto.getDescription())
         .facilitator(facilitator)
         .status( "ACTIVE")
-        .maxNoteCapacity(null)
+        .maxNoteCapacity(dto.getMaxCapacity())
+        .currentNoteCount()
+        .createdAt()
       }
     
 }
