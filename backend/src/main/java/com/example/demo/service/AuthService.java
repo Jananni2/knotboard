@@ -46,7 +46,10 @@ public class AuthService {
 
   public AuthResponseDto login(AuthRequestDto request){
     authenticationManager.authenticate(
-      new UsernamePasswordAuthenticationToken(request.getUsername(), request.get))
+      new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword())
+    );
+
+    AppUser user = appUserRepository.findByUsername(request.getUsername())
   }
 
      
