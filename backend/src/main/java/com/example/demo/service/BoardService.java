@@ -20,7 +20,7 @@ public class BoardService{
         .status( "ACTIVE")
         .maxNoteCapacity(dto.getMaxCapacity())
         .currentNoteCount()
-        .createdAt()
+        .createdAt(Lo)
       }
     
 }
