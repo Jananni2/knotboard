@@ -45,6 +45,7 @@ public class AuthService {
   }
 
   public AuthResponseDto login(AuthRequestDto request){
+    
     authenticationManager.authenticate(
       new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword())
     );
@@ -58,7 +59,9 @@ public class AuthService {
     return AuthResponseDto.builder()
     .token(token)
     .username(user.getUsername())
-    .
+    .role(user.getDomainRole().name())
+    .build();
+
   }
 
      
