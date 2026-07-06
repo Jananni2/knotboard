@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,7 +21,7 @@ public class BoardController {
     private final BoardService boardService;
 
     @PostMapping
-    public ResponseEntity<BoardDto>createBoard(@RequestBody BoardCreateDto dto,AppUser user){
-
+    public ResponseEntity<BoardDto>createBoard(@RequestBody BoardCreateDto dto,@AuthenticationPrincipal AppUser user){
+          return ResponseEntity.status(Cre)
     }
 }
