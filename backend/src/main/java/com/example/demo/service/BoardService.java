@@ -17,48 +17,107 @@ import com.example.demo.repository.BoardRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
-@Service
+ @Service
 @RequiredArgsConstructor
-public class BoardService{
-   
-  private final BoardRepository boardRepository;
-  private final BoardMemberRepository memberRepository;
-  private final BoardActivityRepository boardActivityRepository;
-    @Transactional
-      public BoardDto createBoard(BoardCreateDto dto,AppUser facilitator){
-        BoardDto board = BoardDto.builder()
-        .title(dto.getTitle())
-        .description(dto.getDescription())
-        .facilitatorName("facilitator")
-        .status(BrainstormingBoard.BoardStatus.ACTIVE)
-        .maxNoteCapacity(dto.getMaxCapacity())
-        .currentNoteCount(0)
-        .createdAt(LocalDateTime.now())
-        .build();
+public class BoardService {
 
-        board = boardRepository.save(board);
+    private final BoardRepository boardRepository;
+    private final BoardMemberRepository boardMemberRepository;
+    private final BoardActivityRepository boardActivityRepository;
+
+    @Transactional
+    public BoardDto createBoard(BoardCreateDto dto, AppUser facilitator) {
+
+        BrainstormingBoard board = BrainstormingBoard.builder()
+                .title(dto.getTitle())
+                .description(dto.getDescription())
+                .facilitator(facilitator)
+                .status(BrainstormingBoard.BoardStatus.ACTIVE)
+                .maxNoteCapacity(dto.getMaxCapacity() == null ? 50 : dto.getMaxCapacity())
+                .currentNoteCount(0)
+                .createdAt(LocalDateTime.now())
+                .build();
+
+        BrainstormingBoard savedBoard = boardRepository.save(board);
 
         BoardMember member = BoardMember.builder()
-        .board(board)
-        .user(facilitator)
-        .accessLevel("OWNER")
-        .joinedAt(LocalDateTime.now())
-        .build();
-        
-        memberRepository.save(member);
+                .board(savedBoard)
+                .user(facilitator)
+                .accessLevel("OWNER")
+                .build();
 
-        BoardActivity boardActivity = BoardActivity.builder()
-                                     .board(board)
-                                      .actor(facilitator)
-                                      .actionDescription("Board created")
-                                      .timestamp(LocalDateTime.now())
-                                      .build();
-        
-        boardActivityRepository.save(boardActivity);
+        boardMemberRepository.save(member);
 
-        return   
-        
-    
-      }
-    
+        BoardActivity activity = BoardActivity.builder()
+                .board(savedBoard)
+                .actor(facilitator)
+                .actionDescription("Board created")
+                .timestamp(LocalDateTime.now())
+                .build();
+
+        boardActivityRepository.save(activity);
+
+        return mapToDto(savedBoard);
+    }
+
+    @Transactional(readOnly = true)
+    public Page<BoardDto> getActiveBoards(Pageable pageable) {
+        return boardRepository
+                .findAllByStatus(BrainstormingBoard.BoardStatus.ACTIVE, pageable)
+                .map(this::mapToDto);
+    }
+
+    @Transactional(readOnly = true)
+    public BoardDto getBoardById(Long id) {
+
+        BrainstormingBoard board = boardRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Board not found"));
+
+        return mapToDto(board);
+    }
+
+    @Transactional
+    public BoardDto updateBoardSettings(Long id,
+                                        Integer maxCapacity,
+                                        String status,
+                                        AppUser actor) {
+
+        BrainstormingBoard board = boardRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Board not found"));
+
+        if (!board.getFacilitator().getId().equals(actor.getId())) {
+            throw new RuntimeException("Only the facilitator can update board settings");
+        }
+
+        if (maxCapacity != null) {
+
+            if (maxCapacity < board.getCurrentNoteCount()) {
+                throw new RuntimeException(
+                        "Cannot decrease capacity below current note count (" +
+                                board.getCurrentNoteCount() + ")");
+            }
+
+            board.setMaxNoteCapacity(maxCapacity);
+        }
+
+        if (status != null) {
+            board.setStatus(BrainstormingBoard.BoardStatus.valueOf(status));
+        }
+
+        BrainstormingBoard updated = boardRepository.save(board);
+
+        return mapToDto(updated);
+    }
+}
+private BoardDto mapToDto(BrainstormingBoard board) {
+    return BoardDto.builder()
+            .id(board.getId())
+            .title(board.getTitle())
+            .description(board.getDescription())
+            .facilitatorName(board.getFacilitator().getUsername())
+            .status(board.getStatus().name())
+            .maxNoteCapacity(board.getMaxNoteCapacity())
+            .currentNoteCount(board.getCurrentNoteCount())
+            .createdAt(board.getCreatedAt())
+            .build();
 }
