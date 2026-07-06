@@ -2,6 +2,8 @@ package com.example.demo.service;
 
 import java.time.LocalDateTime;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.dto.BoardCreateDto;
@@ -18,7 +20,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
  @Service
-@RequiredArgsConstructor
+  
 public class BoardService {
 
     private final BoardRepository boardRepository;
@@ -60,7 +62,7 @@ public class BoardService {
         return mapToDto(savedBoard);
     }
 
-    @Transactional(dontRollbackOn = true)
+    @Transactional(readOnly = true)
     public Page<BoardDto> getActiveBoards(Pageable pageable) {
         return boardRepository
                 .findAllByStatus(BrainstormingBoard.BoardStatus.ACTIVE, pageable)
