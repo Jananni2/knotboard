@@ -36,7 +36,8 @@ public class BoardService{
 
         board = boardRepository.save(board);
 
-        BoardMember member = Board 
+        BoardMember member = BoardMember.builder()
+        .boar
       }
     
 }
