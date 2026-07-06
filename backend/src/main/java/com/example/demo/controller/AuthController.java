@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.demo.dto.RegisterRequestDto;
 import com.example.demo.entity.AppUser;
 import com.example.demo.service.AuthService;
 
@@ -24,7 +25,7 @@ private AuthService service;
 // }
 
 @PostMapping("/api/auth/register")
-public AppUser addUser(@RequestBody AppUser user){
+public AppUser addUser(@RequestBody RegisterRequestDto user){
     return service.addUser(user);
 }
 
