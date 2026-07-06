@@ -21,15 +21,14 @@ import com.example.demo.service.AuthService;
 public class AuthController {
 
 @Autowired
-private AuthService service;
+private AuthService authService;
 
  
 
 @PostMapping("/register")
 public ResponseEntity<AuthResponseDto>(@RequestBody RegisterRequestDto request){
-    return ResponseEntity<AuthResponseDto>register(@Request);
+    AuthResponseDto response = authService.register(request);
 }
-
 @PostMapping("/login")
 public ResponseEntity<AuthResponseDto>(@RequestBody AppUser user){
     return service.loginUser(user);
