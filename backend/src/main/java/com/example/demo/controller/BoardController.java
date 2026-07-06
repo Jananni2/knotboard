@@ -63,12 +63,11 @@ public class BoardController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteBoard(
-            @PathVariable Long id,
-            @AuthenticationPrincipal AppUser user) {
+public ResponseEntity<String> deleteBoard(@PathVariable Long id) {
 
-        boardService.deleteBoard(id, user);
-        return ResponseEntity.ok("BrainstormingBoard deleted successfully.");
-    }
+    boardService.deleteBoard(id);
+
+    return ResponseEntity.ok("Board deleted successfully");
+}
 }
 
