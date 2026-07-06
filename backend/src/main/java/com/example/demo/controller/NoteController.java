@@ -3,14 +3,20 @@ package com.example.demo.controller;
 import java.time.LocalDateTime;
 
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.dto.NoteDto;
 import com.example.demo.entity.AppUser;
 import com.example.demo.entity.BoardActivity;
 import com.example.demo.entity.BrainstormingBoard;
 import com.example.demo.entity.StickyNote;
+import com.example.demo.repository.BoardRepository;
 
+import lombok.RequiredArgsConstructor;
+@RestController
+@RequiredArgsConstructor
 public class NoteController {
+    private BoardRepository boardRepository;
     @Transactional
 public NoteDto editNote(NoteDto dto, AppUser creator) {
 
@@ -18,7 +24,7 @@ public NoteDto editNote(NoteDto dto, AppUser creator) {
         throw new RuntimeException("Stakeholders have view-only access and cannot add notes");
     }
 
-    BrainstormingBoard board = boardRepository.findById(dto.getBoardId())
+    BrainstormingBoard board = boardRepository.findById(dto.getId())
             .orElseThrow(() -> new RuntimeException("Board not found"));
 
     if (board.getCurrentNoteCount() >= board.getMaxNoteCapacity()) {
