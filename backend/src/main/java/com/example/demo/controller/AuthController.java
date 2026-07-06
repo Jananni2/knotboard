@@ -26,12 +26,12 @@ private AuthService service;
  
 
 @PostMapping("/register")
-public (@RequestBody RegisterRequestDto user){
+public ResponseEntity<AuthResponseDto>(@RequestBody RegisterRequestDto user){
     return ResponseEntity<AuthResponseDto>register(@Request)
 }
 
 @PostMapping("/login")
-public AppUser loginUser(@RequestBody AppUser user){
+public ResponseEntity<AuthResponseDto(@RequestBody AppUser user){
     return service.loginUser(user);
 }
 
