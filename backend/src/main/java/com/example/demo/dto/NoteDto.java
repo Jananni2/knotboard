@@ -12,11 +12,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class NoteDto {
     private Long id;
-    private Long ;
-    private String description;
-    private String facilitatorName;
-    private String status;
-    private Integer maxNoteCapacity;
-    private Integer currentNoteCount;
-    private LocalDateTime createdAt;
+    private Long boardId;
+    private Long creatorId;
+    private String content;
+    private String colorCode;
+    private Integer x;
+    private Integer y;
+    private Long version;
+    
 }
