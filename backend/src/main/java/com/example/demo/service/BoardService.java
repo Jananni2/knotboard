@@ -25,7 +25,7 @@ public class BoardService{
   private final BoardMemberRepository memberRepository;
   private final BoardActivityRepository boardActivityRepository;
     @Transactional
-      public BoardDto createBoard(BoardCreateDto dto,AppUser facilitator){
+      public BrainstormingBoard createBoard(BoardCreateDto dto,AppUser facilitator){
         BrainstormingBoard board = BrainstormingBoard.builder()
         .title(dto.getTitle())
         .description(dto.getDescription())
