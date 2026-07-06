@@ -2,10 +2,13 @@ package com.example.demo.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.demo.dto.BoardCreateDto;
 import com.example.demo.dto.BoardDto;
+import com.example.demo.entity.AppUser;
 import com.example.demo.service.BoardService;
 
 import lombok.RequiredArgsConstructor;
@@ -17,7 +20,7 @@ public class BoardController {
     private final BoardService boardService;
 
     @PostMapping
-    public ResponseEntity<BoardDto>createBoard(BoardCreateDto dto,AppUser user){
-        
+    public ResponseEntity<BoardDto>createBoard(@RequestBody BoardCreateDto dto,AppUser user){
+
     }
 }
