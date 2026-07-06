@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -23,7 +24,7 @@ public class BoardController {
 
     @PostMapping
     public ResponseEntity<BoardDto>createBoard(@RequestBody BoardCreateDto dto,@AuthenticationPrincipal AppUser user){
-          return ResponseEntity.status(HttpStatusCode.CREATED)
-          .body()
+          return ResponseEntity.status(HttpStatus.CREATED)
+          .body(boardService.createBoard(dto, user));
     }
 }
