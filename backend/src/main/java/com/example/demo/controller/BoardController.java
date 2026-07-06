@@ -14,5 +14,6 @@ import lombok.RequiredArgsConstructor;
 public class BoardController {
     private final BoardService boardService;
 
-    @PostMapping()
+    @PostMapping
+    
 }
