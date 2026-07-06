@@ -11,9 +11,12 @@ import com.example.demo.entity.BrainstormingBoard;
 import com.example.demo.repository.BoardRepository;
 
 import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
 
 @Service
+
 public class BoardService{
+   
   private final BoardRepository boardRepository;
   private 
     @Transactional
@@ -29,7 +32,7 @@ public class BoardService{
         .build();
 
         board = boardRepository.save(board);
-        
+
       }
     
 }
