@@ -28,7 +28,7 @@ private AuthService authService;
 @PostMapping("/register")
 public ResponseEntity<AuthResponseDto> register(@RequestBody RegisterRequestDto request){
     AuthResponseDto response = authService.register(request);
-    return ResponseEntity.ok(null)
+    return ResponseEntity.ok(response);
 }
 @PostMapping("/login")
 public ResponseEntity<AuthResponseDto> login(@RequestBody AppUser user){
