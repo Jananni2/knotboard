@@ -56,7 +56,7 @@ public class BoardService{
         
         boardActivityRepository.save(boardActivity);
 
-        return BoardCreateDto.toDto()
+        return mapToDto(board);
         
     
       }
