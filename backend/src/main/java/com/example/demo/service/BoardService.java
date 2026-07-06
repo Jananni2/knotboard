@@ -135,7 +135,14 @@ public void deleteBoard(Long id, AppUser actor) {
     if (board.getFacilitator().getId() != actor.getId()) {
         throw new RuntimeException("Only the facilitator can delete the board");
     }
+BoardActivity activity = BoardActivity.builder()
+        .board(board)
+        .actor(actor)
+        .actionDescription("Board deleted")
+        .timestamp(LocalDateTime.now())
+        .build();
 
+boardActivityRepository.save(activity);
     boardRepository.delete(board);
 }
 
