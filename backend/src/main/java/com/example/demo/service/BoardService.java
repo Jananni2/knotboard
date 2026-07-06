@@ -21,7 +21,7 @@ import com.example.demo.repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
 
  @Service
-  
+  @RequiredArgsConstructor
 public class BoardService {
 
     private final BoardRepository boardRepository;
