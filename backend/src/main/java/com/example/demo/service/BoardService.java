@@ -17,7 +17,7 @@ public class BoardService{
         .title(dto.getTitle())
         .description(dto.getDescription())
         .facilitator(facilitator)
-        .status( "ACTIVE")
+        .status(B"ACTIVE")
         .maxNoteCapacity(dto.getMaxCapacity())
         .currentNoteCount()
         .createdAt(Lo)
