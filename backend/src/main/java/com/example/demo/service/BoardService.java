@@ -41,13 +41,13 @@ public class BoardService{
         .board(board)
         .user(facilitator)
         .accessLevel("OWNER")
-        .joinedAt(null)
         .build();
 
         BoardActivity BoardActivity = BoardActivity.builder()
                                       .board(board)
                                       .actor(facilitator)
-                                      .actionDescription(null)
+                                      .actionDescription("Board created")
+                                      .build();
     
       }
     
