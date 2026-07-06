@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import com.example.demo.dto.BoardCreateDto;
 import com.example.demo.dto.BoardDto;
 import com.example.demo.entity.AppUser;
+import com.example.demo.entity.BoardMember;
 import com.example.demo.entity.BrainstormingBoard;
 import com.example.demo.repository.BoardRepository;
 
@@ -18,6 +19,7 @@ import lombok.RequiredArgsConstructor;
 public class BoardService{
    
   private final BoardRepository boardRepository;
+  private final BoardMember boardMember;
   private 
     @Transactional
       public BoardDto createBoard(BoardCreateDto dto,AppUser facilitator){
@@ -33,6 +35,7 @@ public class BoardService{
 
         board = boardRepository.save(board);
 
+        boar
       }
     
 }
