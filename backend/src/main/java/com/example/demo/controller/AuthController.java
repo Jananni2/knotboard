@@ -15,30 +15,30 @@ import com.example.demo.service.AuthService;
 @RestController
 public class AuthController {
 
-// @Autowired
-// private AuthService service;
+@Autowired
+private AuthService service;
 
-// // @GetMapping("/get")
-// // public List<AppUser> getUsers(){
-// //     return service.getUsers();
-// // }
-
-// @PostMapping("/api/auth/register")
-// public AppUser addUser(@RequestBody AppUser user){
-//     return service.addUser(user);
+// @GetMapping("/get")
+// public List<AppUser> getUsers(){
+//     return service.getUsers();
 // }
 
-// @PostMapping("/api/auth/login")
-// public AppUser loginUser(@RequestBody AppUser user){
-//     return service.loginUser(user);
-// }
+@PostMapping("/api/auth/register")
+public AppUser addUser(@RequestBody AppUser user){
+    return service.addUser(user);
+}
 
-// // @DeleteMapping("/del/{id}")
-// // public String delAcc(@PathVariable Long id){
-// //     return service.delAcc(id);
-// // }
-// // @PutMapping("/update/{id}")
-// // public AppUser updatAppUser(@PathVariable Long id,@RequestBody AppUser user){
-// //     return service.updatAppUser(id,user);
-// // }
+@PostMapping("/api/auth/login")
+public AppUser loginUser(@RequestBody AppUser user){
+    return service.loginUser(user);
+}
+
+// @DeleteMapping("/del/{id}")
+// public String delAcc(@PathVariable Long id){
+//     return service.delAcc(id);
+// }
+// @PutMapping("/update/{id}")
+// public AppUser updatAppUser(@PathVariable Long id,@RequestBody AppUser user){
+//     return service.updatAppUser(id,user);
+// }
 }
