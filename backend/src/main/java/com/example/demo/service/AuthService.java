@@ -39,7 +39,7 @@ public class AuthService {
     return AuthResponseDto.builder()
     .token(token)
     .username(savedUser.getUsername())
-    .role(savedUser.getDomainRole().name())
+     .role(request.getRole())
     .build();
 
   }
