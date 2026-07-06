@@ -13,6 +13,7 @@ import jakarta.transaction.Transactional;
 
 @Service
 public class BoardService{
+  
     @Transactional
       public BoardDto createBoard(BoardCreateDto dto,AppUser facilitator){
         BrainstormingBoard board = BrainstormingBoard.builder()
@@ -25,7 +26,7 @@ public class BoardService{
         .createdAt(LocalDateTime.now())
         .build();
 
-        board = 
+        board = boardR
       }
     
 }
