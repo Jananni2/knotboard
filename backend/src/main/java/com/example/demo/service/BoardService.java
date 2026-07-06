@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import com.example.demo.dto.BoardCreateDto;
 import com.example.demo.dto.BoardDto;
 import com.example.demo.entity.AppUser;
+import com.example.demo.entity.BoardActivity;
 import com.example.demo.entity.BoardMember;
 import com.example.demo.entity.BrainstormingBoard;
 import com.example.demo.repository.BoardMemberRepository;
@@ -43,7 +44,7 @@ public class BoardService{
         .joinedAt(null)
         .build();
 
-        Board
+        BoardActivity BoardActivity = BoardActivity.
     
       }
     
