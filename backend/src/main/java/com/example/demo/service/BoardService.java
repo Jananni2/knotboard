@@ -9,6 +9,7 @@ import com.example.demo.dto.BoardDto;
 import com.example.demo.entity.AppUser;
 import com.example.demo.entity.BoardMember;
 import com.example.demo.entity.BrainstormingBoard;
+import com.example.demo.repository.BoardMemberRepository;
 import com.example.demo.repository.BoardRepository;
 
 import jakarta.transaction.Transactional;
@@ -19,7 +20,7 @@ import lombok.RequiredArgsConstructor;
 public class BoardService{
    
   private final BoardRepository boardRepository;
-  private final BoardMember boardMember;
+  private final BoardMemberRepository memberRepository;
   private 
     @Transactional
       public BoardDto createBoard(BoardCreateDto dto,AppUser facilitator){
@@ -35,7 +36,7 @@ public class BoardService{
 
         board = boardRepository.save(board);
 
-        boar
+        BoardMember member = Board 
       }
     
 }
