@@ -10,6 +10,7 @@ import com.example.demo.entity.AppUser;
 import com.example.demo.entity.BoardActivity;
 import com.example.demo.entity.BoardMember;
 import com.example.demo.entity.BrainstormingBoard;
+import com.example.demo.repository.BoardActivityRepository;
 import com.example.demo.repository.BoardMemberRepository;
 import com.example.demo.repository.BoardRepository;
 
@@ -22,7 +23,7 @@ public class BoardService{
    
   private final BoardRepository boardRepository;
   private final BoardMemberRepository memberRepository;
-  private 
+  private final BoardActivityRepository boardActivityRepository;
     @Transactional
       public BoardDto createBoard(BoardCreateDto dto,AppUser facilitator){
         BrainstormingBoard board = BrainstormingBoard.builder()
@@ -46,13 +47,14 @@ public class BoardService{
         
         memberRepository.save(member);
 
-        BoardActivity BoardActivity = BoardActivity.builder()
+        BoardActivity boardActivity = BoardActivity.builder()
                                       .board(board)
                                       .actor(facilitator)
                                       .actionDescription("Board created")
                                       .timestamp(LocalDateTime.now())
                                       .build();
         
+        boardActivityRepository.save(boardActivity);
         
     
       }
