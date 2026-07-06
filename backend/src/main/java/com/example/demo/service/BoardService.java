@@ -56,7 +56,7 @@ public class BoardService{
         
         boardActivityRepository.save(boardActivity);
 
-        return  board;
+        return   
         
     
       }
