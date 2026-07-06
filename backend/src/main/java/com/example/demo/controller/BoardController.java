@@ -17,5 +17,7 @@ public class BoardController {
     private final BoardService boardService;
 
     @PostMapping
-    public ResponseEntity<BoardDto>
+    public ResponseEntity<BoardDto>createBoard(BoardCreateDto dto,AppUser user){
+        
+    }
 }
