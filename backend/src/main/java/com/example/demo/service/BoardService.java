@@ -21,7 +21,7 @@ import com.example.demo.repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
 
  @Service
-  @RequiredArgsConstructor
+@RequiredArgsConstructor
 public class BoardService {
 
     private final BoardRepository boardRepository;
@@ -123,4 +123,5 @@ private BoardDto mapToDto(BrainstormingBoard board) {
             .currentNoteCount(board.getCurrentNoteCount())
             .createdAt(board.getCreatedAt())
             .build();
+}
 }
