@@ -60,7 +60,7 @@ public class BoardService {
         return mapToDto(savedBoard);
     }
 
-    @Transactional(readOnly = true)
+    @Transactional(dontRollbackOn = true)
     public Page<BoardDto> getActiveBoards(Pageable pageable) {
         return boardRepository
                 .findAllByStatus(BrainstormingBoard.BoardStatus.ACTIVE, pageable)
@@ -85,7 +85,7 @@ public class BoardService {
         BrainstormingBoard board = boardRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Board not found"));
 
-        if (!board.getFacilitator().getId().equals(actor.getId())) {
+        if (board.getFacilitator().getId() != actor.getId()) {
             throw new RuntimeException("Only the facilitator can update board settings");
         }
 
