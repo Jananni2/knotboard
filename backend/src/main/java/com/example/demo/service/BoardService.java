@@ -48,13 +48,15 @@ public class BoardService{
         memberRepository.save(member);
 
         BoardActivity boardActivity = BoardActivity.builder()
-                                      .board(board)
+                                     .board(board)
                                       .actor(facilitator)
                                       .actionDescription("Board created")
                                       .timestamp(LocalDateTime.now())
                                       .build();
         
         boardActivityRepository.save(boardActivity);
+
+        return boardMapp
         
     
       }
