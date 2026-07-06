@@ -1,5 +1,7 @@
 package com.example.demo.service;
 
+import java.time.LocalDateTime;
+
 import org.springframework.stereotype.Service;
 
 import com.example.demo.dto.BoardCreateDto;
@@ -17,10 +19,13 @@ public class BoardService{
         .title(dto.getTitle())
         .description(dto.getDescription())
         .facilitator(facilitator)
-        .status(B"ACTIVE")
+        .status(BrainstormingBoard.BoardStatus.ACTIVE)
         .maxNoteCapacity(dto.getMaxCapacity())
-        .currentNoteCount()
-        .createdAt(Lo)
+        .currentNoteCount(0)
+        .createdAt(LocalDateTime.now())
+        .build();
+
+        board = 
       }
     
 }
