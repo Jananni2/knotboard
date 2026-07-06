@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.demo.dto.BoardCreateDto;
 import com.example.demo.dto.BoardDto;
@@ -16,7 +17,7 @@ import com.example.demo.repository.BoardActivityRepository;
 import com.example.demo.repository.BoardMemberRepository;
 import com.example.demo.repository.BoardRepository;
 
-import jakarta.transaction.Transactional;
+ 
 import lombok.RequiredArgsConstructor;
 
  @Service
@@ -110,7 +111,7 @@ public class BoardService {
 
         return mapToDto(updated);
     }
-}
+
 private BoardDto mapToDto(BrainstormingBoard board) {
     return BoardDto.builder()
             .id(board.getId())
