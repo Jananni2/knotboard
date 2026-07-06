@@ -18,7 +18,7 @@ import com.example.demo.dto.RegisterRequestDto;
 import com.example.demo.service.AuthService;
 
 @RestController
-@RequestMapping("api/auth")
+@RequestMapping("/api/auth")
 public class AuthController {
 
 @Autowired
