@@ -30,7 +30,7 @@ private AuthService service;
 
 @PostMapping("/register")
 public AppUser addUser(@RequestBody RegisterRequestDto user){
-    return ResponseEntity<AuthResponseDto>register()
+    return ResponseEntity<AuthResponseDto>register(@Request)
 }
 
 @PostMapping("/api/auth/login")
