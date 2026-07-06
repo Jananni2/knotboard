@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class NoteDto {
     private Long id;
-    private String title;
+    private Long ;
     private String description;
     private String facilitatorName;
     private String status;
