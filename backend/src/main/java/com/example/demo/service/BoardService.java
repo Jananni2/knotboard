@@ -37,7 +37,10 @@ public class BoardService{
         board = boardRepository.save(board);
 
         BoardMember member = BoardMember.builder()
-        .boar
+        .board(board)
+        .user(facilitator)
+        .accessLevel("OWNER")
+        .
       }
     
 }
