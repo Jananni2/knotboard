@@ -43,6 +43,8 @@ public class BoardService{
         .accessLevel("OWNER")
         .joinedAt(LocalDateTime.now())
         .build();
+        
+        memberRepository.save(member);
 
         BoardActivity BoardActivity = BoardActivity.builder()
                                       .board(board)
@@ -51,7 +53,7 @@ public class BoardService{
                                       .timestamp(LocalDateTime.now())
                                       .build();
         
-        map
+        
     
       }
     
