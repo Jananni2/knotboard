@@ -124,4 +124,19 @@ private BoardDto mapToDto(BrainstormingBoard board) {
             .createdAt(board.getCreatedAt())
             .build();
 }
+
+@Transactional
+public void deleteBoard(Long id, AppUser actor) {
+
+    BrainstormingBoard board = boardRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Board not found"));
+
+    // Only facilitator can delete the board
+    if (board.getFacilitator().getId() != actor.getId()) {
+        throw new RuntimeException("Only the facilitator can delete the board");
+    }
+
+    boardRepository.delete(board);
+}
+
 }

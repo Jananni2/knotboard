@@ -62,6 +62,13 @@ public class BoardController {
                 boardService.updateBoardSettings(id, maxCapacity, status, user));
     }
 
-     
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteBoard(
+            @PathVariable Long id,
+            @AuthenticationPrincipal AppUser user) {
+
+        boardService.deleteBoard(id, user);
+        return ResponseEntity.ok("BrainstormingBoard deleted successfully.");
+    }
 }
 
