@@ -26,10 +26,10 @@ public class BoardService{
   private final BoardActivityRepository boardActivityRepository;
     @Transactional
       public BoardDto createBoard(BoardCreateDto dto,AppUser facilitator){
-        BrainstormingBoard board = BrainstormingBoard.builder()
+        BoardDto board = BoardDto.builder()
         .title(dto.getTitle())
         .description(dto.getDescription())
-        .facilitator(facilitator)
+        .facilitatorName("facilitator")
         .status(BrainstormingBoard.BoardStatus.ACTIVE)
         .maxNoteCapacity(dto.getMaxCapacity())
         .currentNoteCount(0)
