@@ -44,7 +44,10 @@ public class BoardService{
         .joinedAt(null)
         .build();
 
-        BoardActivity BoardActivity = BoardActivity.
+        BoardActivity BoardActivity = BoardActivity.builder()
+                                      .board(board)
+                                      .actor(facilitator)
+                                      .actionDescription(null)
     
       }
     
