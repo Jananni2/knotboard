@@ -41,13 +41,17 @@ public class BoardService{
         .board(board)
         .user(facilitator)
         .accessLevel("OWNER")
+        .joinedAt(LocalDateTime.now())
         .build();
 
         BoardActivity BoardActivity = BoardActivity.builder()
                                       .board(board)
                                       .actor(facilitator)
                                       .actionDescription("Board created")
+                                      .timestamp(LocalDateTime.now())
                                       .build();
+        
+        map
     
       }
     
