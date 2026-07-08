@@ -11,12 +11,14 @@ import com.example.demo.entity.BoardActivity;
 import com.example.demo.entity.BrainstormingBoard;
 import com.example.demo.entity.StickyNote;
 import com.example.demo.repository.BoardRepository;
+import com.example.demo.repository.StickyNoteRepository;
 
 import lombok.RequiredArgsConstructor;
 @RestController
 @RequiredArgsConstructor
 public class NoteController {
     private BoardRepository boardRepository;
+    private StickyNoteRepository sticky
     @Transactional
 public NoteDto editNote(NoteDto dto, AppUser creator) {
 
