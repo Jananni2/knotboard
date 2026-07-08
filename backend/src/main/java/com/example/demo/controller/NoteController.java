@@ -18,9 +18,9 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequiredArgsConstructor
 public class NoteController {
-    private BoardRepository boardRepository;
-    private StickyNoteRepository noteRepository;
-    private BoardActivityRepository boardActivityRepository;
+    private final BoardRepository boardRepository;
+    private final StickyNoteRepository noteRepository;
+    private final BoardActivityRepository boardActivityRepository;
     @Transactional
 public NoteDto editNote(NoteDto dto, AppUser creator) {
 
