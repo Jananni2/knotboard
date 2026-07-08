@@ -10,6 +10,7 @@ import com.example.demo.entity.AppUser;
 import com.example.demo.entity.BoardActivity;
 import com.example.demo.entity.BrainstormingBoard;
 import com.example.demo.entity.StickyNote;
+import com.example.demo.repository.BoardActivityRepository;
 import com.example.demo.repository.BoardRepository;
 import com.example.demo.repository.StickyNoteRepository;
 
@@ -18,7 +19,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class NoteController {
     private BoardRepository boardRepository;
-    private StickyNoteRepository sticky
+    private StickyNoteRepository noteRepository;
+    private BoardActivityRepository boardActivityRepository;
     @Transactional
 public NoteDto editNote(NoteDto dto, AppUser creator) {
 
@@ -63,4 +65,5 @@ public NoteDto editNote(NoteDto dto, AppUser creator) {
 
     return mapToDto(saved);
 }
+
 }
