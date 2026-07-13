@@ -18,7 +18,7 @@ import com.example.demo.repository.BoardRepository;
 import com.example.demo.repository.StickyNoteRepository;
 
 import lombok.RequiredArgsConstructor;
-
+import com.example.demo.exception.StickyNoteNotFoundException;
 @Service
 @RequiredArgsConstructor
 public class NoteService {
@@ -83,7 +83,7 @@ public class NoteService {
         }
 
          StickyNote note = noteRepository.findById(id)
-        .orElseThrow(() -> new RuntimeException("Note not found"));
+         .orElseThrow(() -> new StickyNoteNotFoundException("Note not found"));
 
         note.setXPos(dto.getX());
         note.setYPos(dto.getY());
