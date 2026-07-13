@@ -82,8 +82,8 @@ public class NoteService {
             throw new RuntimeException("Stakeholders cannot move notes");
         }
 
-        StickyNote note = noteRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Note not found"));
+         StickyNote note = noteRepository.findById(id)
+        .orElseThrow(() -> new RuntimeException("Note not found"));
 
         note.setXPos(dto.getX());
         note.setYPos(dto.getY());
