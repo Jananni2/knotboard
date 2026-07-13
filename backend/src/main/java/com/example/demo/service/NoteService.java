@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import com.example.demo.dto.NoteDto;
 import com.example.demo.entity.AppUser;
 import com.example.demo.entity.AppUser.DomainRole;
+import com.example.demo.repository.BoardRepository;
 import com.example.demo.entity.BrainstormingBoard;
 import com.example.demo.entity.StickyNote;
 
@@ -18,7 +19,8 @@ public NoteDto addNote(NoteDto dto, AppUser creator) {
         throw new RuntimeException("Stakeholders have view-only access and cannot add notes");
     }
 
-    BrainstormingBoard board = boardRepository.findById(dto.getBoardId())
+    final BoardRepository boardRepository;
+        BrainstormingBoard board = boardRepository.findById(dto.getBoardId())
             .orElseThrow(() -> new RuntimeException("Board not found"));
 
     if (board.getCurrentNoteCount() >= board.getMaxNoteCapacity()) {
