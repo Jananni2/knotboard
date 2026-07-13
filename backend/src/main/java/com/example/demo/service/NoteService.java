@@ -101,7 +101,7 @@ public class NoteService {
         }
 
         StickyNote note = noteRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Note not found"));
+                .orElseThrow(() -> new StickyNoteNotFoundException("Note not found"));
 
         note.setContent(dto.getContent());
 
@@ -120,7 +120,7 @@ public class NoteService {
         }
 
         StickyNote note = noteRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Note not found"));
+                 .orElseThrow(() -> new StickyNoteNotFoundException("Note not found"));
 
         if (note.getDeletedAt() != null) {
             return;
@@ -145,7 +145,7 @@ public class NoteService {
         }
 
         StickyNote note = noteRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Note not found"));
+                 .orElseThrow(() -> new StickyNoteNotFoundException("Note not found"));
 
         if (note.getDeletedAt() == null) {
             return;
