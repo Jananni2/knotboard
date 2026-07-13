@@ -1,11 +1,7 @@
 package com.example.demo.controller;
-
-import java.time.LocalDateTime;
 import java.util.List;
-
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.web.bind.annotation.AuthenticationPrincipal;
-import org.springframework.transaction.annotation.Transactional;
+ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,12 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.dto.NoteDto;
 import com.example.demo.entity.AppUser;
-import com.example.demo.entity.BoardActivity;
-import com.example.demo.entity.BrainstormingBoard;
-import com.example.demo.entity.StickyNote;
-import com.example.demo.repository.BoardActivityRepository;
-import com.example.demo.repository.BoardRepository;
-import com.example.demo.repository.StickyNoteRepository;
+ 
 import com.example.demo.service.NoteService;
 
 import lombok.RequiredArgsConstructor;
