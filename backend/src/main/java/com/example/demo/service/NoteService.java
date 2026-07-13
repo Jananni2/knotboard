@@ -8,11 +8,13 @@ import com.example.demo.entity.AppUser.DomainRole;
 import com.example.demo.entity.BrainstormingBoard;
 import com.example.demo.entity.StickyNote;
 
+import jakarta.transaction.Transactional;
+
 public class NoteService {
     @Transactional
 public NoteDto addNote(NoteDto dto, AppUser creator) {
 
-    if (creator.getRole() == DomainRole.STAKEHOLDER) {
+    if (creator.getDomainRole() == DomainRole.STAKEHOLDER) {
         throw new RuntimeException("Stakeholders have view-only access and cannot add notes");
     }
 
