@@ -1,69 +1,68 @@
-// package com.example.demo.controller;
+package com.example.demo.controller;
 
-// import java.time.LocalDateTime;
+import java.time.LocalDateTime;
+import java.util.List;
 
-// import org.springframework.transaction.annotation.Transactional;
-// import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.web.bind.annotation.AuthenticationPrincipal;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-// import com.example.demo.dto.NoteDto;
-// import com.example.demo.entity.AppUser;
-// import com.example.demo.entity.BoardActivity;
-// import com.example.demo.entity.BrainstormingBoard;
-// import com.example.demo.entity.StickyNote;
-// import com.example.demo.repository.BoardActivityRepository;
-// import com.example.demo.repository.BoardRepository;
-// import com.example.demo.repository.StickyNoteRepository;
+import com.example.demo.dto.NoteDto;
+import com.example.demo.entity.AppUser;
+import com.example.demo.entity.BoardActivity;
+import com.example.demo.entity.BrainstormingBoard;
+import com.example.demo.entity.StickyNote;
+import com.example.demo.repository.BoardActivityRepository;
+import com.example.demo.repository.BoardRepository;
+import com.example.demo.repository.StickyNoteRepository;
+import com.example.demo.service.NoteService;
 
-// import lombok.RequiredArgsConstructor;
-// @RestController
-// @RequiredArgsConstructor
-// public class NoteController {
-//     private final BoardRepository boardRepository;
-//     private final StickyNoteRepository noteRepository;
-//     private final BoardActivityRepository boardActivityRepository;
-//     @Transactional
-// public NoteDto editNote(NoteDto dto, AppUser creator) {
+import lombok.RequiredArgsConstructor;
+ @RestController
+@RequestMapping("/api/notes")
+@RequiredArgsConstructor
+public class NoteController {
 
-//     if (creator.getDomainRole() == AppUser.DomainRole.STAKEHOLDER) {
-//         throw new RuntimeException("Stakeholders have view-only access and cannot add notes");
-//     }
+    private final NoteService noteService;
 
-//     BrainstormingBoard board = boardRepository.findById(dto.getId())
-//             .orElseThrow(() -> new RuntimeException("Board not found"));
+    @PostMapping
+    public ResponseEntity<NoteDto> addNote(
+            @RequestBody NoteDto dto,
+            @AuthenticationPrincipal AppUser user) { }
 
-//     if (board.getCurrentNoteCount() >= board.getMaxNoteCapacity()) {
-//         throw new RuntimeException("Board capacity reached");
-//     }
+    @GetMapping("/board/{boardId}")
+    public ResponseEntity<List<NoteDto>> getNotes(
+            @PathVariable Long boardId) { }
 
-//     StickyNote note = StickyNote.builder()
-//             .board(board)
-//             .creator(creator)
-//             .content(dto.getContent())
-//             .colorCode(dto.getColorCode())
-//             .xPos(dto.getX())
-//             .yPos(dto.getY())
-//             .build();
+    @PutMapping("/{id}/move")
+    public ResponseEntity<NoteDto> moveNote(
+            @PathVariable Long id,
+            @RequestBody NoteDto dto,
+            @AuthenticationPrincipal AppUser user) { }
 
-//     StickyNote saved = noteRepository.save(note);
+    @PutMapping("/{id}/content")
+    public ResponseEntity<NoteDto> updateContent(
+            @PathVariable Long id,
+            @RequestBody NoteDto dto,
+            @AuthenticationPrincipal AppUser user) { }
 
-//     board.setCurrentNoteCount(board.getCurrentNoteCount() + 1);
-//     boardRepository.save(board);
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteNote(
+            @PathVariable Long id,
+            @AuthenticationPrincipal AppUser user) { }
 
-//     String text = saved.getContent();
-//     if (text.length() > 20) {
-//         text = text.substring(0, 20);
-//     }
+    @PostMapping("/{id}/undo")
+    public ResponseEntity<Void> undoDelete(
+            @PathVariable Long id,
+            @AuthenticationPrincipal AppUser user) { }
+}
 
-//     BoardActivity activity = BoardActivity.builder()
-//             .board(board)
-//             .actor(creator)
-//             .actionDescription("Added a note: " + text)
-//             .timestamp(LocalDateTime.now())
-//             .build();
 
-//     boardActivityRepository.save(activity);
-
-//     return mapToDto(saved);
-// }
-
-// }
