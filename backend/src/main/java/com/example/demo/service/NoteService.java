@@ -69,7 +69,7 @@ public class NoteService {
     @Transactional(readOnly = true)
     public List<NoteDto> getActiveNotesByBoard(Long boardId) {
 
-        return noteRepository.findAllActivityByBoardId(boardId)
+        return noteRepository.findAllActiveByBoardId(boardId)
                 .stream()
                 .map(this::mapToDto)
                 .collect(Collectors.toList());
