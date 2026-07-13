@@ -11,5 +11,5 @@ import com.example.demo.entity.StickyNote;
 @Repository
 public interface StickyNoteRepository extends JpaRepository<StickyNote,Long>{
     @Query("SELECT s FROM StickyNote s WHERE s.board.id = :boardId AND s.deletedAt IS NULL")
-    List<StickyNote>findAllActivityByBoardId(Long boardId);
+    List<StickyNote> findAllActiveByBoardId(Long boardId);
 }
