@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class GlobalExceptionHandler {
     @ExceptionHandler(StickyNoteNotFoundException.class)
         public ResponseEntity<Map<String,String>> handleNotFound(StickyNoteNotFoundException ex){
-             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("messege",ex.getMessage()));
+             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("message",ex.getMessage()));
         }
     @ExceptionHandler(NoteConflictException.class)
         public ResponseEntity<Map<String,String>> handleConflict(NoteConflictException ex){
