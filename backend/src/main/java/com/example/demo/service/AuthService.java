@@ -25,6 +25,7 @@ public class AuthService {
   private final AuthenticationManager authenticationManager;
 
   public AuthResponseDto register(RegisterRequestDto request){
+    
     AppUser user = AppUser.builder()
     .username(request.getUsername())
     .email(request.getEmail())
