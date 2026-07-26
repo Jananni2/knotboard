@@ -125,13 +125,38 @@ private BoardDto mapToDto(BrainstormingBoard board) {
             .build();
 }
 
- @Transactional
+  @Transactional
 public void deleteBoard(Long id) {
+
+    System.out.println("========== DELETE BOARD START ==========");
+
+    System.out.println("Board ID: " + id);
 
     BrainstormingBoard board = boardRepository.findById(id)
             .orElseThrow(() -> new RuntimeException("Board not found"));
 
-    boardRepository.delete(board);
+    System.out.println("Board found: " + board.getId());
+
+    int activitiesDeleted =
+            boardActivityRepository.deleteByBoardId(id);
+
+    System.out.println(
+            "Activities deleted: " + activitiesDeleted);
+
+    int membersDeleted =
+            boardMemberRepository.deleteByBoardId(id);
+
+    System.out.println(
+            "Members deleted: " + membersDeleted);
+
+    boardActivityRepository.flush();
+    boardMemberRepository.flush();
+
+    System.out.println("Deleting board now...");
+
+    boardRepository.deleteById(id);
+
+    System.out.println("========== DELETE BOARD END ==========");
 }
 
 }
