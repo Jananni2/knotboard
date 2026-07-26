@@ -66,11 +66,10 @@ public class BoardController {
 @DeleteMapping("/{id}")
 public ResponseEntity<String> deleteBoard(@PathVariable Long id) {
 
-    System.out.println("========== DELETE CONTROLLER CALLED ==========");
-
+     
     boardService.deleteBoard(id);
 
-    return ResponseEntity.ok("Board deleted i hate you  successfully");
+    return ResponseEntity.ok("Board deleted successfully");
 }
 }
 
