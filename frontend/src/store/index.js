@@ -8,8 +8,8 @@ export const store = configureStore({
     reducer: {
         auth: authReducer,
         notes: noteReducer,
-        boards: boardReducer,
-    },
+        boards: boardReducer
+    }
 });
 
 export default store;
