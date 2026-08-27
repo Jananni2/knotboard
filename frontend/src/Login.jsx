@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
- import { login } from "./store/authSlice";
+ import { login } from "./store/slices/authSlice";
 
 function Login() {
     const [username, setUsername] = useState("");
