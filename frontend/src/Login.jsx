@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
- import { login } from "./store/slices/authSlice";
+import { login } from "./store/slices/authSlice";
 
 function Login() {
     const [username, setUsername] = useState("");
@@ -10,7 +10,9 @@ function Login() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const { loading, error } = useSelector((state) => state.auth);
+    const authState = useSelector((state) => state.auth || {});
+    const loading = authState.loading || false;
+    const error = authState.error || null;
 
     const handleSubmit = async (e) => {
         e.preventDefault();
