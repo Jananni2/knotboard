@@ -1,21 +1,13 @@
-import api from "./api";
+ import api from "./api";
 
 const authService = {
     login: async (credentials) => {
-        const response = await api.post(
-            "/auth/login",
-            credentials
-        );
-
+        const response = await api.post("/api/auth/login", credentials);
         return response.data;
     },
 
     register: async (userData) => {
-        const response = await api.post(
-            "/auth/register",
-            userData
-        );
-
+        const response = await api.post("/api/auth/register", userData);
         return response.data;
     },
 
