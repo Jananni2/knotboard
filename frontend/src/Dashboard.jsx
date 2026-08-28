@@ -158,8 +158,8 @@ function Dashboard() {
                     <h1>Project Workspace</h1>
 
                     <span>
-                        Welcome back, {user?.username}
-                    </span>
+    Welcome back, {user?.username}!
+</span>
                 </div>
 
                 {user?.role === "FACILITATOR" && (
