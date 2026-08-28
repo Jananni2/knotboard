@@ -1,40 +1,16 @@
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { logout } from "../store/slices/authSlice";
+ import React from "react";
 
 function Navbar() {
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
+  return (
+    <nav className="navbar">
+      <div className="navbar-brand">KnotBoard</div>
 
-    const { user } = useSelector((state) => state.auth);
-
-    const handleLogout = () => {
-        dispatch(logout());
-        navigate("/login");
-    };
-
-    return (
-        <nav>
-            <div>
-                <strong>KnotBoard</strong>
-            </div>
-
-            <div>
-                {user && (
-                    <span>
-                        Signed in as {user.username}
-                    </span>
-                )}
-
-                {user && (
-                    <button onClick={handleLogout}>
-                        Logout
-                    </button>
-                )}
-            </div>
-        </nav>
-    );
+      <div className="navbar-links">
+        <a href="/dashboard">Dashboard</a>
+        <a href="/settings">Settings</a>
+      </div>
+    </nav>
+  );
 }
 
 export default Navbar;
