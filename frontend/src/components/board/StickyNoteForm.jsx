@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+ import React, { useState } from "react";
 
 const COLORS = [
     "#fff9c4",
@@ -18,17 +18,24 @@ function StickyNoteForm({ initialData, onSubmit, onClose }) {
         initialData?.colorCode || COLORS[0]
     );
 
+    const [success, setSuccess] = useState(false);
+
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        onSubmit({
+        const formData = {
             content,
             colorCode
-        });
+        };
+
+        onSubmit(formData);
+
+        setSuccess(true);
     };
 
     return (
         <div className="form-container">
+
             <div className="form-header">
                 <h2>
                     {initialData?.id
@@ -48,6 +55,7 @@ function StickyNoteForm({ initialData, onSubmit, onClose }) {
             </div>
 
             <form onSubmit={handleSubmit}>
+
                 <div className="form-group">
                     <label htmlFor="note-content">
                         What's on your mind?
@@ -66,15 +74,18 @@ function StickyNoteForm({ initialData, onSubmit, onClose }) {
                 </div>
 
                 <div className="form-group">
+
                     <label>
                         Color Theme
                     </label>
 
                     <div className="color-palette">
+
                         {COLORS.map((color) => (
                             <button
                                 key={color}
                                 type="button"
+                                data-color={color}
                                 aria-label={`Select ${color}`}
                                 onClick={() =>
                                     setColorCode(color)
@@ -92,6 +103,7 @@ function StickyNoteForm({ initialData, onSubmit, onClose }) {
                                 }}
                             />
                         ))}
+
                     </div>
                 </div>
 
@@ -100,6 +112,13 @@ function StickyNoteForm({ initialData, onSubmit, onClose }) {
                         ? "Save Changes"
                         : "Post Note"}
                 </button>
+
+                {success && (
+                    <p>
+                        Note saved successfully
+                    </p>
+                )}
+
             </form>
         </div>
     );
