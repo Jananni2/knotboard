@@ -56,7 +56,7 @@ function StickyNoteForm({ initialData, onSubmit, onClose }) {
                     <textarea
                         id="note-content"
                         rows="4"
-                        placeholder="Type your idea here"
+                        placeholder="Type your idea here..."
                         value={content}
                         onChange={(e) =>
                             setContent(e.target.value)
