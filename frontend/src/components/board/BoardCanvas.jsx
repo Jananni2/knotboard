@@ -29,6 +29,7 @@ function BoardCanvas() {
 
     const [dragging, setDragging] = useState(null);
     const [showUndo, setShowUndo] = useState(false);
+    const [editedContent, setEditedContent] = useState({});
 
     // Fetch notes when board ID changes
     useEffect(() => {
@@ -205,13 +206,23 @@ function BoardCanvas() {
                             : "grab"
                     }}
                 >
-                    <textarea
-                        value={note.content}
-                        readOnly={isStakeholder}
-                        onBlur={(e) =>
-                            handleContentBlur(note, e)
-                        }
-                    />
+                     <textarea
+    value={
+        editedContent[note.id] !== undefined
+            ? editedContent[note.id]
+            : note.content
+    }
+    readOnly={isStakeholder}
+    onChange={(e) => {
+        if (!isStakeholder) {
+            setEditedContent((prev) => ({
+                ...prev,
+                [note.id]: e.target.value
+            }));
+        }
+    }}
+    onBlur={(e) => handleContentBlur(note, e)}
+/>
 
                     {!isStakeholder && (
                         <button
