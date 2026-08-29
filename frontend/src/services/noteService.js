@@ -34,7 +34,7 @@ const noteService = {
     // PUT /notes/{id}/content
     updateNoteContent: async (id, content, version) => {
         const response = await api.put(
-            `/notes/${id}/content`,
+            `/api/notes/${id}/content`,
             {
                 content,
                 version
@@ -46,7 +46,7 @@ const noteService = {
     // DELETE /notes/{id}
     deleteNote: async (id) => {
         const response = await api.delete(
-            `/notes/${id}`
+            `/api/notes/${id}`
         );
         return response.data;
     },
@@ -54,7 +54,7 @@ const noteService = {
     // POST /notes/{id}/undo
     undoDelete: async (id) => {
         const response = await api.post(
-            `/notes/${id}/undo`
+            `/api/notes/${id}/undo`
         );
         return response.data;
     }
