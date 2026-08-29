@@ -62,7 +62,6 @@ public class AuthService {
     .username(user.getUsername())
     .role(user.getDomainRole().name())
     .build();
-
   }
 
      
