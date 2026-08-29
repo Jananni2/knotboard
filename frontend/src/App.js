@@ -1,9 +1,10 @@
  import React from "react";
+ import './App.css';
 import { Provider, useSelector } from "react-redux";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 import store from "./store";
-import "./App.css";
+ 
 import Login from "./Login";
 import Dashboard from "./Dashboard";
 import Navbar from "./layout/Navbar";
