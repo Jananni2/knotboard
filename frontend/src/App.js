@@ -1,5 +1,5 @@
  import React from "react";
-import { Provider } from "react-redux";
+import { Provider, useSelector } from "react-redux";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 import store from "./store";
@@ -11,52 +11,76 @@ import BoardCanvas from "./components/board/BoardCanvas";
 import ErrorHandler from "./components/ErrorHandler";
 import NotificationStack from "./components/NotificationStack";
 
+function AppContent() {
+    const token = useSelector((state) => state.auth?.token);
+
+    return (
+        <BrowserRouter>
+            <ErrorHandler>
+
+                {/* Show Navbar only when logged in */}
+                {token && <Navbar />}
+
+                <NotificationStack />
+
+                <Routes>
+
+                    {/* Login */}
+                    <Route
+                        path="/login"
+                        element={
+                            token
+                                ? <Navigate to="/dashboard" replace />
+                                : <Login />
+                        }
+                    />
+
+                    {/* Dashboard */}
+                    <Route
+                        path="/"
+                        element={
+                            token
+                                ? <Dashboard />
+                                : <Navigate to="/login" replace />
+                        }
+                    />
+
+                    <Route
+                        path="/dashboard"
+                        element={
+                            token
+                                ? <Dashboard />
+                                : <Navigate to="/login" replace />
+                        }
+                    />
+
+                    {/* Board */}
+                    <Route
+                        path="/board/:id"
+                        element={
+                            token
+                                ? <BoardCanvas />
+                                : <Navigate to="/login" replace />
+                        }
+                    />
+
+                    {/* Unknown route */}
+                    <Route
+                        path="*"
+                        element={<Navigate to="/" replace />}
+                    />
+
+                </Routes>
+
+            </ErrorHandler>
+        </BrowserRouter>
+    );
+}
+
 function App() {
     return (
         <Provider store={store}>
-            <BrowserRouter>
-                <ErrorHandler>
-
-                    <NotificationStack />
-
-                    <Navbar />
-
-                    <Routes>
-
-                        <Route
-                            path="/login"
-                            element={<Login />}
-                        />
-
-                        <Route
-                            path="/"
-                            element={<Dashboard />}
-                        />
-
-                        <Route
-                            path="/dashboard"
-                            element={<Dashboard />}
-                        />
-
-                        <Route
-                            path="/board/:id"
-                            element={<BoardCanvas />}
-                        />
-
-                        <Route
-                            path="*"
-                            element={
-                                <Navigate
-                                    to="/"
-                                    replace
-                                />
-                            }
-                        />
-
-                    </Routes>
-
-                </ErrorHandler>
-            </BrowserRouter>
+            <AppContent />
         </Provider>
     );
 }
