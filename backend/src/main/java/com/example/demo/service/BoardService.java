@@ -1,55 +1,162 @@
- import api from "./api";
+package com.example.demo.service;
 
-const boardService = {
-    // POST /api/boards
-    createBoard: async (boardData) => {
-        const response = await api.post("/api/boards", boardData);
-        return response.data;
-    },
+import java.time.LocalDateTime;
 
-    // GET /api/boards?page={page}&size={size}
-    getBoards: async (page = 0, size = 6) => {
-        const response = await api.get(
-            `/api/boards?page=${page}&size=${size}`
-        );
-        return response.data;
-    },
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-    // GET /api/boards/{id}
-    getBoardById: async (id) => {
-        const response = await api.get(`/api/boards/${id}`);
-        return response.data;
-    },
+import com.example.demo.dto.BoardCreateDto;
+import com.example.demo.dto.BoardDto;
+import com.example.demo.entity.AppUser;
+import com.example.demo.entity.BoardActivity;
+import com.example.demo.entity.BoardMember;
+import com.example.demo.entity.BrainstormingBoard;
+import com.example.demo.repository.BoardActivityRepository;
+import com.example.demo.repository.BoardMemberRepository;
+import com.example.demo.repository.BoardRepository;
 
-    // GET /api/insights/board/{id}
-    getBoardInsights: async (id) => {
-        const response = await api.get(`/api/insights/board/${id}`);
-        return response.data;
-    },
+ 
+import lombok.RequiredArgsConstructor;
 
-    // POST /api/members/invite?boardId={boardId}&userId={userId}
-    inviteMember: async (boardId, userId) => {
-        const response = await api.post(
-            `/api/members/invite?boardId=${boardId}&userId=${userId}`
-        );
-        return response.data;
-    },
+ @Service
+@RequiredArgsConstructor
+public class BoardService {
 
-    // GET /api/insights/workspace/stats
-    getWorkspaceStats: async () => {
-        const response = await api.get(
-            "/api/insights/workspace/stats"
-        );
-        return response.data;
-    },
+    private final BoardRepository boardRepository;
+    private final BoardMemberRepository boardMemberRepository;
+    private final BoardActivityRepository boardActivityRepository;
 
-    // PUT /api/boards/{id}/settings?maxCapacity={maxCapacity}&status={status}
-    updateSettings: async (id, maxCapacity, status) => {
-        const response = await api.put(
-            `/api/boards/${id}/settings?maxCapacity=${maxCapacity}&status=${status}`
-        );
-        return response.data;
+    @Transactional
+    public BoardDto createBoard(BoardCreateDto dto, AppUser facilitator) {
+
+        BrainstormingBoard board = BrainstormingBoard.builder()
+                .title(dto.getTitle())
+                .description(dto.getDescription())
+                .facilitator(facilitator)
+                .status(BrainstormingBoard.BoardStatus.ACTIVE)
+                .maxNoteCapacity(dto.getMaxCapacity() == null ? 50 : dto.getMaxCapacity())
+                .currentNoteCount(0)
+                .createdAt(LocalDateTime.now())
+                .build();
+
+        BrainstormingBoard savedBoard = boardRepository.save(board);
+
+        BoardMember member = BoardMember.builder()
+                .board(savedBoard)
+                .user(facilitator)
+                .accessLevel("OWNER")
+                .build();
+
+        boardMemberRepository.save(member);
+
+        BoardActivity activity = BoardActivity.builder()
+                .board(savedBoard)
+                .actor(facilitator)
+                .actionDescription("Board created")
+                .timestamp(LocalDateTime.now())
+                .build();
+
+        boardActivityRepository.save(activity);
+
+        return mapToDto(savedBoard);
     }
-};
 
-export default boardService;
+    @Transactional(readOnly = true)
+    public Page<BoardDto> getActiveBoards(Pageable pageable) {
+        return boardRepository
+                .findAllByStatus(BrainstormingBoard.BoardStatus.ACTIVE, pageable)
+                .map(this::mapToDto);
+    }
+
+    @Transactional(readOnly = true)
+    public BoardDto getBoardById(Long id) {
+
+        BrainstormingBoard board = boardRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Board not found"));
+
+        return mapToDto(board);
+    }
+
+    @Transactional
+    public BoardDto updateBoardSettings(Long id,
+                                        Integer maxCapacity,
+                                        String status,
+                                        AppUser actor) {
+
+        BrainstormingBoard board = boardRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Board not found"));
+
+        if (board.getFacilitator().getId() != actor.getId()) {
+            throw new RuntimeException("Only the facilitator can update board settings");
+        }
+
+        if (maxCapacity != null) {
+
+            if (maxCapacity < board.getCurrentNoteCount()) {
+                throw new RuntimeException(
+                        "Cannot decrease capacity below current note count (" +
+                                board.getCurrentNoteCount() + ")");
+            }
+
+            board.setMaxNoteCapacity(maxCapacity);
+        }
+
+        if (status != null) {
+            board.setStatus(BrainstormingBoard.BoardStatus.valueOf(status));
+        }
+
+        BrainstormingBoard updated = boardRepository.save(board);
+
+        return mapToDto(updated);
+    }
+
+private BoardDto mapToDto(BrainstormingBoard board) {
+    return BoardDto.builder()
+            .id(board.getId())
+            .title(board.getTitle())
+            .description(board.getDescription())
+            .facilitatorName(board.getFacilitator().getUsername())
+            .status(board.getStatus().name())
+            .maxNoteCapacity(board.getMaxNoteCapacity())
+            .currentNoteCount(board.getCurrentNoteCount())
+            .createdAt(board.getCreatedAt())
+            .build();
+}
+
+  @Transactional
+public void deleteBoard(Long id) {
+
+    System.out.println("========== DELETE BOARD START ==========");
+
+    System.out.println("Board ID: " + id);
+
+    BrainstormingBoard board = boardRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Board not found"));
+
+    System.out.println("Board found: " + board.getId());
+
+    int activitiesDeleted =
+            boardActivityRepository.deleteByBoardId(id);
+
+    System.out.println(
+            "Activities deleted: " + activitiesDeleted);
+
+    int membersDeleted =
+            boardMemberRepository.deleteByBoardId(id);
+
+    System.out.println(
+            "Members deleted: " + membersDeleted);
+
+    boardActivityRepository.flush();
+    boardMemberRepository.flush();
+
+    System.out.println("Deleting board now...");
+
+    boardRepository.deleteById(id);
+
+    System.out.println("========== DELETE BOARD END ==========");
+}
+
+}

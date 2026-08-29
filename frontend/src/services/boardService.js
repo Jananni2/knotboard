@@ -1,52 +1,52 @@
-import api from "./api";
+ import api from "./api";
 
 const boardService = {
-    // POST /boards
+    // POST /api/boards
     createBoard: async (boardData) => {
-        const response = await api.post("/boards", boardData);
+        const response = await api.post("/api/boards", boardData);
         return response.data;
     },
 
-    // GET /boards?page={page}&size={size}
-    getBoards: async (page = 0, size = 10) => {
+    // GET /api/boards?page={page}&size={size}
+    getBoards: async (page = 0, size = 6) => {
         const response = await api.get(
-            `/boards?page=${page}&size=${size}`
+            `/api/boards?page=${page}&size=${size}`
         );
         return response.data;
     },
 
-    // GET /boards/{id}
+    // GET /api/boards/{id}
     getBoardById: async (id) => {
-        const response = await api.get(`/boards/${id}`);
+        const response = await api.get(`/api/boards/${id}`);
         return response.data;
     },
 
-    // GET /insights/board/{id}
+    // GET /api/insights/board/{id}
     getBoardInsights: async (id) => {
-        const response = await api.get(`/insights/board/${id}`);
+        const response = await api.get(`/api/insights/board/${id}`);
         return response.data;
     },
 
-    // POST /members/invite?boardId={boardId}&userId={userId}
+    // POST /api/members/invite?boardId={boardId}&userId={userId}
     inviteMember: async (boardId, userId) => {
         const response = await api.post(
-            `/members/invite?boardId=${boardId}&userId=${userId}`
+            `/api/members/invite?boardId=${boardId}&userId=${userId}`
         );
         return response.data;
     },
 
-    // GET /insights/workspace/stats
+    // GET /api/insights/workspace/stats
     getWorkspaceStats: async () => {
         const response = await api.get(
-            "/insights/workspace/stats"
+            "/api/insights/workspace/stats"
         );
         return response.data;
     },
 
-    // PUT /boards/{id}/settings?maxCapacity={maxCapacity}&status={status}
+    // PUT /api/boards/{id}/settings?maxCapacity={maxCapacity}&status={status}
     updateSettings: async (id, maxCapacity, status) => {
         const response = await api.put(
-            `/boards/${id}/settings?maxCapacity=${maxCapacity}&status=${status}`
+            `/api/boards/${id}/settings?maxCapacity=${maxCapacity}&status=${status}`
         );
         return response.data;
     }
