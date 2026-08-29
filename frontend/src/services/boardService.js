@@ -3,14 +3,14 @@
 const boardService = {
     // POST /boards
     createBoard: async (boardData) => {
-        const response = await api.post("api/boards", boardData);
+        const response = await api.post("/api/boards", boardData);
         return response.data;
     },
 
     // GET /boards?page={page}&size={size}
     getBoards: async (page = 0, size = 6) => {
         const response = await api.get(
-            `/boards?page=${page}&size=${size}`
+            `/api/boards?page=${page}&size=${size}`
         );
         return response.data;
     },
