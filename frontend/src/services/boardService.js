@@ -3,7 +3,7 @@
 const boardService = {
     // POST /boards
     createBoard: async (boardData) => {
-        const response = await api.post("/boards", boardData);
+        const response = await api.post("api/boards", boardData);
         return response.data;
     },
 
