@@ -4,7 +4,7 @@ const noteService = {
     // GET /notes/board/{boardId}
     getNotesByBoard: async (boardId) => {
         const response = await api.get(
-            `/notes/board/${boardId}`
+            `/api/notes/board/${boardId}`
         );
         return response.data;
     },
@@ -12,7 +12,7 @@ const noteService = {
     // POST /notes
     addNote: async (noteData) => {
         const response = await api.post(
-            "/notes",
+            "/api/notes",
             noteData
         );
         return response.data;
@@ -21,7 +21,7 @@ const noteService = {
     // PUT /notes/{id}/move
     moveNote: async (id, x, y, version) => {
         const response = await api.put(
-            `/notes/${id}/move`,
+            `/api/notes/${id}/move`,
             {
                 x,
                 y,
