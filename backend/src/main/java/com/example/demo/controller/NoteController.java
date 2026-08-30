@@ -52,7 +52,7 @@ public class NoteController {
 
         return ResponseEntity.ok(
                 noteService.updateNotePosition(id, dto, user));
-    }
+    }  
 
     @PutMapping("/{id}/content")
     public ResponseEntity<NoteDto> updateContent(
