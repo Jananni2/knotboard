@@ -1,20 +1,58 @@
  import React from "react";
- 
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../store/slices/authSlice";
+
 function Navbar() {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    const user = useSelector((state) => state.auth?.user);
+    const token = useSelector((state) => state.auth?.token);
+
+    const handleLogout = () => {
+        dispatch(logout());
+        navigate("/login");
+    };
+
+    // Don't show navbar on login page / when not logged in
+    if (!token) {
+        return null;
+    }
+
     return (
         <nav className="navbar">
             <div className="navbar-brand">
-                KnotBoard
+                <Link to="/">KnotBoard</Link>
             </div>
 
             <div className="navbar-links">
-                <a href="/dashboard">
+                <Link to="/dashboard">
                     Dashboard
-                </a>
+                </Link>
 
-                <a href="/settings">
-                    Settings
-                </a>
+                {user?.role === "FACILITATOR" && (
+                    <Link to="/settings">
+                        Settings
+                    </Link>
+                )}
+            </div>
+
+            <div className="navbar-user">
+                <span>
+                    Signed in as{"  "}
+                    <strong>
+                        {user?.username || "User"}
+                    </strong>
+                </span>
+
+                <button
+                    type="button"
+                    className="btn-logout"
+                    onClick={handleLogout}
+                >
+                    Logout
+                </button>
             </div>
         </nav>
     );
