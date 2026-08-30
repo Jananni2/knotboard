@@ -9,6 +9,7 @@ import Login from "./Login";
 import Dashboard from "./Dashboard";
 import Navbar from "./layout/Navbar";
 import BoardCanvas from "./components/board/BoardCanvas";
+import BoardForm from "/"
 import ErrorHandler from "./components/ErrorHandler";
 import NotificationStack from "./components/NotificationStack";
 
