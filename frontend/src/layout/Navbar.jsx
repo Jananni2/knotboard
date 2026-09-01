@@ -8,17 +8,17 @@ function Navbar() {
     const navigate = useNavigate();
 
     const user = useSelector((state) => state.auth?.user);
-    const token = useSelector((state) => state.auth?.token);
+    // const token = useSelector((state) => state.auth?.token);
 
     const handleLogout = () => {
         dispatch(logout());
         navigate("/login");
     };
 
-    // Don't show navbar on login page / when not logged in
-    if (!token) {
-        return null;
-    }
+    // // Don't show navbar on login page / when not logged in
+    // if (!token) {
+    //     return null;
+    // }
 
     return (
         <nav className="navbar">
