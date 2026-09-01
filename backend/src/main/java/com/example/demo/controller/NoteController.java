@@ -43,7 +43,7 @@ public class NoteController {
         return ResponseEntity.ok(
                 noteService.getActiveNotesByBoard(boardId));
     }
-`/api/notes/${id}/move`,
+ 
     @PutMapping("/{id}/move")
     public ResponseEntity<NoteDto> moveNote(
             @PathVariable Long id,
