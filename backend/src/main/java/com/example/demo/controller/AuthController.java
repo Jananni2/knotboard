@@ -19,6 +19,7 @@ import com.example.demo.service.AuthService;
 
 @RestController
 @RequestMapping("/api/auth")
+
 public class AuthController {
 
 @Autowired
