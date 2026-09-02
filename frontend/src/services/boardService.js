@@ -10,7 +10,7 @@ const boardService = {
     // GET /boards?page={page}&size={size}
     getBoards: async (page = 0, size = 6) => {
         const response = await api.get(
-            `/api/boards?page=${page}&size=${size}`
+            `/boards?page=${page}&size=${size}`
         );
         return response.data;
     },
