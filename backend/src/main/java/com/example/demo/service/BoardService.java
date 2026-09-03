@@ -87,7 +87,11 @@ public class BoardService {
 
         BrainstormingBoard board = boardRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Board not found"));
+System.out.println("Board facilitator ID: "
+        + board.getFacilitator().getId());
 
+System.out.println("Logged in actor ID: "
+        + actor.getId());
         if (board.getFacilitator().getId() != actor.getId()) {
             throw new RuntimeException("Only the facilitator can update board settings");
         }
