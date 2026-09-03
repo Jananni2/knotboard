@@ -39,7 +39,7 @@ function App() {
                             element={<Login />}
                         />
 
-                        {/* Dashboard */}
+                        Dashboard
                         <Route
                             path="/"
                             element={<Dashboard />}
