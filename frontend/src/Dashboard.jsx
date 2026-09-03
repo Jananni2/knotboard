@@ -1,7 +1,7 @@
  import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, Navigate } from "react-router-dom";
-import DomainChart from "./components/common/DomainChart";
+import 
 import {
     fetchBoards,
     createBoard,
@@ -440,7 +440,7 @@ function Dashboard() {
 
                                 </div>
 
-<DomainChart data={domainData} />
+ <DomainChart data={workspaceStats} />
                                 {/* Capacity */}
                                 <div className="form-group">
 
