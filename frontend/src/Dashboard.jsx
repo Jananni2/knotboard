@@ -440,7 +440,7 @@ function Dashboard() {
 
                                 </div>
 
-
+<DomainChart data={domainData} />
                                 {/* Capacity */}
                                 <div className="form-group">
 
