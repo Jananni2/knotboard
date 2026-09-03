@@ -1,7 +1,7 @@
  import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, Navigate } from "react-router-dom";
-
+import DomainChart from "./components/common/DomainChart";
 import {
     fetchBoards,
     createBoard,
@@ -37,6 +37,7 @@ function Dashboard() {
      * This MUST be before the conditional return because
      * React hooks cannot be called conditionally.
      */
+    <DomainChart data={domainData} />
     useEffect(() => {
         if (auth?.token) {
             dispatch(
