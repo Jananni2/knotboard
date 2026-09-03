@@ -52,16 +52,22 @@ public class BoardController {
         return ResponseEntity.ok(boardService.getBoardById(id));
     }
 
-    @PutMapping("/{id}/settings")
-    public ResponseEntity<BoardDto> updateSettings(
-            @PathVariable Long id,
-            @RequestParam Integer maxCapacity,
-            @RequestParam String status,
-            @AuthenticationPrincipal AppUser user) {
+     @PutMapping("/{id}/settings")
+public ResponseEntity<BoardDto> updateSettings(
+        @PathVariable Long id,
+        @RequestParam(required = false) Integer maxCapacity,
+        @RequestParam(required = false) String status,
+        @AuthenticationPrincipal AppUser user) {
 
-        return ResponseEntity.ok(
-                boardService.updateBoardSettings(id, maxCapacity, status, user));
-    }
+    return ResponseEntity.ok(
+            boardService.updateBoardSettings(
+                    id,
+                    maxCapacity,
+                    status,
+                    user
+            )
+    );
+}
  
 @DeleteMapping("/{id}")
 public ResponseEntity<String> deleteBoard(@PathVariable Long id) {
