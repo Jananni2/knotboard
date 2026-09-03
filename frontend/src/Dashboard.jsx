@@ -439,8 +439,7 @@ function Dashboard() {
                                     />
 
                                 </div>
-
- <DomainChart data={workspaceStats} />
+ 
                                 {/* Capacity */}
                                 <div className="form-group">
 
