@@ -32,7 +32,7 @@ function Navbar() {
                 </Link>
 
                 {user?.role === "FACILITATOR" && (
-                    <Link to="/admin">
+                    <Link to="/settings">
                         Settings
                     </Link>
                 )}

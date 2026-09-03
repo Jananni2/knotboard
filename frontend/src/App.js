@@ -39,9 +39,9 @@ function App() {
                             path="/login"
                             element={<Login />}
                         />
-                        <Route
+                        {/* <Route
     path="/settings"
-    element={<FacilitatorSettings />}
+    element={<FacilitatorSettings />} */}
 />
 
                         Dashboard
