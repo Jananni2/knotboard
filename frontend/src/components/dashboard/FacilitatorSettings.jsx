@@ -1,4 +1,4 @@
- ```jsx
+  
 import React, { useEffect, useState } from "react";
 import boardService from "../services/boardService";
 
@@ -214,4 +214,4 @@ function FacilitatorSettings() {
 }
 
 export default FacilitatorSettings;
-```
+ 
