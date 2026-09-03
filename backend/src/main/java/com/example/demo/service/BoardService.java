@@ -88,9 +88,9 @@ public class BoardService {
         BrainstormingBoard board = boardRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Board not found"));
 
-    if (!Objects.equals(board.getFacilitator().getId(), actor.getId())) {
-    throw new RuntimeException("Only the facilitator can update board settings");
-}
+        if (board.getFacilitator().getId() != actor.getId()) {
+            throw new RuntimeException("Only the facilitator can update board settings");
+        }
 
         if (maxNoteCapacity != null) {
 
