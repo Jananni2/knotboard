@@ -1,5 +1,6 @@
+ ```jsx
 import React, { useEffect, useState } from "react";
-import boardService from "../../services/boardService";
+import boardService from "../services/boardService";
 
 function FacilitatorSettings() {
     const [boards, setBoards] = useState([]);
@@ -10,28 +11,6 @@ function FacilitatorSettings() {
         message: "",
         isError: false
     });
-
-    useEffect(() => {
-      
-
-    const loadBoards = async () => {
-        try {
-            setLoading(true);
-
-            const response = await boardService.getBoards(0, 50);
-
-            // Handles different possible response formats
-            const data = response?.data ?? response;
-
-            setBoards(Array.isArray(data) ? data : data?.content || []);
-        } catch (error) {
-            showToast("Failed to fetch boards", true);
-        } finally {
-            setLoading(false);
-        }
-    };
-   loadBoards();
-    }, []);
 
     const showToast = (message, isError = false) => {
         setToast({
@@ -49,8 +28,32 @@ function FacilitatorSettings() {
         }, 3000);
     };
 
+    useEffect(() => {
+        const loadBoards = async () => {
+            try {
+                setLoading(true);
+
+                const response = await boardService.getBoards(0, 50);
+
+                const data = response?.data ?? response;
+
+                setBoards(
+                    Array.isArray(data)
+                        ? data
+                        : data?.content || []
+                );
+            } catch (error) {
+                showToast("Failed to fetch boards", true);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        loadBoards();
+    }, []);
+
     const handleUpdateCapacity = async (board) => {
-        const capacity = Number(board.maxCapacity);
+        const capacity = Number(board.maxNoteCapacity);
 
         if (!capacity || capacity < 1) {
             showToast("Capacity must be greater than 0", true);
@@ -79,7 +82,9 @@ function FacilitatorSettings() {
             );
 
             setBoards((prevBoards) =>
-                prevBoards.filter((board) => board.id !== boardId)
+                prevBoards.filter(
+                    (board) => board.id !== boardId
+                )
             );
 
             showToast("Board archived");
@@ -94,7 +99,7 @@ function FacilitatorSettings() {
                 board.id === boardId
                     ? {
                           ...board,
-                          maxCapacity: value
+                          maxNoteCapacity: value
                       }
                     : board
             )
@@ -115,6 +120,7 @@ function FacilitatorSettings() {
             <h1>Facilitator Controls</h1>
 
             <table className="board-table">
+
                 <thead>
                     <tr>
                         <th>Board Title</th>
@@ -125,14 +131,19 @@ function FacilitatorSettings() {
                 </thead>
 
                 <tbody>
+
                     {boards.length === 0 ? (
+
                         <tr>
                             <td colSpan="4">
                                 No boards found
                             </td>
                         </tr>
+
                     ) : (
+
                         boards.map((board) => (
+
                             <tr key={board.id}>
 
                                 <td>
@@ -140,13 +151,15 @@ function FacilitatorSettings() {
                                 </td>
 
                                 <td>
-                                    {board.notesCount ?? 0}
+                                    {board.currentNoteCount ?? 0}
                                 </td>
 
                                 <td>
                                     <input
                                         type="number"
-                                        value={board.maxCapacity ?? ""}
+                                        value={
+                                            board.maxNoteCapacity ?? ""
+                                        }
                                         min="1"
                                         onChange={(e) =>
                                             handleCapacityChange(
@@ -164,7 +177,9 @@ function FacilitatorSettings() {
                                     <button
                                         className="btn-danger-soft"
                                         onClick={() =>
-                                            handleArchiveBoard(board.id)
+                                            handleArchiveBoard(
+                                                board.id
+                                            )
                                         }
                                     >
                                         Archive
@@ -172,9 +187,13 @@ function FacilitatorSettings() {
                                 </td>
 
                             </tr>
+
                         ))
+
                     )}
+
                 </tbody>
+
             </table>
 
             {toast.show && (
@@ -195,3 +214,4 @@ function FacilitatorSettings() {
 }
 
 export default FacilitatorSettings;
+```
