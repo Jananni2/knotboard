@@ -37,7 +37,7 @@ function Dashboard() {
      * This MUST be before the conditional return because
      * React hooks cannot be called conditionally.
      */
-    <DomainChart data={domainData} />
+    
     useEffect(() => {
         if (auth?.token) {
             dispatch(
