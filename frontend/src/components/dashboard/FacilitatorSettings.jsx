@@ -12,8 +12,7 @@ function FacilitatorSettings() {
     });
 
     useEffect(() => {
-        loadBoards();
-    }, []);
+      
 
     const loadBoards = async () => {
         try {
@@ -31,6 +30,7 @@ function FacilitatorSettings() {
             setLoading(false);
         }
     };
+}
 
     const showToast = (message, isError = false) => {
         setToast({
