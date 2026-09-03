@@ -93,7 +93,7 @@ System.out.println("Board facilitator ID: "
 System.out.println("Logged in actor ID: "
         + actor.getId());
         if (board.getFacilitator().getId() != actor.getId()) {
-            throw new RuntimeException("Only the facilitator can update board settings");
+            throw new RuntimeException("Only thaaae facilitator can update board settings");
         }
 
         if (maxNoteCapacity != null) {
