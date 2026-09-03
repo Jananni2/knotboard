@@ -55,7 +55,7 @@ public class BoardController {
      @PutMapping("/{id}/settings")
 public ResponseEntity<BoardDto> updateSettings(
         @PathVariable Long id,
-        @RequestParam(required = false) Integer maxCapacity,
+        @RequestParam(required = false) Integer maxNoteCapacity,
         @RequestParam(required = false) String status,
         @AuthenticationPrincipal AppUser user) {
 
