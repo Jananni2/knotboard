@@ -3,34 +3,27 @@
 const boardService = {
     // POST /boards
     createBoard: async (boardData) => {
-        const response = await api.post(
-            "/api/boards",
-            boardData
-        );
+        const response = await api.post("/api/boards", boardData);
         return response.data;
     },
 
     // GET /boards?page={page}&size={size}
     getBoards: async (page = 0, size = 6) => {
         const response = await api.get(
-            `/api/boards?page=${page}&size=${size}`
+            `api/boards?page=${page}&size=${size}`
         );
         return response.data;
     },
 
     // GET /boards/{id}
     getBoardById: async (id) => {
-        const response = await api.get(
-            `/api/boards/${id}`
-        );
+        const response = await api.get(`/api/boards/${id}`);
         return response.data;
     },
 
     // GET /insights/board/{id}
     getBoardInsights: async (id) => {
-        const response = await api.get(
-            `/api/insights/board/${id}`
-        );
+        const response = await api.get(`/api/insights/board/${id}`);
         return response.data;
     },
 
@@ -52,28 +45,9 @@ const boardService = {
 
     // PUT /boards/{id}/settings
     updateSettings: async (id, maxCapacity, status) => {
-        const params = new URLSearchParams();
-
-        // Only send maxCapacity if it has a value
-        if (
-            maxCapacity !== null &&
-            maxCapacity !== undefined
-        ) {
-            params.append("maxCapacity", maxCapacity);
-        }
-
-        // Only send status if it has a value
-        if (
-            status !== null &&
-            status !== undefined
-        ) {
-            params.append("status", status);
-        }
-
         const response = await api.put(
-            `/api/boards/${id}/settings?${params.toString()}`
+            `/api/boards/${id}/settings?maxCapacity=${maxCapacity}&status=${status}`
         );
-
         return response.data;
     }
 };
