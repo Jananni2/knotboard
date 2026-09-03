@@ -1,4 +1,4 @@
-import React from "react";
+ import React from "react";
 
 function CapacityBar({ current, max }) {
     const percent = Math.min((current / max) * 100, 100);
@@ -6,11 +6,11 @@ function CapacityBar({ current, max }) {
     let barColor;
 
     if (percent > 90) {
-        barColor = "#ef4444";
+        barColor = "#ef4444";       // red
     } else if (percent > 70) {
-        barColor = "#f59e0b";
+        barColor = "#f59e0b";       // orange
     } else {
-        barColor = "#10b981";
+        barColor = "#10b981";       // green
     }
 
     return (
