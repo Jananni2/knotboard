@@ -62,7 +62,7 @@ public ResponseEntity<BoardDto> updateSettings(
     return ResponseEntity.ok(
             boardService.updateBoardSettings(
                     id,
-                    maxCapacity,
+                    maxNoteCapacity,
                     status,
                     user
             )

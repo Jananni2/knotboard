@@ -44,9 +44,9 @@ const boardService = {
     },
 
     // PUT /boards/{id}/settings
-    updateSettings: async (id, maxCapacity, status) => {
+    updateSettings: async (id, maxNoteCapacity, status) => {
         const response = await api.put(
-            `/api/boards/${id}/settings?maxCapacity=${maxCapacity}&status=${status}`
+            `/api/boards/${id}/settings?maxNoteCapacity=${maxNoteCapacity}&status=${status}`
         );
         return response.data;
     }
