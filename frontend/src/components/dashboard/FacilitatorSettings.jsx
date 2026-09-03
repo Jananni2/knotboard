@@ -30,7 +30,8 @@ function FacilitatorSettings() {
             setLoading(false);
         }
     };
-}
+   loadBoards();
+    }, []);
 
     const showToast = (message, isError = false) => {
         setToast({
