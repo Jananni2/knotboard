@@ -19,7 +19,7 @@ import StickyNoteForm from "./components/board/StickyNoteForm";
 
 import ErrorHandler from "./components/ErrorHandler";
 import NotificationStack from "./components/NotificationStack";
-import CapacityBar from "./components/common/CapacityBar";
+ 
 
 function App() {
     return (
