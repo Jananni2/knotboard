@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
@@ -11,6 +11,8 @@ import {
     updateNoteContent,
     clearError
 } from "../../store/slices/noteSlice";
+
+import CapacityBar from "../common/CapacityBar";
 
 function BoardCanvas() {
     const { id } = useParams();
@@ -185,6 +187,13 @@ function BoardCanvas() {
                 minHeight: "600px"
             }}
         >
+
+            {/* Board Capacity */}
+            <CapacityBar
+                current={items.length}
+                max={50}
+            />
+
             {loading && (
                 <p>Loading notes...</p>
             )}
@@ -206,23 +215,25 @@ function BoardCanvas() {
                             : "grab"
                     }}
                 >
-                     <textarea
-    value={
-        editedContent[note.id] !== undefined
-            ? editedContent[note.id]
-            : note.content
-    }
-    readOnly={isStakeholder}
-    onChange={(e) => {
-        if (!isStakeholder) {
-            setEditedContent((prev) => ({
-                ...prev,
-                [note.id]: e.target.value
-            }));
-        }
-    }}
-    onBlur={(e) => handleContentBlur(note, e)}
-/>
+                    <textarea
+                        value={
+                            editedContent[note.id] !== undefined
+                                ? editedContent[note.id]
+                                : note.content
+                        }
+                        readOnly={isStakeholder}
+                        onChange={(e) => {
+                            if (!isStakeholder) {
+                                setEditedContent((prev) => ({
+                                    ...prev,
+                                    [note.id]: e.target.value
+                                }));
+                            }
+                        }}
+                        onBlur={(e) =>
+                            handleContentBlur(note, e)
+                        }
+                    />
 
                     {!isStakeholder && (
                         <button
@@ -276,6 +287,7 @@ function BoardCanvas() {
                         : error.message || "Something went wrong"}
                 </div>
             )}
+
         </div>
     );
 }
