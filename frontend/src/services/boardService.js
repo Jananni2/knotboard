@@ -42,14 +42,33 @@ const boardService = {
         );
         return response.data;
     },
+ 
+// PUT /boards/{id}/settings
+updateSettings: async (id, maxNoteCapacity, status) => {
+    const params = new URLSearchParams();
 
-    // PUT /boards/{id}/settings
-    updateSettings: async (id, maxNoteCapacity, status) => {
-        const response = await api.put(
-            `/api/boards/${id}/settings?maxNoteCapacity=${maxNoteCapacity}&status=${status}`
-        );
-        return response.data;
+    if (
+        maxNoteCapacity !== null &&
+        maxNoteCapacity !== undefined
+    ) {
+        params.append("maxNoteCapacity", maxNoteCapacity);
     }
+
+    if (
+        status !== null &&
+        status !== undefined
+    ) {
+        params.append("status", status);
+    }
+
+    const response = await api.put(
+        `/api/boards/${id}/settings?${params.toString()}`
+    );
+
+    return response.data;
+}
+ 
+
 };
 
 export default boardService;
