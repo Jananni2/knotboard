@@ -40,7 +40,7 @@ function App() {
                             element={<Login />}
                         />
                         <Route
-    path="/facilitator-settings"
+    path="/settings"
     element={<FacilitatorSettings />}
 />
 
