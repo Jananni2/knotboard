@@ -44,11 +44,7 @@ function App() {
                             path="/"
                             element={<Dashboard />}
                         />
-
-                        <Route
-                            path="/dashboard"
-                            element={<Dashboard />}
-                        />
+ 
 
                         {/* Board */}
                         <Route
