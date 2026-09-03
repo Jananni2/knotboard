@@ -193,6 +193,7 @@ function Dashboard() {
 
             </div>
 
+ <DomainChart data={workspaceStats} />
 
             {/* Loading State */}
             {loading && (
