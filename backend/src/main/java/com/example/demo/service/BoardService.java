@@ -81,7 +81,7 @@ public class BoardService {
 
     @Transactional
     public BoardDto updateBoardSettings(Long id,
-                                        Integer maxCapacity,
+                                        Integer maxNoteCapacity,
                                         String status,
                                         AppUser actor) {
 
@@ -92,15 +92,15 @@ public class BoardService {
             throw new RuntimeException("Only the facilitator can update board settings");
         }
 
-        if (maxCapacity != null) {
+        if (maxNoteCapacity != null) {
 
-            if (maxCapacity < board.getCurrentNoteCount()) {
+            if (maxNoteCapacity < board.getCurrentNoteCount()) {
                 throw new RuntimeException(
                         "Cannot decrease capacity below current note count (" +
                                 board.getCurrentNoteCount() + ")");
             }
 
-            board.setMaxNoteCapacity(maxCapacity);
+            board.setMaxNoteCapacity(maxNoteCapacity);
         }
 
         if (status != null) {
