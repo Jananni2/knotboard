@@ -21,7 +21,7 @@ const noteService = {
     // PUT /notes/{id}/move
     moveNote: async (id, x, y, version) => {
         const response = await api.put(
-            `/notes/${id}/move`,
+            `api/notes/${id}/move`,
             {
                 x,
                 y,
