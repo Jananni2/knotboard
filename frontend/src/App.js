@@ -19,7 +19,7 @@ import StickyNoteForm from "./components/board/StickyNoteForm";
 
 import ErrorHandler from "./components/ErrorHandler";
 import NotificationStack from "./components/NotificationStack";
- 
+ import FacilitatorSettings from "./components/dashboard/FacilitatorSettings";
 
 function App() {
     return (
@@ -39,6 +39,10 @@ function App() {
                             path="/login"
                             element={<Login />}
                         />
+                        <Route
+    path="/facilitator-settings"
+    element={<FacilitatorSettings />}
+/>
 
                         Dashboard
                         <Route
