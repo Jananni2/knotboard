@@ -40,18 +40,18 @@ function Dashboard() {
      * React hooks cannot be called conditionally.
      */
     
-    useEffect(() => {
-        if (auth?.token) {
-            dispatch(
-                fetchBoards({
-                    page: page,
-                    size: 6
-                })
-            );
+    // useEffect(() => {
+    //     if (auth?.token) {
+    //         dispatch(
+    //             fetchBoards({
+    //                 page: page,
+    //                 size: 6
+    //             })
+    //         );
 
-            dispatch(fetchWorkspaceStats());
-        }
-    }, [dispatch, page, auth?.token]);
+    //         dispatch(fetchWorkspaceStats());
+    //     }
+    // }, [dispatch, page, auth?.token]);
 
     /*
      * Private route behavior.
