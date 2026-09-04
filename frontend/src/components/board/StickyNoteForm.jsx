@@ -19,22 +19,34 @@ function StickyNoteForm({ initialData, onSubmit, onClose }) {
     );
 
     const [success, setSuccess] = useState(false);
+    const [submitting, setSubmitting] = useState(false);
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
-       const formData = {
-    content,
-    colorCode,
-    x: initialData?.x || 100,
-    y: initialData?.y || 100
-};
+        // Prevent double submission
+        if (submitting) {
+            return;
+        }
 
-onSubmit(formData);
+        setSubmitting(true);
 
-        onSubmit(formData);
+        const formData = {
+            content,
+            colorCode,
+            x: initialData?.x || 100,
+            y: initialData?.y || 100
+        };
 
-        setSuccess(true);
+        try {
+            await onSubmit(formData);
+
+            setSuccess(true);
+        } catch (error) {
+            console.error("Failed to save note:", error);
+        } finally {
+            setSubmitting(false);
+        }
     };
 
     return (
@@ -74,6 +86,7 @@ onSubmit(formData);
                             setContent(e.target.value)
                         }
                         required
+                        disabled={submitting}
                     />
                 </div>
 
@@ -94,6 +107,7 @@ onSubmit(formData);
                                 onClick={() =>
                                     setColorCode(color)
                                 }
+                                disabled={submitting}
                                 style={{
                                     backgroundColor: color,
                                     width: "32px",
@@ -103,7 +117,9 @@ onSubmit(formData);
                                         colorCode === color
                                             ? "2px solid #2563eb"
                                             : "1px solid #ccc",
-                                    cursor: "pointer"
+                                    cursor: submitting
+                                        ? "not-allowed"
+                                        : "pointer"
                                 }}
                             />
                         ))}
@@ -111,8 +127,13 @@ onSubmit(formData);
                     </div>
                 </div>
 
-                <button type="submit">
-                    {initialData?.id
+                <button
+                    type="submit"
+                    disabled={submitting}
+                >
+                    {submitting
+                        ? "Posting..."
+                        : initialData?.id
                         ? "Save Changes"
                         : "Post Note"}
                 </button>
