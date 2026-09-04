@@ -106,16 +106,16 @@ function Dashboard() {
     /*
      * Capacity percentage.
      */
-    const getCapacityPercentage = (current, max) => {
-        if (!max || max <= 0) {
-            return 0;
-        }
+    // const getCapacityPercentage = (current, max) => {
+    //     if (!max || max <= 0) {
+    //         return 0;
+    //     }
 
-        return Math.min(
-            (current / max) * 100,
-            100
-        );
-    };
+    //     return Math.min(
+    //         (current / max) * 100,
+    //         100
+    //     );
+    // };
 
     /*
      * Capacity color according to SRS.
@@ -233,11 +233,11 @@ function Dashboard() {
                             const maxNoteCapacity =
                                 board.maxNoteCapacity || 0;
 
-                            const percentage =
-                                getCapacityPercentage(
-                                    currentNoteCount,
-                                    maxNoteCapacity
-                                );
+                            // const percentage =
+                            //     getCapacityPercentage(
+                            //         currentNoteCount,
+                            //         maxNoteCapacity
+                            //     );
 
                             const capacityColor =
                                 getCapacityColor(
