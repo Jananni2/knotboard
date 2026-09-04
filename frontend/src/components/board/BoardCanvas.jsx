@@ -1,5 +1,4 @@
-
-import React, { useEffect, useState } from "react";
+ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
@@ -13,15 +12,23 @@ import {
     clearError
 } from "../../store/slices/noteSlice";
 
+import {
+    fetchBoardById
+} from "../../store/slices/boardSlice";
+
 import CapacityBar from "../common/CapacityBar";
 import StickyNoteForm from "./StickyNoteForm";
 
 function BoardCanvas() {
     const { id } = useParams();
     const dispatch = useDispatch();
-const board = useSelector(
-    (state) => state.boards.activeBoard
-);
+
+    // Get active board from Redux
+    const board = useSelector(
+        (state) => state.boards.activeBoard
+    );
+
+    // Get notes from Redux
     const {
         items,
         loading,
@@ -29,23 +36,42 @@ const board = useSelector(
         lastDeleted
     } = useSelector((state) => state.notes);
 
-    const user = useSelector((state) => state.auth?.user);
+    // Get logged-in user
+    const user = useSelector(
+        (state) => state.auth?.user
+    );
 
-    const isStakeholder = user?.role === "STAKEHOLDER";
+    const isStakeholder =
+        user?.role === "STAKEHOLDER";
 
     const [dragging, setDragging] = useState(null);
     const [showUndo, setShowUndo] = useState(false);
     const [showNoteForm, setShowNoteForm] = useState(false);
     const [editedContent, setEditedContent] = useState({});
 
-    // Fetch notes when board ID changes
+    // -----------------------------------------
+    // Fetch board + notes
+    // -----------------------------------------
     useEffect(() => {
         if (id) {
+            dispatch(fetchBoardById(id));
             dispatch(fetchNotes(id));
         }
     }, [id, dispatch]);
 
+    // -----------------------------------------
+    // Capacity values
+    // -----------------------------------------
+
+    // Number of notes currently displayed
+    const currentNoteCount = items.length;
+
+    // Maximum capacity coming from backend
+    const maxNoteCapacity = board?.maxNoteCapacity;
+
+    // -----------------------------------------
     // Show undo toast after deletion
+    // -----------------------------------------
     useEffect(() => {
         if (lastDeleted) {
             setShowUndo(true);
@@ -58,7 +84,9 @@ const board = useSelector(
         }
     }, [lastDeleted]);
 
+    // -----------------------------------------
     // Clear error after 5 seconds
+    // -----------------------------------------
     useEffect(() => {
         if (error) {
             const timer = setTimeout(() => {
@@ -69,18 +97,21 @@ const board = useSelector(
         }
     }, [error, dispatch]);
 
+    // -----------------------------------------
     // Start dragging
+    // -----------------------------------------
     const handleMouseDown = (e, note) => {
         if (isStakeholder) {
             return;
         }
 
-        // Do not start dragging when clicking textarea
+        // Don't drag when clicking textarea
         if (e.target.tagName === "TEXTAREA") {
             return;
         }
 
-        const rect = e.currentTarget.getBoundingClientRect();
+        const rect =
+            e.currentTarget.getBoundingClientRect();
 
         setDragging({
             id: note.id,
@@ -89,13 +120,16 @@ const board = useSelector(
         });
     };
 
+    // -----------------------------------------
     // Finish dragging
+    // -----------------------------------------
     const handleMouseUp = (e) => {
         if (!dragging) {
             return;
         }
 
-        const canvas = e.currentTarget.getBoundingClientRect();
+        const canvas =
+            e.currentTarget.getBoundingClientRect();
 
         const note = items.find(
             (item) => item.id === dragging.id
@@ -108,12 +142,16 @@ const board = useSelector(
 
         const newX = Math.max(
             0,
-            e.clientX - canvas.left - dragging.offsetX
+            e.clientX -
+                canvas.left -
+                dragging.offsetX
         );
 
         const newY = Math.max(
             0,
-            e.clientY - canvas.top - dragging.offsetY
+            e.clientY -
+                canvas.top -
+                dragging.offsetY
         );
 
         dispatch(
@@ -128,7 +166,9 @@ const board = useSelector(
         setDragging(null);
     };
 
+    // -----------------------------------------
     // Open sticky note form
+    // -----------------------------------------
     const handleAddNote = () => {
         if (isStakeholder) {
             return;
@@ -137,19 +177,30 @@ const board = useSelector(
         setShowNoteForm(true);
     };
 
-    // Submit new note from StickyNoteForm
-    const handleCreateNote = (noteData) => {
-        dispatch(
+    // -----------------------------------------
+    // Create note
+    // -----------------------------------------
+    const handleCreateNote = async (noteData) => {
+        if (isStakeholder) {
+            return;
+        }
+
+        const result = await dispatch(
             addNote({
                 ...noteData,
                 boardId: Number(id)
             })
         );
 
-        setShowNoteForm(false);
+        // Close form only if note was successfully created
+        if (addNote.fulfilled.match(result)) {
+            setShowNoteForm(false);
+        }
     };
 
+    // -----------------------------------------
     // Delete note
+    // -----------------------------------------
     const handleDelete = (noteId) => {
         if (isStakeholder) {
             return;
@@ -158,7 +209,9 @@ const board = useSelector(
         dispatch(deleteNote(noteId));
     };
 
+    // -----------------------------------------
     // Undo deletion
+    // -----------------------------------------
     const handleUndo = () => {
         if (!lastDeleted || isStakeholder) {
             return;
@@ -168,7 +221,9 @@ const board = useSelector(
         setShowUndo(false);
     };
 
+    // -----------------------------------------
     // Edit note content
+    // -----------------------------------------
     const handleContentBlur = (note, e) => {
         if (isStakeholder) {
             return;
@@ -185,6 +240,13 @@ const board = useSelector(
                 })
             );
         }
+
+        // Clear local edited value
+        setEditedContent((prev) => {
+            const updated = { ...prev };
+            delete updated[note.id];
+            return updated;
+        });
     };
 
     return (
@@ -197,16 +259,24 @@ const board = useSelector(
             }}
         >
 
- <CapacityBar
-    current={currentNoteCount}
-    max={maxNoteCapacity}
-/>
+            {/* =====================================
+                BOARD CAPACITY
+            ====================================== */}
+            <CapacityBar
+                current={currentNoteCount}
+                max={maxNoteCapacity}
+            />
 
+            {/* =====================================
+                LOADING
+            ====================================== */}
             {loading && (
                 <p>Loading notes...</p>
             )}
 
-            {/* Sticky Notes */}
+            {/* =====================================
+                STICKY NOTES
+            ====================================== */}
             {items.map((note) => (
                 <div
                     key={note.id}
@@ -224,26 +294,35 @@ const board = useSelector(
                             : "grab"
                     }}
                 >
+
                     <textarea
                         value={
-                            editedContent[note.id] !== undefined
+                            editedContent[note.id] !==
+                            undefined
                                 ? editedContent[note.id]
                                 : note.content
                         }
                         readOnly={isStakeholder}
                         onChange={(e) => {
                             if (!isStakeholder) {
-                                setEditedContent((prev) => ({
-                                    ...prev,
-                                    [note.id]: e.target.value
-                                }));
+                                setEditedContent(
+                                    (prev) => ({
+                                        ...prev,
+                                        [note.id]:
+                                            e.target.value
+                                    })
+                                );
                             }
                         }}
                         onBlur={(e) =>
-                            handleContentBlur(note, e)
+                            handleContentBlur(
+                                note,
+                                e
+                            )
                         }
                     />
 
+                    {/* Delete button */}
                     {!isStakeholder && (
                         <button
                             type="button"
@@ -258,7 +337,9 @@ const board = useSelector(
                 </div>
             ))}
 
-            {/* Add Note Button */}
+            {/* =====================================
+                ADD NOTE BUTTON
+            ====================================== */}
             {!isStakeholder && (
                 <button
                     type="button"
@@ -270,31 +351,41 @@ const board = useSelector(
                 </button>
             )}
 
-            {/* Sticky Note Form */}
+            {/* =====================================
+                STICKY NOTE FORM
+            ====================================== */}
             {showNoteForm && !isStakeholder && (
                 <StickyNoteForm
                     onSubmit={handleCreateNote}
-                    onClose={() => setShowNoteForm(false)}
+                    onClose={() =>
+                        setShowNoteForm(false)
+                    }
                 />
             )}
 
-            {/* Undo Toast */}
-            {showUndo && lastDeleted && !isStakeholder && (
-                <div className="undo-toast">
-                    <span>
-                        Note deleted.
-                    </span>
+            {/* =====================================
+                UNDO TOAST
+            ====================================== */}
+            {showUndo &&
+                lastDeleted &&
+                !isStakeholder && (
+                    <div className="undo-toast">
+                        <span>
+                            Note deleted.
+                        </span>
 
-                    <button
-                        type="button"
-                        onClick={handleUndo}
-                    >
-                        Undo
-                    </button>
-                </div>
-            )}
+                        <button
+                            type="button"
+                            onClick={handleUndo}
+                        >
+                            Undo
+                        </button>
+                    </div>
+                )}
 
-            {/* Error Toast */}
+            {/* =====================================
+                ERROR TOAST
+            ====================================== */}
             {error && (
                 <div
                     className="error-toast"
@@ -304,13 +395,12 @@ const board = useSelector(
                 >
                     {typeof error === "string"
                         ? error
-                        : error.message || "Something went wrong"}
+                        : error.message ||
+                          "Something went wrong"}
                 </div>
             )}
-
         </div>
     );
 }
 
 export default BoardCanvas;
- 
