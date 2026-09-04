@@ -26,46 +26,59 @@ public class NoteService {
     private final StickyNoteRepository noteRepository;
     private final BoardRepository boardRepository;
     private final BoardActivityRepository boardActivityRepository;
+ @Transactional
+public NoteDto addNote(NoteDto dto, AppUser user) {
 
-    @Transactional
-    public NoteDto addNote(NoteDto dto, AppUser user) {
-
-        if (user.getDomainRole() == DomainRole.STAKEHOLDER) {
-            throw new RuntimeException("Stakeholders cannot add notes");
-        }
-
-        BrainstormingBoard board = boardRepository.findById(dto.getBoardId())
-                .orElseThrow(() -> new RuntimeException("Board not found"));
-
-        if (board.getCurrentNoteCount() >= board.getMaxNoteCapacity()) {
-            throw new RuntimeException("Board capacity reached");
-        }
-
-        StickyNote note = StickyNote.builder()
-                .board(board)
-                .creator(user)
-                .content(dto.getContent())
-                .colorCode(dto.getColorCode())
-                .xPos(dto.getX())
-                .yPos(dto.getY())
-                .createdAt(LocalDateTime.now())
-                .build();
-
-        note = noteRepository.save(note);
-
-        board.setCurrentNoteCount(board.getCurrentNoteCount() + 1);
-        boardRepository.save(board);
-
-        String text = dto.getContent();
-        if (text.length() > 20) {
-            text = text.substring(0, 20) + "...";
-        }
-
-        logActivity(board, user, "Added a note: " + text);
-
-        return mapToDto(note);
+    if (user.getDomainRole() == DomainRole.STAKEHOLDER) {
+        throw new RuntimeException("Stakeholders cannot add notes");
     }
 
+    // Lock this board row until the transaction finishes
+    BrainstormingBoard board = boardRepository
+            .findByIdForUpdate(dto.getBoardId())
+            .orElseThrow(() -> new RuntimeException("Board not found"));
+
+    int currentCount = board.getCurrentNoteCount() == null
+            ? 0
+            : board.getCurrentNoteCount();
+
+    int maxCapacity = board.getMaxNoteCapacity() == null
+            ? 0
+            : board.getMaxNoteCapacity();
+
+    if (currentCount >= maxCapacity) {
+        throw new RuntimeException("Board capacity reached");
+    }
+
+    StickyNote note = StickyNote.builder()
+            .board(board)
+            .creator(user)
+            .content(dto.getContent())
+            .colorCode(dto.getColorCode())
+            .xPos(dto.getX())
+            .yPos(dto.getY())
+            .createdAt(LocalDateTime.now())
+            .build();
+
+    note = noteRepository.save(note);
+
+    board.setCurrentNoteCount(currentCount + 1);
+    boardRepository.save(board);
+
+    String text = dto.getContent();
+
+    if (text.length() > 20) {
+        text = text.substring(0, 20) + "...";
+    }
+
+    logActivity(
+            board,
+            user,
+            "Added a note: " + text
+    );
+
+    return mapToDto(note);
+}
     @Transactional(readOnly = true)
     public List<NoteDto> getActiveNotesByBoard(Long boardId) {
 
