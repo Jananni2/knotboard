@@ -22,8 +22,12 @@ export const addNote = createAsyncThunk(
         try {
             return await noteService.addNote(noteData);
         } catch (error) {
-            return rejectWithValue("Failed to add note: Board capacity reached");
-        }
+    return rejectWithValue(
+        error.response?.data?.message ||
+        error.response?.data ||
+        "Failed to add note"
+    );
+}
     }
 );
 
