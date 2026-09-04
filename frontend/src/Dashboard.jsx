@@ -1,8 +1,9 @@
  import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, Navigate } from "react-router-dom";
+
 import DomainChart from "./components/dashboard/DomainChart";
-import EmptyState  from "./components/common/EmptyState";
+import BoardForm from "./components/dashboard/BoardForm";
 
 import {
     fetchBoards,
@@ -13,6 +14,9 @@ import {
 function Dashboard() {
     const dispatch = useDispatch();
 
+    // -----------------------------------------
+    // Redux state
+    // -----------------------------------------
     const auth = useSelector((state) => state.auth);
     const boardState = useSelector((state) => state.boards);
 
@@ -20,26 +24,25 @@ function Dashboard() {
 
     const boards = boardState?.items || [];
     const loading = boardState?.loading || false;
-    const totalElements = boardState?.totalElements || 0;
-    const totalPages = boardState?.totalPages || 0;
-    const workspaceStats = boardState?.workspaceStats || {};
 
+    const totalElements =
+        boardState?.totalElements || 0;
+
+    const totalPages =
+        boardState?.totalPages || 0;
+
+    const workspaceStats =
+        boardState?.workspaceStats || {};
+
+    // -----------------------------------------
+    // Local state
+    // -----------------------------------------
     const [page, setPage] = useState(0);
     const [showModal, setShowModal] = useState(false);
 
-    const [newBoard, setNewBoard] = useState({
-        title: "",
-        description: "",
-        maxNoteCapacity: 5
-    });
-
-    /*
-     * Fetch boards and workspace statistics.
-     *
-     * This MUST be before the conditional return because
-     * React hooks cannot be called conditionally.
-     */
-    
+    // -----------------------------------------
+    // Fetch boards and workspace statistics
+    // -----------------------------------------
     useEffect(() => {
         if (auth?.token) {
             dispatch(
@@ -53,59 +56,41 @@ function Dashboard() {
         }
     }, [dispatch, page, auth?.token]);
 
-    /*
-     * Private route behavior.
-     * If there is no authentication token,
-     * redirect to login.
-     */
+    // -----------------------------------------
+    // Redirect if not logged in
+    // -----------------------------------------
     if (!auth?.token) {
         return <Navigate to="/login" replace />;
     }
 
-    /*
-     * Handle New Board form changes.
-     */
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-
-        setNewBoard((prev) => ({
-            ...prev,
-            [name]:
-                name === "maxNoteCapacity"
-                    ? Number(value)
-                    : value
-        }));
-    };
-
-    /*
-     * Create a new board.
-     */
-    const handleCreateBoard = async (e) => {
-        e.preventDefault();
-
-        await dispatch(createBoard(newBoard));
-
-        setNewBoard({
-            title: "",
-            description: "",
-            maxNoteCapacity: 5
-        });
-
-        setShowModal(false);
-
-        dispatch(
-            fetchBoards({
-                page: page,
-                size: 6
-            })
+    // -----------------------------------------
+    // Create new board
+    // -----------------------------------------
+    const handleCreateBoard = async (boardData) => {
+        const result = await dispatch(
+            createBoard(boardData)
         );
 
-        dispatch(fetchWorkspaceStats());
+        // Only close modal if creation succeeded
+        if (createBoard.fulfilled.match(result)) {
+            setShowModal(false);
+
+            // Refresh boards
+            dispatch(
+                fetchBoards({
+                    page: page,
+                    size: 6
+                })
+            );
+
+            // Refresh workspace statistics
+            dispatch(fetchWorkspaceStats());
+        }
     };
 
-    /*
-     * Capacity percentage.
-     */
+    // -----------------------------------------
+    // Capacity percentage
+    // -----------------------------------------
     const getCapacityPercentage = (current, max) => {
         if (!max || max <= 0) {
             return 0;
@@ -117,13 +102,9 @@ function Dashboard() {
         );
     };
 
-    /*
-     * Capacity color according to SRS.
-     *
-     * > 90%  = red
-     * >= 70% = amber
-     * < 70%  = green
-     */
+    // -----------------------------------------
+    // Capacity color
+    // -----------------------------------------
     const getCapacityColor = (current, max) => {
         if (!max || max <= 0) {
             return "#10b981";
@@ -143,6 +124,9 @@ function Dashboard() {
         return "#10b981";
     };
 
+    // -----------------------------------------
+    // Statistics
+    // -----------------------------------------
     const activeBoards =
         totalElements > 0
             ? totalElements
@@ -154,17 +138,20 @@ function Dashboard() {
     return (
         <div className="dashboard">
 
-            {/* Dashboard Header */}
+            {/* =====================================
+                DASHBOARD HEADER
+            ====================================== */}
             <div className="dashboard-header">
 
                 <div>
                     <h1>Project Workspace</h1>
 
                     <span>
-    Welcome back, {user?.username}!
-</span>
+                        Welcome back, {user?.username}!
+                    </span>
                 </div>
 
+                {/* New Board button only for Facilitator */}
                 {user?.role === "FACILITATOR" && (
                     <button
                         type="button"
@@ -180,7 +167,9 @@ function Dashboard() {
             </div>
 
 
-            {/* Statistics */}
+            {/* =====================================
+                STATISTICS
+            ====================================== */}
             <div className="stats-grid">
 
                 <div className="stat-card">
@@ -195,9 +184,16 @@ function Dashboard() {
 
             </div>
 
- <DomainChart data={workspaceStats} />
 
-            {/* Loading State */}
+            {/* =====================================
+                DOMAIN CHART
+            ====================================== */}
+            <DomainChart data={workspaceStats} />
+
+
+            {/* =====================================
+                LOADING STATE
+            ====================================== */}
             {loading && (
                 <div className="loading-state">
 
@@ -211,7 +207,9 @@ function Dashboard() {
             )}
 
 
-            {/* Empty Workspace */}
+            {/* =====================================
+                EMPTY WORKSPACE
+            ====================================== */}
             {!loading &&
                 boards.length === 0 && (
                     <div className="empty-state">
@@ -220,7 +218,9 @@ function Dashboard() {
                 )}
 
 
-            {/* Board Grid */}
+            {/* =====================================
+                BOARD GRID
+            ====================================== */}
             {!loading &&
                 boards.length > 0 && (
                     <div className="boards-grid">
@@ -271,7 +271,9 @@ function Dashboard() {
                                     </p>
 
 
-                                    {/* Capacity */}
+                                    {/* =================================
+                                        CAPACITY
+                                    ================================== */}
                                     <div className="capacity-section">
 
                                         <div className="capacity-label">
@@ -305,7 +307,9 @@ function Dashboard() {
                                     </div>
 
 
-                                    {/* Launch Board */}
+                                    {/* =================================
+                                        LAUNCH BOARD
+                                    ================================== */}
                                     <Link
                                         to={`/board/${board.id}`}
                                         className="launch-session"
@@ -321,7 +325,9 @@ function Dashboard() {
                 )}
 
 
-            {/* Pagination */}
+            {/* =====================================
+                PAGINATION
+            ====================================== */}
             {!loading &&
                 totalPages > 1 && (
                     <div className="pagination">
@@ -346,7 +352,8 @@ function Dashboard() {
                         <button
                             type="button"
                             disabled={
-                                page >= totalPages - 1
+                                page >=
+                                totalPages - 1
                             }
                             onClick={() =>
                                 setPage(
@@ -362,7 +369,9 @@ function Dashboard() {
                 )}
 
 
-            {/* New Board Modal */}
+            {/* =====================================
+                NEW BOARD MODAL
+            ====================================== */}
             {showModal &&
                 user?.role === "FACILITATOR" && (
 
@@ -370,113 +379,12 @@ function Dashboard() {
 
                         <div className="modal">
 
-                            {/* Modal Header */}
-                            <div className="modal-header">
-
-                                <h2>
-                                    New Board
-                                </h2>
-
-                                <button
-                                    type="button"
-                                    aria-label="Close"
-                                    onClick={() =>
-                                        setShowModal(false)
-                                    }
-                                >
-                                    ×
-                                </button>
-
-                            </div>
-
-
-                            {/* Board Form */}
-                            <form
-                                onSubmit={
-                                    handleCreateBoard
+                            <BoardForm
+                                onSubmit={handleCreateBoard}
+                                onClose={() =>
+                                    setShowModal(false)
                                 }
-                            >
-
-                                {/* Title */}
-                                <div className="form-group">
-
-                                    <label htmlFor="board-title">
-                                        Board Title
-                                    </label>
-
-                                    <input
-                                        id="board-title"
-                                        name="title"
-                                        type="text"
-                                        placeholder="eg, Sprint Planning"
-                                        value={
-                                            newBoard.title
-                                        }
-                                        onChange={
-                                            handleChange
-                                        }
-                                        required
-                                    />
-
-                                </div>
-
-
-                                {/* Description */}
-                                <div className="form-group">
-
-                                    <label htmlFor="board-description">
-                                        Description
-                                    </label>
-
-                                    <textarea
-                                        id="board-description"
-                                        name="description"
-                                        rows="3"
-                                        placeholder="What is this session about?"
-                                        value={
-                                            newBoard.description
-                                        }
-                                        onChange={
-                                            handleChange
-                                        }
-                                    />
-
-                                </div>
- 
-                                {/* Capacity */}
-                                <div className="form-group">
-
-                                    <label htmlFor="board-capacity">
-                                        Max Capacity (Notes)
-                                    </label>
-
-                                    <input
-                                        id="board-capacity"
-                                        name="maxNoteCapacity"
-                                        type="number"
-                                        min="5"
-                                        max="500"
-                                        value={
-                                            newBoard.maxNoteCapacity
-                                        }
-                                        onChange={
-                                            handleChange
-                                        }
-                                        required
-                                    />
-
-                                </div>
-
-
-                                {/* Submit */}
-                                <button
-                                    type="submit"
-                                    className="btn-primary-flex"
-                                >
-                                    Create Board
-                                </button>
-
-                            </form>
+                            />
 
                         </div>
 

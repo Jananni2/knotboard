@@ -1,12 +1,16 @@
-import React, { useState } from "react";
+ import React, { useState } from "react";
 
 function BoardForm({ initialData, onSubmit, onClose }) {
-    const [title, setTitle] = useState(initialData?.title || "");
+    const [title, setTitle] = useState(
+        initialData?.title || ""
+    );
+
     const [description, setDescription] = useState(
         initialData?.description || ""
     );
+
     const [capacity, setCapacity] = useState(
-        initialData?.maxCapacity || ""
+        initialData?.maxNoteCapacity || ""
     );
 
     const handleSubmit = (e) => {
@@ -15,7 +19,7 @@ function BoardForm({ initialData, onSubmit, onClose }) {
         const formData = {
             title,
             description,
-            maxCapacity: Number(capacity)
+            maxNoteCapacity: Number(capacity)
         };
 
         onSubmit(formData);
@@ -23,9 +27,12 @@ function BoardForm({ initialData, onSubmit, onClose }) {
 
     return (
         <div className="form-container">
+
             <div className="form-header">
                 <h2>
-                    {initialData?.id ? "Edit Board" : "Launch Board"}
+                    {initialData?.id
+                        ? "Edit Board"
+                        : "Launch Board"}
                 </h2>
 
                 <button
@@ -38,6 +45,8 @@ function BoardForm({ initialData, onSubmit, onClose }) {
             </div>
 
             <form onSubmit={handleSubmit}>
+
+                {/* Title */}
                 <div className="form-group">
                     <label htmlFor="board-title">
                         Board Title
@@ -47,12 +56,15 @@ function BoardForm({ initialData, onSubmit, onClose }) {
                         id="board-title"
                         type="text"
                         value={title}
-                        onChange={(e) => setTitle(e.target.value)}
+                        onChange={(e) =>
+                            setTitle(e.target.value)
+                        }
                         placeholder="e.g., Q3 Strategy Planning"
                         required
                     />
                 </div>
 
+                {/* Description */}
                 <div className="form-group">
                     <label htmlFor="board-description">
                         Description
@@ -68,6 +80,7 @@ function BoardForm({ initialData, onSubmit, onClose }) {
                     />
                 </div>
 
+                {/* Capacity */}
                 <div className="form-group">
                     <label htmlFor="board-capacity">
                         Max Capacity (Notes)
@@ -76,11 +89,11 @@ function BoardForm({ initialData, onSubmit, onClose }) {
                     <input
                         id="board-capacity"
                         type="number"
+                        min="1"
                         value={capacity}
                         onChange={(e) =>
                             setCapacity(e.target.value)
                         }
-                        min="1"
                         required
                     />
                 </div>
@@ -90,6 +103,7 @@ function BoardForm({ initialData, onSubmit, onClose }) {
                         ? "Update Board"
                         : "Launch Board"}
                 </button>
+
             </form>
         </div>
     );
