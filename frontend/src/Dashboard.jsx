@@ -2,7 +2,8 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Link, Navigate } from "react-router-dom";
 import DomainChart from "./components/dashboard/DomainChart";
-import EmptyState  from "./components/board/"
+import EmptyState  from "./components/common/EmptyState";
+
 import {
     fetchBoards,
     createBoard,
