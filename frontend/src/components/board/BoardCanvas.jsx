@@ -195,11 +195,7 @@ function BoardCanvas() {
             }}
         >
 
-            {/* Board Capacity */}
-            <CapacityBar
-                current={items.length}
-                max={50}
-            />
+            
 
             {loading && (
                 <p>Loading notes...</p>
