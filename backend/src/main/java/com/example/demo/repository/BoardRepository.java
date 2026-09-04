@@ -11,6 +11,7 @@ import com.example.demo.entity.BrainstormingBoard;
  import jakarta.persistence.LockModeType;
 import org.springframework.data.jpa.repository.Lock;
 import org.springframework.data.jpa.repository.Query;
+import java.util.Optional;
 import org.springframework.data.repository.query.Param;
 
 @Repository
