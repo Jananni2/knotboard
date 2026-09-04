@@ -14,3 +14,11 @@ public interface BoardRepository extends JpaRepository<BrainstormingBoard,Long> 
  Page<BrainstormingBoard>findAllByStatus(BrainstormingBoard.BoardStatus status,Pageable pageable);
     
  }
+ import jakarta.persistence.LockModeType;
+import org.springframework.data.jpa.repository.Lock;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
+@Lock(LockModeType.PESSIMISTIC_WRITE)
+@Query("SELECT b FROM BrainstormingBoard b WHERE b.id = :id")
+Optional<BrainstormingBoard> findByIdForUpdate(@Param("id") Long id);
