@@ -57,11 +57,7 @@ function App() {
                             element={<BoardCanvas />}
                         />
 
-                        {/* Sticky Note Form */}
-                        <Route
-                            path="/sticky-note"
-                            element={<StickyNoteForm />}
-                        />
+                        
 
                         {/* Unknown URL */}
                         <Route

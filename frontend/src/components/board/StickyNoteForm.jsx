@@ -23,10 +23,14 @@ function StickyNoteForm({ initialData, onSubmit, onClose }) {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        const formData = {
-            content,
-            colorCode
-        };
+       const formData = {
+    content,
+    colorCode,
+    x: initialData?.x || 100,
+    y: initialData?.y || 100
+};
+
+onSubmit(formData);
 
         onSubmit(formData);
 
