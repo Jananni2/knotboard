@@ -1,4 +1,5 @@
- import React, { useEffect, useState } from "react";
+
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
@@ -13,6 +14,7 @@ import {
 } from "../../store/slices/noteSlice";
 
 import CapacityBar from "../common/CapacityBar";
+import StickyNoteForm from "./StickyNoteForm";
 
 function BoardCanvas() {
     const { id } = useParams();
@@ -31,6 +33,7 @@ function BoardCanvas() {
 
     const [dragging, setDragging] = useState(null);
     const [showUndo, setShowUndo] = useState(false);
+    const [showNoteForm, setShowNoteForm] = useState(false);
     const [editedContent, setEditedContent] = useState({});
 
     // Fetch notes when board ID changes
@@ -123,21 +126,25 @@ function BoardCanvas() {
         setDragging(null);
     };
 
-    // Add new note
+    // Open sticky note form
     const handleAddNote = () => {
         if (isStakeholder) {
             return;
         }
 
+        setShowNoteForm(true);
+    };
+
+    // Submit new note from StickyNoteForm
+    const handleCreateNote = (noteData) => {
         dispatch(
             addNote({
-                boardId: Number(id),
-                content: "New Idea",
-                colorCode: "#fff9c4",
-                x: 100,
-                y: 100
+                ...noteData,
+                boardId: Number(id)
             })
         );
+
+        setShowNoteForm(false);
     };
 
     // Delete note
@@ -198,6 +205,7 @@ function BoardCanvas() {
                 <p>Loading notes...</p>
             )}
 
+            {/* Sticky Notes */}
             {items.map((note) => (
                 <div
                     key={note.id}
@@ -249,6 +257,7 @@ function BoardCanvas() {
                 </div>
             ))}
 
+            {/* Add Note Button */}
             {!isStakeholder && (
                 <button
                     type="button"
@@ -260,6 +269,15 @@ function BoardCanvas() {
                 </button>
             )}
 
+            {/* Sticky Note Form */}
+            {showNoteForm && !isStakeholder && (
+                <StickyNoteForm
+                    onSubmit={handleCreateNote}
+                    onClose={() => setShowNoteForm(false)}
+                />
+            )}
+
+            {/* Undo Toast */}
             {showUndo && lastDeleted && !isStakeholder && (
                 <div className="undo-toast">
                     <span>
@@ -275,6 +293,7 @@ function BoardCanvas() {
                 </div>
             )}
 
+            {/* Error Toast */}
             {error && (
                 <div
                     className="error-toast"
@@ -293,3 +312,4 @@ function BoardCanvas() {
 }
 
 export default BoardCanvas;
+ 
