@@ -1,4 +1,5 @@
- import React, { useEffect, useState } from "react";
+
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
@@ -12,10 +13,6 @@ import {
     clearError
 } from "../../store/slices/noteSlice";
 
-import {
-    fetchBoardById
-} from "../../store/slices/boardSlice";
-
 import CapacityBar from "../common/CapacityBar";
 import StickyNoteForm from "./StickyNoteForm";
 
@@ -23,9 +20,6 @@ function BoardCanvas() {
     const { id } = useParams();
     const dispatch = useDispatch();
 
-    // -----------------------------
-    // NOTES FROM REDUX
-    // -----------------------------
     const {
         items,
         loading,
@@ -33,44 +27,23 @@ function BoardCanvas() {
         lastDeleted
     } = useSelector((state) => state.notes);
 
-    // -----------------------------
-    // BOARD FROM REDUX
-    // -----------------------------
-    const board = useSelector(
-        (state) => state.boards.activeBoard
-    );
+    const user = useSelector((state) => state.auth?.user);
 
-    // -----------------------------
-    // USER
-    // -----------------------------
-    const user = useSelector(
-        (state) => state.auth?.user
-    );
+    const isStakeholder = user?.role === "STAKEHOLDER";
 
-    const isStakeholder =
-        user?.role === "STAKEHOLDER";
-
-    // -----------------------------
-    // LOCAL STATE
-    // -----------------------------
     const [dragging, setDragging] = useState(null);
     const [showUndo, setShowUndo] = useState(false);
-    const [editedContent, setEditedContent] = useState({});
     const [showNoteForm, setShowNoteForm] = useState(false);
+    const [editedContent, setEditedContent] = useState({});
 
-    // -----------------------------
-    // FETCH BOARD + NOTES
-    // -----------------------------
+    // Fetch notes when board ID changes
     useEffect(() => {
         if (id) {
             dispatch(fetchNotes(id));
-            dispatch(fetchBoardById(id));
         }
     }, [id, dispatch]);
 
-    // -----------------------------
-    // SHOW UNDO MESSAGE
-    // -----------------------------
+    // Show undo toast after deletion
     useEffect(() => {
         if (lastDeleted) {
             setShowUndo(true);
@@ -83,9 +56,7 @@ function BoardCanvas() {
         }
     }, [lastDeleted]);
 
-    // -----------------------------
-    // CLEAR ERROR
-    // -----------------------------
+    // Clear error after 5 seconds
     useEffect(() => {
         if (error) {
             const timer = setTimeout(() => {
@@ -96,44 +67,36 @@ function BoardCanvas() {
         }
     }, [error, dispatch]);
 
-    // -----------------------------
-    // DRAG START
-    // -----------------------------
+    // Start dragging
     const handleMouseDown = (e, note) => {
         if (isStakeholder) {
             return;
         }
 
+        // Do not start dragging when clicking textarea
         if (e.target.tagName === "TEXTAREA") {
             return;
         }
 
-        const rect =
-            e.currentTarget.getBoundingClientRect();
+        const rect = e.currentTarget.getBoundingClientRect();
 
         setDragging({
             id: note.id,
-            offsetX:
-                e.clientX - rect.left,
-            offsetY:
-                e.clientY - rect.top
+            offsetX: e.clientX - rect.left,
+            offsetY: e.clientY - rect.top
         });
     };
 
-    // -----------------------------
-    // DRAG END
-    // -----------------------------
+    // Finish dragging
     const handleMouseUp = (e) => {
         if (!dragging) {
             return;
         }
 
-        const canvas =
-            e.currentTarget.getBoundingClientRect();
+        const canvas = e.currentTarget.getBoundingClientRect();
 
         const note = items.find(
-            (item) =>
-                item.id === dragging.id
+            (item) => item.id === dragging.id
         );
 
         if (!note) {
@@ -143,16 +106,12 @@ function BoardCanvas() {
 
         const newX = Math.max(
             0,
-            e.clientX -
-                canvas.left -
-                dragging.offsetX
+            e.clientX - canvas.left - dragging.offsetX
         );
 
         const newY = Math.max(
             0,
-            e.clientY -
-                canvas.top -
-                dragging.offsetY
+            e.clientY - canvas.top - dragging.offsetY
         );
 
         dispatch(
@@ -167,9 +126,7 @@ function BoardCanvas() {
         setDragging(null);
     };
 
-    // -----------------------------
-    // OPEN ADD NOTE FORM
-    // -----------------------------
+    // Open sticky note form
     const handleAddNote = () => {
         if (isStakeholder) {
             return;
@@ -178,34 +135,19 @@ function BoardCanvas() {
         setShowNoteForm(true);
     };
 
-    // -----------------------------
-    // CREATE NOTE
-    // -----------------------------
-    const handleCreateNote = async (noteData) => {
-        if (isStakeholder) {
-            return;
-        }
-
-        await dispatch(
+    // Submit new note from StickyNoteForm
+    const handleCreateNote = (noteData) => {
+        dispatch(
             addNote({
-                boardId: Number(id),
-                content: noteData.content,
-                colorCode: noteData.colorCode,
-                x: noteData.x || 100,
-                y: noteData.y || 100
+                ...noteData,
+                boardId: Number(id)
             })
         );
 
         setShowNoteForm(false);
-
-        // Refresh board data so capacity count
-        // stays synchronized with backend.
-        dispatch(fetchBoardById(id));
     };
 
-    // -----------------------------
-    // DELETE NOTE
-    // -----------------------------
+    // Delete note
     const handleDelete = (noteId) => {
         if (isStakeholder) {
             return;
@@ -214,27 +156,17 @@ function BoardCanvas() {
         dispatch(deleteNote(noteId));
     };
 
-    // -----------------------------
-    // UNDO DELETE
-    // -----------------------------
-    const handleUndo = async () => {
+    // Undo deletion
+    const handleUndo = () => {
         if (!lastDeleted || isStakeholder) {
             return;
         }
 
-        await dispatch(
-            undoDelete(lastDeleted.id)
-        );
-
+        dispatch(undoDelete(lastDeleted.id));
         setShowUndo(false);
-
-        // Refresh board from backend
-        dispatch(fetchBoardById(id));
     };
 
-    // -----------------------------
-    // UPDATE CONTENT
-    // -----------------------------
+    // Edit note content
     const handleContentBlur = (note, e) => {
         if (isStakeholder) {
             return;
@@ -253,15 +185,6 @@ function BoardCanvas() {
         }
     };
 
-    // -----------------------------
-    // CAPACITY
-    // -----------------------------
-    const currentNoteCount =
-        items.length;
-
-    const maxNoteCapacity =
-        board?.maxNoteCapacity || 50;
-
     return (
         <div
             className="board-canvas"
@@ -272,84 +195,51 @@ function BoardCanvas() {
             }}
         >
 
-            {/* =========================
-                CAPACITY BAR
-            ========================== */}
-
+            {/* Board Capacity */}
             <CapacityBar
-                current={currentNoteCount}
-                max={maxNoteCapacity}
+                current={items.length}
+                max={50}
             />
 
-            {/* =========================
-                LOADING
-            ========================== */}
-
             {loading && (
-                <p>
-                    Loading notes...
-                </p>
+                <p>Loading notes...</p>
             )}
 
-            {/* =========================
-                STICKY NOTES
-            ========================== */}
-
+            {/* Sticky Notes */}
             {items.map((note) => (
                 <div
                     key={note.id}
                     className="sticky-note"
                     onMouseDown={(e) =>
-                        handleMouseDown(
-                            e,
-                            note
-                        )
+                        handleMouseDown(e, note)
                     }
                     style={{
                         position: "absolute",
                         left: `${note.x}px`,
                         top: `${note.y}px`,
-                        background:
-                            note.colorCode,
-                        cursor:
-                            isStakeholder
-                                ? "default"
-                                : "grab"
+                        background: note.colorCode,
+                        cursor: isStakeholder
+                            ? "default"
+                            : "grab"
                     }}
                 >
-
                     <textarea
                         value={
-                            editedContent[
-                                note.id
-                            ] !== undefined
-                                ? editedContent[
-                                      note.id
-                                  ]
+                            editedContent[note.id] !== undefined
+                                ? editedContent[note.id]
                                 : note.content
                         }
-                        readOnly={
-                            isStakeholder
-                        }
+                        readOnly={isStakeholder}
                         onChange={(e) => {
-                            if (
-                                !isStakeholder
-                            ) {
-                                setEditedContent(
-                                    (prev) => ({
-                                        ...prev,
-                                        [note.id]:
-                                            e.target
-                                                .value
-                                    })
-                                );
+                            if (!isStakeholder) {
+                                setEditedContent((prev) => ({
+                                    ...prev,
+                                    [note.id]: e.target.value
+                                }));
                             }
                         }}
                         onBlur={(e) =>
-                            handleContentBlur(
-                                note,
-                                e
-                            )
+                            handleContentBlur(note, e)
                         }
                     />
 
@@ -357,9 +247,7 @@ function BoardCanvas() {
                         <button
                             type="button"
                             onClick={() =>
-                                handleDelete(
-                                    note.id
-                                )
+                                handleDelete(note.id)
                             }
                             aria-label="Delete note"
                         >
@@ -369,10 +257,7 @@ function BoardCanvas() {
                 </div>
             ))}
 
-            {/* =========================
-                ADD NOTE BUTTON
-            ========================== */}
-
+            {/* Add Note Button */}
             {!isStakeholder && (
                 <button
                     type="button"
@@ -384,66 +269,41 @@ function BoardCanvas() {
                 </button>
             )}
 
-            {/* =========================
-                STICKY NOTE FORM
-            ========================== */}
+            {/* Sticky Note Form */}
+            {showNoteForm && !isStakeholder && (
+                <StickyNoteForm
+                    onSubmit={handleCreateNote}
+                    onClose={() => setShowNoteForm(false)}
+                />
+            )}
 
-            {showNoteForm &&
-                !isStakeholder && (
-                    <StickyNoteForm
-                        onSubmit={
-                            handleCreateNote
-                        }
-                        onClose={() =>
-                            setShowNoteForm(
-                                false
-                            )
-                        }
-                    />
-                )}
+            {/* Undo Toast */}
+            {showUndo && lastDeleted && !isStakeholder && (
+                <div className="undo-toast">
+                    <span>
+                        Note deleted.
+                    </span>
 
-            {/* =========================
-                UNDO TOAST
-            ========================== */}
+                    <button
+                        type="button"
+                        onClick={handleUndo}
+                    >
+                        Undo
+                    </button>
+                </div>
+            )}
 
-            {showUndo &&
-                lastDeleted &&
-                !isStakeholder && (
-                    <div className="undo-toast">
-
-                        <span>
-                            Note deleted.
-                        </span>
-
-                        <button
-                            type="button"
-                            onClick={
-                                handleUndo
-                            }
-                        >
-                            Undo
-                        </button>
-
-                    </div>
-                )}
-
-            {/* =========================
-                ERROR TOAST
-            ========================== */}
-
+            {/* Error Toast */}
             {error && (
                 <div
                     className="error-toast"
                     style={{
-                        background:
-                            "#ef4444"
+                        background: "#ef4444"
                     }}
                 >
-                    {typeof error ===
-                    "string"
+                    {typeof error === "string"
                         ? error
-                        : error.message ||
-                          "Something went wrong"}
+                        : error.message || "Something went wrong"}
                 </div>
             )}
 
@@ -452,3 +312,4 @@ function BoardCanvas() {
 }
 
 export default BoardCanvas;
+ 
