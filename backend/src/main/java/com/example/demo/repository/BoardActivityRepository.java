@@ -16,3 +16,11 @@ public interface BoardActivityRepository extends JpaRepository<BoardActivity,Lon
     @Query("DELETE FROM BoardActivity a WHERE a.board.id = :boardId")
     int deleteByBoardId(@Param("boardId") Long boardId);
 }
+import jakarta.persistence.LockModeType;
+import org.springframework.data.jpa.repository.Lock;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
+@Lock(LockModeType.PESSIMISTIC_WRITE)
+@Query("SELECT b FROM BrainstormingBoard b WHERE b.id = :id")
+Optional<BrainstormingBoard> findByIdForUpdate(@Param("id") Long id);
