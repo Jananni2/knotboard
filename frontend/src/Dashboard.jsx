@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, Navigate } from "react-router-dom";
 
 import DomainChart from "./components/dashboard/DomainChart";
-import BoardForm from "./components/dashboard/BoardForm";
+import BoardForm from "./components/board/BoardForm";
 
 import {
     fetchBoards,
