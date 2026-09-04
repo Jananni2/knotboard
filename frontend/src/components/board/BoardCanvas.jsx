@@ -19,7 +19,9 @@ import StickyNoteForm from "./StickyNoteForm";
 function BoardCanvas() {
     const { id } = useParams();
     const dispatch = useDispatch();
-
+const board = useSelector(
+    (state) => state.boards.activeBoard
+);
     const {
         items,
         loading,
@@ -195,7 +197,10 @@ function BoardCanvas() {
             }}
         >
 
-            
+ <CapacityBar
+    current={currentNoteCount}
+    max={maxNoteCapacity}
+/>
 
             {loading && (
                 <p>Loading notes...</p>
