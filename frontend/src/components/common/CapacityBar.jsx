@@ -54,7 +54,7 @@ function CapacityBar({
 
     if (percent > 90) {
 
-        barColor = "black";
+        barColor = "#ef4444";
 
     } else if (percent > 70) {
 
@@ -62,7 +62,7 @@ function CapacityBar({
 
     } else {
 
-        barColor = "#10b981";
+        barColor = "black";
     }
 
     return (
