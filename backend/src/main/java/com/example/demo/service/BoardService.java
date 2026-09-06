@@ -36,7 +36,7 @@ public class BoardService {
                 .description(dto.getDescription())
                 .facilitator(facilitator)
                 .status(BrainstormingBoard.BoardStatus.ACTIVE)
-                .maxNoteCapacity(dto.getMaxCapacity() == null ? 50 : dto.getMaxCapacity())
+                .maxNoteCapacity(dto.getMaxNoteCapacity() == null ? 50 : dto.getMaxCapacity())
                 .currentNoteCount(0)
                 .createdAt(LocalDateTime.now())
                 .build();
