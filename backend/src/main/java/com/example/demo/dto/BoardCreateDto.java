@@ -8,5 +8,5 @@ import lombok.Data;
 public class BoardCreateDto {
 private String title;
 private String description;
-private Integer maxCapacity;    
+private Integer maxNoteCapacity;    
 }
