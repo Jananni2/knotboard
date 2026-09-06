@@ -62,7 +62,7 @@ function CapacityBar({
 
     } else {
 
-        barColor = "black";
+        barColor = "#10b981";
     }
 
     return (
