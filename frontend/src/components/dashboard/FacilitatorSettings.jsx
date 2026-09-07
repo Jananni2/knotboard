@@ -1,7 +1,7 @@
- 
+
 import React, { useEffect, useState } from "react";
 import boardService from "../../services/boardService";
-import SearchFilterBar from "../../components/common/SearchFilterBar";
+import SearchFilterBar from "../../components/SearchFilterBar";
 
 function FacilitatorSettings() {
     const [boards, setBoards] = useState([]);
@@ -85,9 +85,16 @@ function FacilitatorSettings() {
                 "ARCHIVED"
             );
 
+            // Keep the board in the list,
+            // but change its status to ARCHIVED.
             setBoards((prevBoards) =>
-                prevBoards.filter(
-                    (board) => board.id !== boardId
+                prevBoards.map((board) =>
+                    board.id === boardId
+                        ? {
+                              ...board,
+                              status: "ARCHIVED"
+                          }
+                        : board
                 )
             );
 
@@ -149,6 +156,7 @@ function FacilitatorSettings() {
                         <th>Board Title</th>
                         <th>Notes Count</th>
                         <th>Max Capacity</th>
+                        <th>Status</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -158,8 +166,9 @@ function FacilitatorSettings() {
                     {filteredBoards.length === 0 ? (
 
                         <tr>
-                            <td colSpan="4">
-                                {searchTerm || statusFilter !== "ALL"
+                            <td colSpan="5">
+                                {searchTerm ||
+                                statusFilter !== "ALL"
                                     ? "No boards match your search or filter."
                                     : "No boards found"}
                             </td>
@@ -186,6 +195,9 @@ function FacilitatorSettings() {
                                             board.maxNoteCapacity ?? ""
                                         }
                                         min="1"
+                                        disabled={
+                                            board.status === "ARCHIVED"
+                                        }
                                         onChange={(e) =>
                                             handleCapacityChange(
                                                 board.id,
@@ -199,16 +211,26 @@ function FacilitatorSettings() {
                                 </td>
 
                                 <td>
-                                    <button
-                                        className="btn-danger-soft"
-                                        onClick={() =>
-                                            handleArchiveBoard(
-                                                board.id
-                                            )
-                                        }
-                                    >
-                                        Archive
-                                    </button>
+                                    {board.status}
+                                </td>
+
+                                <td>
+                                    {board.status === "ARCHIVED" ? (
+                                        <span>
+                                            Archived
+                                        </span>
+                                    ) : (
+                                        <button
+                                            className="btn-danger-soft"
+                                            onClick={() =>
+                                                handleArchiveBoard(
+                                                    board.id
+                                                )
+                                            }
+                                        >
+                                            Archive
+                                        </button>
+                                    )}
                                 </td>
 
                             </tr>
@@ -239,6 +261,4 @@ function FacilitatorSettings() {
 }
 
 export default FacilitatorSettings;
- 
- 
  
