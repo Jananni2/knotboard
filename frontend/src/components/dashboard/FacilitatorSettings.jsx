@@ -1,10 +1,13 @@
-  
+ 
 import React, { useEffect, useState } from "react";
 import boardService from "../../services/boardService";
 
 function FacilitatorSettings() {
     const [boards, setBoards] = useState([]);
     const [loading, setLoading] = useState(true);
+
+    // Search state
+    const [searchTerm, setSearchTerm] = useState("");
 
     const [toast, setToast] = useState({
         show: false,
@@ -106,6 +109,13 @@ function FacilitatorSettings() {
         );
     };
 
+    // Filter boards based on search term
+    const filteredBoards = boards.filter((board) =>
+        board.title
+            ?.toLowerCase()
+            .includes(searchTerm.toLowerCase())
+    );
+
     if (loading) {
         return (
             <div className="loading-spinner">
@@ -118,6 +128,18 @@ function FacilitatorSettings() {
         <div className="facilitator-settings">
 
             <h1>Facilitator Controls</h1>
+
+            {/* Search Bar */}
+            <div className="settings-search">
+                <input
+                    type="text"
+                    placeholder="Search boards..."
+                    value={searchTerm}
+                    onChange={(e) =>
+                        setSearchTerm(e.target.value)
+                    }
+                />
+            </div>
 
             <table className="board-table">
 
@@ -132,17 +154,19 @@ function FacilitatorSettings() {
 
                 <tbody>
 
-                    {boards.length === 0 ? (
+                    {filteredBoards.length === 0 ? (
 
                         <tr>
                             <td colSpan="4">
-                                No boards found
+                                {searchTerm
+                                    ? "No boards match your search."
+                                    : "No boards found"}
                             </td>
                         </tr>
 
                     ) : (
 
-                        boards.map((board) => (
+                        filteredBoards.map((board) => (
 
                             <tr key={board.id}>
 
