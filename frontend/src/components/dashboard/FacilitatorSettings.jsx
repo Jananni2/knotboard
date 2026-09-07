@@ -1,13 +1,14 @@
  
 import React, { useEffect, useState } from "react";
 import boardService from "../../services/boardService";
+import SearchFilterBar from "../../components/SearchFilterBar";
 
 function FacilitatorSettings() {
     const [boards, setBoards] = useState([]);
     const [loading, setLoading] = useState(true);
 
-    // Search state
     const [searchTerm, setSearchTerm] = useState("");
+    const [statusFilter, setStatusFilter] = useState("ALL");
 
     const [toast, setToast] = useState({
         show: false,
@@ -109,12 +110,18 @@ function FacilitatorSettings() {
         );
     };
 
-    // Filter boards based on search term
-    const filteredBoards = boards.filter((board) =>
-        board.title
+    // Search + status filtering
+    const filteredBoards = boards.filter((board) => {
+        const matchesSearch = board.title
             ?.toLowerCase()
-            .includes(searchTerm.toLowerCase())
-    );
+            .includes(searchTerm.toLowerCase());
+
+        const matchesStatus =
+            statusFilter === "ALL" ||
+            board.status === statusFilter;
+
+        return matchesSearch && matchesStatus;
+    });
 
     if (loading) {
         return (
@@ -129,17 +136,11 @@ function FacilitatorSettings() {
 
             <h1>Facilitator Controls</h1>
 
-            {/* Search Bar */}
-            <div className="settings-search">
-                <input
-                    type="text"
-                    placeholder="Search boards..."
-                    value={searchTerm}
-                    onChange={(e) =>
-                        setSearchTerm(e.target.value)
-                    }
-                />
-            </div>
+            <SearchFilterBar
+                placeholder="Search boards..."
+                onSearch={setSearchTerm}
+                onFilterChange={setStatusFilter}
+            />
 
             <table className="board-table">
 
@@ -158,8 +159,8 @@ function FacilitatorSettings() {
 
                         <tr>
                             <td colSpan="4">
-                                {searchTerm
-                                    ? "No boards match your search."
+                                {searchTerm || statusFilter !== "ALL"
+                                    ? "No boards match your search or filter."
                                     : "No boards found"}
                             </td>
                         </tr>
@@ -238,4 +239,10 @@ function FacilitatorSettings() {
 }
 
 export default FacilitatorSettings;
+ 
+setBoards((prevBoards) =>
+    prevBoards.filter(
+        (board) => board.id !== boardId
+    )
+);
  
