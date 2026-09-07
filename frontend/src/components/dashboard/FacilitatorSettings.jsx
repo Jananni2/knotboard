@@ -240,9 +240,5 @@ function FacilitatorSettings() {
 
 export default FacilitatorSettings;
  
-setBoards((prevBoards) =>
-    prevBoards.filter(
-        (board) => board.id !== boardId
-    )
-);
+ 
  
