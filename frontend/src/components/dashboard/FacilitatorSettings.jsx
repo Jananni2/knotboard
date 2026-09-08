@@ -1,7 +1,7 @@
  import React, { useEffect, useState } from "react";
 import boardService from "../../services/boardService";
 import SearchFilterBar from "../common/SearchFilterBar";
-import RecentActivity from "../common/RecentActivity";
+import RecentActivity from "./RecentActivity";
 
 function FacilitatorSettings() {
     const [boards, setBoards] = useState([]);
