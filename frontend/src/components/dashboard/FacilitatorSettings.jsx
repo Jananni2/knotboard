@@ -1,17 +1,15 @@
- import React, { useEffect, useState } from "react";
+
+import React, { useEffect, useState } from "react";
 import boardService from "../../services/boardService";
 import SearchFilterBar from "../common/SearchFilterBar";
 import RecentActivity from "./RecentActivity";
-
 function FacilitatorSettings() {
     const [boards, setBoards] = useState([]);
     const [loading, setLoading] = useState(true);
 
-    const [selectedBoardId, setSelectedBoardId] = useState(null);
-
     const [searchTerm, setSearchTerm] = useState("");
     const [statusFilter, setStatusFilter] = useState("ALL");
-
+const [selectedBoardId, setSelectedBoardId] = useState(null);
     const [toast, setToast] = useState({
         show: false,
         message: "",
@@ -49,7 +47,6 @@ function FacilitatorSettings() {
                         : data?.content || []
                 );
             } catch (error) {
-                console.error("Failed to fetch boards:", error);
                 showToast("Failed to fetch boards", true);
             } finally {
                 setLoading(false);
@@ -76,7 +73,6 @@ function FacilitatorSettings() {
 
             showToast("Capacity updated successfully");
         } catch (error) {
-            console.error("Failed to update capacity:", error);
             showToast("Failed to update capacity", true);
         }
     };
@@ -104,7 +100,6 @@ function FacilitatorSettings() {
 
             showToast("Board archived");
         } catch (error) {
-            console.error("Failed to archive board:", error);
             showToast("Failed to archive board", true);
         }
     };
@@ -163,7 +158,6 @@ function FacilitatorSettings() {
                         <th>Max Capacity</th>
                         <th>Status</th>
                         <th>Actions</th>
-                        <th>Activity</th>
                     </tr>
                 </thead>
 
@@ -172,7 +166,7 @@ function FacilitatorSettings() {
                     {filteredBoards.length === 0 ? (
 
                         <tr>
-                            <td colSpan="6">
+                            <td colSpan="5">
                                 {searchTerm ||
                                 statusFilter !== "ALL"
                                     ? "No boards match your search or filter."
@@ -239,16 +233,6 @@ function FacilitatorSettings() {
                                     )}
                                 </td>
 
-                                <td>
-                                    <button
-                                        onClick={() =>
-                                            setSelectedBoardId(board.id)
-                                        }
-                                    >
-                                        View Activity
-                                    </button>
-                                </td>
-
                             </tr>
 
                         ))
@@ -259,24 +243,6 @@ function FacilitatorSettings() {
 
             </table>
 
-            {/* Recent Activity */}
-            {selectedBoardId && (
-                <div className="recent-activity-section">
-
-                    <button
-                        onClick={() => setSelectedBoardId(null)}
-                    >
-                        Close Activity
-                    </button>
-
-                    <RecentActivity
-                        boardId={selectedBoardId}
-                    />
-
-                </div>
-            )}
-
-            {/* Toast */}
             {toast.show && (
                 <div
                     className="toast-undo"
@@ -295,3 +261,4 @@ function FacilitatorSettings() {
 }
 
 export default FacilitatorSettings;
+ 
