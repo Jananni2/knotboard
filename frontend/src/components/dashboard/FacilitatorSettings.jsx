@@ -2,14 +2,14 @@
 import React, { useEffect, useState } from "react";
 import boardService from "../../services/boardService";
 import SearchFilterBar from "../common/SearchFilterBar";
-import RecentActivity from "./RecentActivity";
+
 function FacilitatorSettings() {
     const [boards, setBoards] = useState([]);
     const [loading, setLoading] = useState(true);
 
     const [searchTerm, setSearchTerm] = useState("");
     const [statusFilter, setStatusFilter] = useState("ALL");
-const [selectedBoardId, setSelectedBoardId] = useState(null);
+
     const [toast, setToast] = useState({
         show: false,
         message: "",
