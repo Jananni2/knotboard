@@ -24,9 +24,7 @@ function DomainChart({ data }) {
                 {Object.entries(data || {}).map(
                     ([colorCode, count]) => {
 
-                        const height =
-                            (count / max) * 100;
-
+                      
                         return (
                             <div
                                 key={colorCode}
@@ -42,7 +40,7 @@ function DomainChart({ data }) {
                                 <div
                                     className="domain-bar"
                                     style={{
-                                        height: `${height}%`,
+                                        
                                         background: colorCode
                                     }}
                                 />
