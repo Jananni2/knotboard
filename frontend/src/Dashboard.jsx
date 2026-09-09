@@ -118,7 +118,7 @@ function Dashboard() {
         }
 
         if (percentage >= 70) {
-            return "#159e0b";
+            return "#e1ea66";
         }
 
         return "#10b981";
