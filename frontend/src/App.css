@@ -937,7 +937,11 @@ h3 {
 /* =================================
    MOBILE
 ================================= */
-
+/* Form should appear above sticky notes */
+.form-container {
+    position: relative;
+    z-index: 1000;
+}
 @media (max-width: 600px) {
 
     .form-container {
