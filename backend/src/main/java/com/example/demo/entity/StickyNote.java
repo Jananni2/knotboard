@@ -48,7 +48,7 @@ public class StickyNote {
     @Column(name = "y_pos",nullable =false)
     private Integer yPos;
 
-    @Version
+   
     private Long version;
 
     @Column(name="deleted_at")
