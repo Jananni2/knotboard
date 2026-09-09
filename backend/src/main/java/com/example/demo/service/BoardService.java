@@ -27,7 +27,13 @@ public class BoardService {
     private final BoardRepository boardRepository;
     private final BoardMemberRepository boardMemberRepository;
     private final BoardActivityRepository boardActivityRepository;
-
+public Page<BoardActivity> getActivities(
+        Long boardId,
+        Pageable pageable
+) {
+    return boardActivityRepository
+            .findAllByBoard_IdOrderByTimestampDesc(boardId, pageable);
+}
     @Transactional
     public BoardDto createBoard(BoardCreateDto dto, AppUser facilitator) {
 

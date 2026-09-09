@@ -9,10 +9,16 @@ import org.springframework.stereotype.Repository;
 
 import com.example.demo.entity.BoardActivity;
 
-@Repository
-public interface BoardActivityRepository extends JpaRepository<BoardActivity,Long>{
-    Page<BoardActivity>findAllByBoardIdOrderByTimestampDesc(Long boardId,Pageable pageable);
-      @Modifying
+ @Repository
+public interface BoardActivityRepository
+        extends JpaRepository<BoardActivity, Long> {
+
+    Page<BoardActivity> findAllByBoard_IdOrderByTimestampDesc(
+            Long boardId,
+            Pageable pageable
+    );
+
+    @Modifying
     @Query("DELETE FROM BoardActivity a WHERE a.board.id = :boardId")
     int deleteByBoardId(@Param("boardId") Long boardId);
 }
