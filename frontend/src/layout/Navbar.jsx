@@ -30,7 +30,9 @@ function Navbar() {
                 <Link to="/dashboard">
                     Dashboard
                 </Link>
-
+<Link to={`/activity/${boardId}`}>
+    Recent Activity
+</Link>
                 {user?.role === "FACILITATOR" && (
                     <Link to="/settings">
                         Settings
