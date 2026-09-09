@@ -271,7 +271,41 @@ function Dashboard() {
                                     </p>
 
 
-                             
+                                    {/* =================================
+                                        CAPACITY
+                                    ================================== */}
+                                    <div className="capacity-section">
+
+                                        <div className="capacity-label">
+
+                                            <span>
+                                                Capacity
+                                            </span>
+
+                                            <span>
+                                                {currentNoteCount}
+                                                /
+                                                {maxNoteCapacity}
+                                            </span>
+
+                                        </div>
+
+                                        <div className="capacity-bar">
+
+                                            <div
+                                                className="capacity-fill"
+                                                style={{
+                                                    width:
+                                                        `${percentage}%`,
+                                                    backgroundColor:
+                                                        capacityColor
+                                                }}
+                                            />
+
+                                        </div>
+
+                                    </div>
+
 
                                     {/* =================================
                                         LAUNCH BOARD
