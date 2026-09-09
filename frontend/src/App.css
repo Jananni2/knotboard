@@ -427,100 +427,201 @@ h3 {
 }
 
 
-/* =========================================================
-   STATS
-========================================================= */
+ 
+/* =========================================
+   STAT CARD
+   ========================================= */
 
-.stats-container,
-.stats-grid,
-.stat-grid {
-    display: grid;
+.stat-card {
+    width: 100%;
+    background: #ffffff;
 
-    grid-template-columns:
-        repeat(2, minmax(0, 1fr));
+    border: 1px solid #e5e7eb;
+    border-radius: 14px;
+
+    padding: 24px;
+
+    box-shadow:
+        0 4px 14px rgba(15, 31, 61, 0.06);
+
+    box-sizing: border-box;
+}
+
+.stat-card h3 {
+    margin: 0 0 28px;
+
+    color: #0f1f3d;
+
+    font-size: 18px;
+    font-weight: 700;
+}
+
+
+/* =========================================
+   CHART AREA
+   ========================================= */
+
+.domain-chart {
+    height: 260px;
+
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-around;
 
     gap: 20px;
 
-    margin-bottom: 35px;
+    padding: 20px 15px 0;
+
+    border-bottom: 1px solid #dbe3ee;
+
+    box-sizing: border-box;
 }
 
-.stat-card {
+
+/* =========================================
+   EACH BAR
+   ========================================= */
+
+.domain-bar-container {
+    height: 100%;
+
+    min-width: 55px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+
     position: relative;
 
-    background: rgba(255, 255, 255, 0.9);
+    flex: 1;
+}
 
-    border: 1px solid #e5eaf2;
 
-    border-radius: 16px;
+/* =========================================
+   COUNT ABOVE BAR
+   ========================================= */
 
-    padding: 24px 26px;
+.domain-count {
+    margin-bottom: 8px;
 
-    min-height: 115px;
+    color: #172554;
 
-    box-shadow:
-        0 8px 25px rgba(15, 23, 42, 0.055);
+    font-size: 13px;
+    font-weight: 700;
 
-    overflow: hidden;
+    line-height: 1;
+}
+
+
+/* =========================================
+   BAR
+   ========================================= */
+
+.domain-bar {
+    width: 42px;
+
+    min-height: 4px;
+
+    border-radius: 7px 7px 2px 2px;
 
     transition:
-        transform 0.2s ease,
-        box-shadow 0.2s ease;
-}
-
-.stat-card::after {
-    content: "";
-
-    position: absolute;
-
-    right: -25px;
-    top: -25px;
-
-    width: 90px;
-    height: 90px;
-
-    border-radius: 50%;
-
-    background: #eff6ff;
-}
-
-.stat-card:hover {
-    transform: translateY(-3px);
+        height 0.3s ease,
+        opacity 0.2s ease,
+        transform 0.2s ease;
 
     box-shadow:
-        0 14px 32px rgba(15, 23, 42, 0.09);
+        0 3px 8px rgba(15, 31, 61, 0.12);
 }
 
-.stat-card h3,
-.stat-title {
-    position: relative;
-    z-index: 1;
+.domain-bar:hover {
+    opacity: 0.85;
 
-    margin: 0;
+    transform: translateY(-3px);
+}
+
+
+/* =========================================
+   THEME LABEL
+   ========================================= */
+
+.domain-label {
+    margin-top: 10px;
 
     color: #64748b;
 
     font-size: 12px;
-    font-weight: 800;
+    font-weight: 600;
 
-    text-transform: uppercase;
+    text-transform: capitalize;
 
-    letter-spacing: 0.8px;
+    text-align: center;
+
+    max-width: 70px;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
-.stat-card strong,
-.stat-value {
-    position: relative;
-    z-index: 1;
 
-    display: block;
+/* =========================================
+   RESPONSIVE
+   ========================================= */
 
-    margin-top: 10px;
+@media (max-width: 700px) {
 
-    color: #0f172a;
+    .stat-card {
+        padding: 20px;
+    }
 
-    font-size: 32px;
-    font-weight: 800;
+    .domain-chart {
+        height: 220px;
+
+        gap: 10px;
+
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+
+    .domain-bar-container {
+        min-width: 40px;
+    }
+
+    .domain-bar {
+        width: 32px;
+    }
+
+    .domain-label {
+        font-size: 11px;
+        max-width: 55px;
+    }
 }
+
+
+@media (max-width: 450px) {
+
+    .stat-card h3 {
+        font-size: 16px;
+    }
+
+    .domain-chart {
+        overflow-x: auto;
+
+        justify-content: flex-start;
+
+        gap: 18px;
+    }
+
+    .domain-bar-container {
+        flex: 0 0 45px;
+    }
+
+    .domain-bar {
+        width: 28px;
+    }
+}
+
 
 
 /* =========================================================
