@@ -1,12 +1,12 @@
  import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useParams,useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../store/slices/authSlice";
 
 function Navbar() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-
+ const { id } = useParams();
     const user = useSelector((state) => state.auth?.user);
     // const token = useSelector((state) => state.auth?.token);
 
@@ -30,7 +30,7 @@ function Navbar() {
                 <Link to="/dashboard">
                     Dashboard
                 </Link>
-<Link to={`/activity/${boardId}`}>
+<Link to={`/activity/${id}`}>
     Recent Activity
 </Link>
                 {user?.role === "FACILITATOR" && (
