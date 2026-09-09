@@ -15,7 +15,7 @@ import Dashboard from "./Dashboard";
 import Navbar from "./layout/Navbar";
 
 import BoardCanvas from "./components/board/BoardCanvas";
- 
+ import RecentActivity from "./components/dashboard/RecentActivity";
 
 import ErrorHandler from "./components/ErrorHandler";
 import NotificationStack from "./components/NotificationStack";
@@ -42,6 +42,10 @@ function App() {
                         <Route
     path="/settings"
     element={<FacilitatorSettings />}
+/>
+<Route
+    path="/activity/:boardId"
+    element={<RecentActivity />}
 />
 
                         Dashboard

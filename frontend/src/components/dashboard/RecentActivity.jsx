@@ -1,7 +1,10 @@
-import React, { useEffect, useState } from "react";
+ import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import api from "../../services/api";
 
-function RecentActivity({ boardId }) {
+function RecentActivity() {
+    const { boardId } = useParams();
+
     const [activities, setActivities] = useState([]);
 
     useEffect(() => {
@@ -13,7 +16,7 @@ function RecentActivity({ boardId }) {
 
                 setActivities(res.data.content || []);
             } catch (error) {
-                console.error("Error fetching recent activities:", error);
+                console.error("Error fetching activities:", error);
                 setActivities([]);
             }
         };
@@ -32,17 +35,25 @@ function RecentActivity({ boardId }) {
             ) : (
                 <div className="activity-list">
                     {activities.map((activity, index) => (
-                        <div className="activity-item" key={activity.id || index}>
+                        <div
+                            className="activity-item"
+                            key={activity.id || index}
+                        >
                             <div>
                                 <strong style={{ color: "#2563eb" }}>
                                     {activity.actorName}
                                 </strong>
 
-                                <span> {activity.actionDescription}</span>
+                                <span>
+                                    {" "}
+                                    {activity.actionDescription}
+                                </span>
                             </div>
 
                             <small>
-                                {new Date(activity.timestamp).toLocaleTimeString()}
+                                {new Date(
+                                    activity.timestamp
+                                ).toLocaleTimeString()}
                             </small>
                         </div>
                     ))}
