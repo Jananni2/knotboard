@@ -15,7 +15,7 @@ import Dashboard from "./Dashboard";
 import Navbar from "./layout/Navbar";
 
 import BoardCanvas from "./components/board/BoardCanvas";
-import StickyNoteForm from "./components/board/StickyNoteForm";
+ 
 
 import ErrorHandler from "./components/ErrorHandler";
 import NotificationStack from "./components/NotificationStack";
