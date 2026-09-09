@@ -1130,60 +1130,68 @@ textarea::placeholder {
 
     margin-top: 30px;
 }
-/* =========================================================
-   LOGIN
-========================================================= */
 
-.login-page {
-    min-height: calc(100vh - 70px);
+/* =========================================
+   KNOTBOARD LOGIN PAGE
+   ========================================= */
 
+.auth-container {
+    min-height: 100vh;
     width: 100%;
-
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 24px;
 
-    padding: 40px 20px;
+    background: linear-gradient(
+        135deg,
+        #0f1f3d 0%,
+        #172f59 50%,
+        #2563a8 100%
+    );
 
-    background:
-        radial-gradient(
-            circle at top left,
-            #dbeafe,
-            transparent 35%
-        ),
-        #f4f7fb;
+    font-family:
+        Inter,
+        "Segoe UI",
+        Roboto,
+        Arial,
+        sans-serif;
 }
 
 
-/* LOGIN CONTAINER */
+/* =========================================
+   LOGIN CARD
+   ========================================= */
 
-.login-container {
+.auth-card {
     width: 100%;
-    max-width: 430px;
+    max-width: 420px;
 
-    padding: 38px;
+    background: #ffffff;
+    border-radius: 18px;
 
-    background: rgba(255, 255, 255, 0.96);
-
-    border: 1px solid #e2e8f0;
-
-    border-radius: 20px;
+    padding: 36px 34px;
 
     box-shadow:
-        0 20px 50px rgba(15, 23, 42, 0.10);
+        0 20px 50px rgba(0, 0, 0, 0.20);
 
-    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
 }
 
 
-/* LOGIN TITLE */
+/* =========================================
+   HEADER
+   ========================================= */
 
-.login-container h1 {
-    margin: 0 0 30px;
-
+.auth-card-header {
     text-align: center;
+    margin-bottom: 30px;
+}
 
-    color: #0f172a;
+.auth-card-header h1 {
+    margin: 0;
+
+    color: #0f1f3d;
 
     font-size: 32px;
     font-weight: 800;
@@ -1192,48 +1200,48 @@ textarea::placeholder {
 }
 
 
-/* FORM */
+/* =========================================
+   FORM
+   ========================================= */
 
-.login-container form {
+.auth-card form {
     width: 100%;
 }
 
 
-/* LABEL + INPUT */
+/* =========================================
+   FORM GROUP
+   ========================================= */
 
-.login-container label {
+.form-group {
+    margin-bottom: 22px;
+}
+
+.form-group label {
     display: block;
 
-    margin-bottom: 7px;
+    margin-bottom: 8px;
 
-    color: #334155;
+    color: #172554;
 
     font-size: 14px;
-    font-weight: 700;
+    font-weight: 600;
 }
 
 
-/* FORM GROUP */
+/* =========================================
+   INPUTS
+   ========================================= */
 
-.login-container .form-group {
-    margin-bottom: 20px;
-}
-
-
-/* INPUT */
-
-.login-container input {
+.form-group input {
     width: 100%;
 
-    padding: 12px 14px;
+    padding: 13px 14px;
 
-    margin-bottom: 0;
-
-    border: 1px solid #d1d9e6;
-
+    border: 1px solid #d1d5db;
     border-radius: 9px;
 
-    background: white;
+    background: #f9fafb;
 
     color: #172554;
 
@@ -1243,105 +1251,140 @@ textarea::placeholder {
 
     transition:
         border-color 0.2s ease,
-        box-shadow 0.2s ease;
+        box-shadow 0.2s ease,
+        background 0.2s ease;
 }
 
-.login-container input:hover {
-    border-color: #aebbd0;
+
+/* Placeholder */
+
+.form-group input::placeholder {
+    color: #9ca3af;
 }
 
-.login-container input:focus {
-    border-color: #3b82f6;
+
+/* Focus */
+
+.form-group input:focus {
+    background: #ffffff;
+
+    border-color: #2563eb;
 
     box-shadow:
-        0 0 0 3px rgba(59, 130, 246, 0.1);
+        0 0 0 3px rgba(37, 99, 235, 0.12);
 }
 
 
-/* SIGN IN BUTTON */
+/* =========================================
+   SIGN IN BUTTON
+   ========================================= */
 
-.login-container .btn-primary,
-.login-container .btn-primary-flex,
-.login-container button[type="submit"] {
+.auth-card button {
     width: 100%;
 
-    margin-top: 8px;
+    padding: 13px 16px;
 
-    padding: 12px 20px;
+    margin-top: 4px;
 
     border: none;
+    border-radius: 9px;
 
-    border-radius: 10px;
-
-    background: linear-gradient(
-        135deg,
-        #2563eb,
-        #3b82f6
-    );
-
-    color: white;
+    background: #2563eb;
+    color: #ffffff;
 
     font-size: 15px;
     font-weight: 700;
 
     cursor: pointer;
 
-    box-shadow:
-        0 5px 14px rgba(37, 99, 235, 0.18);
-
     transition:
-        transform 0.2s ease,
+        background 0.2s ease,
+        transform 0.15s ease,
         box-shadow 0.2s ease;
 }
 
-.login-container .btn-primary:hover,
-.login-container .btn-primary-flex:hover,
-.login-container button[type="submit"]:hover {
-    transform: translateY(-2px);
+
+/* Hover */
+
+.auth-card button:hover:not(:disabled) {
+    background: #1d4ed8;
 
     box-shadow:
-        0 9px 20px rgba(37, 99, 235, 0.25);
+        0 8px 18px rgba(37, 99, 235, 0.25);
+
+    transform: translateY(-1px);
 }
 
 
-/* LOGIN ERROR */
+/* Click */
 
-.login-error {
-    margin: 18px 0 0;
+.auth-card button:active:not(:disabled) {
+    transform: translateY(0);
+}
 
-    text-align: center;
 
-    color: #ef4444;
+/* Disabled */
+
+.auth-card button:disabled {
+    background: #93c5fd;
+
+    cursor: not-allowed;
+
+    box-shadow: none;
+}
+
+
+/* =========================================
+   ERROR MESSAGE
+   ========================================= */
+
+.auth-card form p {
+    margin: 16px 0 0;
+
+    padding: 10px 12px;
+
+    border-radius: 7px;
+
+    background: #fef2f2;
+
+    color: #dc2626 !important;
 
     font-size: 14px;
-    font-weight: 600;
+
+    text-align: center;
 }
 
 
-/* =========================================================
-   LOGIN MOBILE
-========================================================= */
+/* =========================================
+   RESPONSIVE DESIGN
+   ========================================= */
 
-@media (max-width: 650px) {
+@media (max-width: 480px) {
 
-    .login-page {
-        min-height: calc(100vh - 60px);
-
-        padding: 25px 16px;
+    .auth-container {
+        padding: 18px;
     }
 
-    .login-container {
-        max-width: 100%;
+    .auth-card {
+        padding: 30px 22px;
 
-        padding: 28px 22px;
-
-        border-radius: 16px;
+        border-radius: 14px;
     }
 
-    .login-container h1 {
+    .auth-card-header h1 {
         font-size: 28px;
     }
+
+    .form-group input {
+        padding: 12px;
+    }
+
+    .auth-card button {
+        padding: 12px;
+    }
 }
+
+
 .pagination button {
     min-width: 38px;
 
