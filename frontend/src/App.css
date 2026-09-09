@@ -164,21 +164,15 @@ select {
 /* =========================================
    LOGOUT BUTTON
    ========================================= */
-
-.btn-logout {
+ .btn-logout {
     padding: 8px 16px;
-
-    border: 1px solid rgba(255, 255, 255, 0.25);
+    border: 1px solid #ef4444;
     border-radius: 7px;
-
-    background: transparent;
+    background: #ef4444;
     color: #ffffff;
-
     font-size: 14px;
     font-weight: 600;
-
     cursor: pointer;
-
     transition:
         background 0.2s ease,
         border-color 0.2s ease,
@@ -186,114 +180,14 @@ select {
 }
 
 .btn-logout:hover {
-    background: #ef4444;
-
-    border-color: #ef4444;
-
+    background: #dc2626;
+    border-color: #dc2626;
     transform: translateY(-1px);
 }
 
 .btn-logout:active {
     transform: translateY(0);
 }
-
-
-/* =========================================
-   RESPONSIVE DESIGN
-   ========================================= */
-
-@media (max-width: 800px) {
-
-    .navbar {
-        padding: 0 20px;
-    }
-
-    .navbar-links {
-        margin-left: 20px;
-    }
-
-    .navbar-user span {
-        display: none;
-    }
-
-    .navbar-user {
-        gap: 10px;
-    }
-}
-
-
-@media (max-width: 600px) {
-
-    .navbar {
-        min-height: auto;
-
-        padding: 14px 18px;
-
-        flex-wrap: wrap;
-
-        gap: 12px;
-    }
-
-    .navbar-brand {
-        width: auto;
-    }
-
-    .navbar-links {
-        order: 3;
-
-        width: 100%;
-
-        margin-left: 0;
-
-        justify-content: center;
-
-        border-top: 1px solid rgba(255, 255, 255, 0.10);
-
-        padding-top: 10px;
-    }
-
-    .navbar-user {
-        margin-left: auto;
-    }
-
-    .navbar-links a {
-        padding: 8px 12px;
-    }
-}
- 
-
-
-/* =========================================================
-   PAGE LAYOUT
-========================================================= */
-
-.dashboard,
-.dashboard-container,
-.board-list-container,
-.settings-container,
-.facilitator-settings {
-    width: min(1180px, calc(100% - 56px));
-    margin: 0 auto;
-
-    padding: 42px 0 70px;
-}
-
-.facilitator-settings {
-    animation: pageEnter 0.4s ease;
-}
-
-@keyframes pageEnter {
-    from {
-        opacity: 0;
-        transform: translateY(8px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
 
 /* =========================================================
    HEADINGS
