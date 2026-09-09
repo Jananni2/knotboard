@@ -1130,7 +1130,218 @@ textarea::placeholder {
 
     margin-top: 30px;
 }
+/* =========================================================
+   LOGIN
+========================================================= */
 
+.login-page {
+    min-height: calc(100vh - 70px);
+
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 40px 20px;
+
+    background:
+        radial-gradient(
+            circle at top left,
+            #dbeafe,
+            transparent 35%
+        ),
+        #f4f7fb;
+}
+
+
+/* LOGIN CONTAINER */
+
+.login-container {
+    width: 100%;
+    max-width: 430px;
+
+    padding: 38px;
+
+    background: rgba(255, 255, 255, 0.96);
+
+    border: 1px solid #e2e8f0;
+
+    border-radius: 20px;
+
+    box-shadow:
+        0 20px 50px rgba(15, 23, 42, 0.10);
+
+    backdrop-filter: blur(10px);
+}
+
+
+/* LOGIN TITLE */
+
+.login-container h1 {
+    margin: 0 0 30px;
+
+    text-align: center;
+
+    color: #0f172a;
+
+    font-size: 32px;
+    font-weight: 800;
+
+    letter-spacing: -0.8px;
+}
+
+
+/* FORM */
+
+.login-container form {
+    width: 100%;
+}
+
+
+/* LABEL + INPUT */
+
+.login-container label {
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: #334155;
+
+    font-size: 14px;
+    font-weight: 700;
+}
+
+
+/* FORM GROUP */
+
+.login-container .form-group {
+    margin-bottom: 20px;
+}
+
+
+/* INPUT */
+
+.login-container input {
+    width: 100%;
+
+    padding: 12px 14px;
+
+    margin-bottom: 0;
+
+    border: 1px solid #d1d9e6;
+
+    border-radius: 9px;
+
+    background: white;
+
+    color: #172554;
+
+    font-size: 15px;
+
+    outline: none;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.login-container input:hover {
+    border-color: #aebbd0;
+}
+
+.login-container input:focus {
+    border-color: #3b82f6;
+
+    box-shadow:
+        0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+
+/* SIGN IN BUTTON */
+
+.login-container .btn-primary,
+.login-container .btn-primary-flex,
+.login-container button[type="submit"] {
+    width: 100%;
+
+    margin-top: 8px;
+
+    padding: 12px 20px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    background: linear-gradient(
+        135deg,
+        #2563eb,
+        #3b82f6
+    );
+
+    color: white;
+
+    font-size: 15px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 5px 14px rgba(37, 99, 235, 0.18);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.login-container .btn-primary:hover,
+.login-container .btn-primary-flex:hover,
+.login-container button[type="submit"]:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 9px 20px rgba(37, 99, 235, 0.25);
+}
+
+
+/* LOGIN ERROR */
+
+.login-error {
+    margin: 18px 0 0;
+
+    text-align: center;
+
+    color: #ef4444;
+
+    font-size: 14px;
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   LOGIN MOBILE
+========================================================= */
+
+@media (max-width: 650px) {
+
+    .login-page {
+        min-height: calc(100vh - 60px);
+
+        padding: 25px 16px;
+    }
+
+    .login-container {
+        max-width: 100%;
+
+        padding: 28px 22px;
+
+        border-radius: 16px;
+    }
+
+    .login-container h1 {
+        font-size: 28px;
+    }
+}
 .pagination button {
     min-width: 38px;
 
