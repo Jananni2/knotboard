@@ -444,51 +444,84 @@ h3 {
     margin-bottom: 35px;
 }
 
- .stats-row {
-    display: flex;
-    gap: 14px;
-    margin-top: 22px;
+.stat-card {
     position: relative;
-    z-index: 2;
+
+    background: rgba(255, 255, 255, 0.9);
+
+    border: 1px solid #e5eaf2;
+
+    border-radius: 16px;
+
+    padding: 24px 26px;
+
+    min-height: 115px;
+
+    box-shadow:
+        0 8px 25px rgba(15, 23, 42, 0.055);
+
+    overflow: hidden;
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
 }
 
-.mini-stat {
-    min-width: 110px;
+.stat-card::after {
+    content: "";
 
-    padding: 12px 15px;
+    position: absolute;
 
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
+    right: -25px;
+    top: -25px;
 
-    background: #f8fafc;
+    width: 90px;
+    height: 90px;
 
-    border: 1px solid #e2e8f0;
-    border-radius: 10px;
+    border-radius: 50%;
 
-    transition: all 0.2s ease;
-}
-
-.mini-stat:hover {
     background: #eff6ff;
-    border-color: #bfdbfe;
-    transform: translateY(-2px);
 }
 
-.mini-stat-value {
-    color: #0f1f3d;
-    font-size: 27px;
-    font-weight: 800;
-    line-height: 1;
+.stat-card:hover {
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 14px 32px rgba(15, 23, 42, 0.09);
 }
 
-.mini-stat-label {
+.stat-card h3,
+.stat-title {
+    position: relative;
+    z-index: 1;
+
+    margin: 0;
+
     color: #64748b;
-    font-size: 11px;
-    font-weight: 700;
+
+    font-size: 12px;
+    font-weight: 800;
+
     text-transform: uppercase;
-    letter-spacing: 0.6px;
+
+    letter-spacing: 0.8px;
 }
+
+.stat-card strong,
+.stat-value {
+    position: relative;
+    z-index: 1;
+
+    display: block;
+
+    margin-top: 10px;
+
+    color: #0f172a;
+
+    font-size: 32px;
+    font-weight: 800;
+}
+
 
 /* =========================================================
    BOARD CARDS
