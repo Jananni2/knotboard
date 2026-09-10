@@ -178,7 +178,7 @@ function Dashboard() {
                 </div>
 
                 <div className="stat-card">
-                    <h3>Total Notes Checked</h3>
+                    <h3>Total Notes Created</h3>
                     <p>{totalNotes}</p>
                 </div>
 
@@ -188,7 +188,7 @@ function Dashboard() {
             {/* =====================================
                 DOMAIN CHART
             ====================================== */}
-            <DomainChart data={workspaceStats} />
+            <DomainChart   />
 
 
             {/* =====================================
