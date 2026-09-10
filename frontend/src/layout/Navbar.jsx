@@ -1,24 +1,25 @@
- import React from "react";
-import { Link, useParams,useNavigate } from "react-router-dom";
+
+import React from "react";
+import { Link, useParams, useNavigate, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../store/slices/authSlice";
 
 function Navbar() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
- const { boardId } = useParams();
+    const location = useLocation();
+
     const user = useSelector((state) => state.auth?.user);
-    // const token = useSelector((state) => state.auth?.token);
 
     const handleLogout = () => {
         dispatch(logout());
         navigate("/login");
     };
 
-    // // Don't show navbar on login page / when not logged in
-    // if (!token) {
-    //     return null;
-    // }
+    // Get board ID from URL when we are inside /board/:id
+    const boardId = location.pathname.startsWith("/board/")
+        ? location.pathname.split("/")[2]
+        : null;
 
     return (
         <nav className="navbar">
@@ -27,12 +28,20 @@ function Navbar() {
             </div>
 
             <div className="navbar-links">
-                <Link to="/dashboard">
+                <Link to="/">
                     Dashboard
                 </Link>
-<Link to={`/activity/${boardId}`}>
-    Recent Activity
-</Link>
+
+                {boardId ? (
+                    <Link to={`/activity/${boardId}`}>
+                        Recent Activity
+                    </Link>
+                ) : (
+                    <span>
+                        Recent Activity
+                    </span>
+                )}
+
                 {user?.role === "FACILITATOR" && (
                     <Link to="/settings">
                         Settings
@@ -61,3 +70,4 @@ function Navbar() {
 }
 
 export default Navbar;
+
