@@ -70,14 +70,15 @@ select {
 /* =========================================
    BRAND
    ========================================= */
+ 
 /* =========================================================
-   RECENT ACTIVITY PAGE
+   RECENT ACTIVITY
 ========================================================= */
 
 .stat-card {
     background: #ffffff;
     border-radius: 14px;
-    padding: 24px;
+    padding: 26px;
     margin: 30px auto;
     width: 90%;
     max-width: 900px;
@@ -86,12 +87,12 @@ select {
 }
 
 .stat-card h3 {
-    margin: 0 0 20px 0;
+    margin: 0 0 22px;
     font-size: 22px;
-    font-weight: 700;
+    font-weight: 600;
     color: #172554;
-    border-bottom: 1px solid #e5e7eb;
     padding-bottom: 15px;
+    border-bottom: 1px solid #e5e7eb;
 }
 
 /* Activity list */
@@ -99,7 +100,7 @@ select {
 .activity-list {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 14px;
 }
 
 /* Individual activity */
@@ -108,49 +109,59 @@ select {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 20px;
 
-    padding: 16px 18px;
+    min-height: 58px;
+    padding: 15px 20px;
 
     background: #f8fafc;
     border: 1px solid #e5e7eb;
     border-radius: 10px;
 
-    transition: all 0.2s ease;
+    transition: background 0.2s ease, box-shadow 0.2s ease;
 }
 
 .activity-item:hover {
     background: #f1f5f9;
-    transform: translateY(-1px);
     box-shadow: 0 3px 8px rgba(15, 31, 61, 0.06);
 }
 
-/* Actor + action */
+/* User + action */
 
-.activity-item div {
+.activity-item > div {
     display: flex;
     align-items: center;
-    flex-wrap: wrap;
-    gap: 4px;
+    gap: 7px;
+    flex: 1;
 }
+
+/* Username */
 
 .activity-item strong {
-    font-size: 15px;
-    font-weight: 700;
+    color: #2563eb;
+    font-size: 14px;
+    font-weight: 500;
 }
 
+/* Action description */
+
 .activity-item span {
-    font-size: 15px;
+    font-size: 14px;
+    font-weight: 400;
     color: #475569;
 }
 
 /* Time */
 
 .activity-item small {
-    flex-shrink: 0;
-    font-size: 13px;
-    color: #64748b;
+    margin-left: 25px;
+    min-width: 85px;
+
+    text-align: right;
     white-space: nowrap;
+
+    font-size: 12px;
+    font-weight: 400;
+    color: #94a3b8;
 }
 
 /* Empty state */
@@ -160,8 +171,9 @@ select {
     color: #64748b;
     padding: 30px 0;
     margin: 0;
-    font-size: 15px;
+    font-size: 14px;
 }
+
 
 /* =========================================================
    MOBILE
@@ -172,24 +184,27 @@ select {
     .stat-card {
         width: 94%;
         padding: 18px;
-        margin: 20px auto;
-    }
-
-    .stat-card h3 {
-        font-size: 19px;
     }
 
     .activity-item {
         align-items: flex-start;
         flex-direction: column;
         gap: 8px;
-        padding: 14px;
+        padding: 14px 16px;
+    }
+
+    .activity-item > div {
+        width: 100%;
     }
 
     .activity-item small {
-        font-size: 12px;
+        margin-left: 0;
+        min-width: auto;
+        text-align: left;
     }
 }
+
+
 .navbar-brand {
     display: flex;
     align-items: center;
