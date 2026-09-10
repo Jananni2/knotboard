@@ -11,7 +11,7 @@ function RecentActivity() {
         const fetchActivities = async () => {
             try {
                 const res = await api.get(
-                    `/boards/${boardId}/activities?page=0&size=5`
+                    `api/boards/${boardId}/activities?page=0&size=5`
                 );
 
                 setActivities(res.data.content || []);
