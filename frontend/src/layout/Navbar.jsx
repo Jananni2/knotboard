@@ -6,7 +6,7 @@ import { logout } from "../store/slices/authSlice";
 function Navbar() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
- const { id } = useParams();
+ const { boardId } = useParams();
     const user = useSelector((state) => state.auth?.user);
     // const token = useSelector((state) => state.auth?.token);
 
@@ -30,7 +30,7 @@ function Navbar() {
                 <Link to="/dashboard">
                     Dashboard
                 </Link>
-<Link to={`/activity/${id}`}>
+<Link to={`/activity/${boardId}`}>
     Recent Activity
 </Link>
                 {user?.role === "FACILITATOR" && (
