@@ -50,7 +50,7 @@ public class AnalyticsService {
 
         Map<String, Object> result = new HashMap<>();
 
-        result.put("totalNotes", noteRepository.count());
+        result.put("TotalNotes", noteRepository.count());
         result.put("activeNotes", noteRepository.countByDeletedAtIsNull());
 
         return result;
