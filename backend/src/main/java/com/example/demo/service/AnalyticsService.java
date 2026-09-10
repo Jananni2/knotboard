@@ -45,14 +45,14 @@ public class AnalyticsService {
         return result;
     }
 
-    // @Transactional(readOnly = true)
-    // public Map<String, Object> getGlobalStats() {
+    @Transactional(readOnly = true)
+    public Map<String, Object> getGlobalStats() {
 
-    //     Map<String, Object> result = new HashMap<>();
+        Map<String, Object> result = new HashMap<>();
 
-    //     result.put("TotalNotes", noteRepository.count());
-    //     result.put("activeNotes", noteRepository.countByDeletedAtIsNull());
+        result.put("TotalNotes", noteRepository.count());
+        result.put("activeNotes", noteRepository.countByDeletedAtIsNull());
 
-    //     return result;
-    // }
+        return result;
+    }
 }
