@@ -16,7 +16,7 @@ function RecentActivity() {
 
                 setActivities(res.data.content || []);
             } catch (error) {
-                console.error("Error fetching activities:", error);
+                console.error("Error fetching recent activities:", error);
                 setActivities([]);
             }
         };
@@ -34,10 +34,10 @@ function RecentActivity() {
                 <p>No recent activity</p>
             ) : (
                 <div className="activity-list">
-                    {activities.map((activity, index) => (
+                    {activities.map((activity) => (
                         <div
                             className="activity-item"
-                            key={activity.id || index}
+                            key={activity.id}
                         >
                             <div>
                                 <strong style={{ color: "#2563eb" }}>
