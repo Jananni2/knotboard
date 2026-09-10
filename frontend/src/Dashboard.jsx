@@ -133,7 +133,7 @@ function Dashboard() {
             : boards.length;
 
     const totalNotes =
-        workspaceStats?.totalNotes || 0;
+        workspaceStats?.totalNotes || 5;
 
     return (
         <div className="dashboard">
