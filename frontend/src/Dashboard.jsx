@@ -188,7 +188,7 @@ function Dashboard() {
             {/* =====================================
                 DOMAIN CHART
             ====================================== */}
-            <DomainChart data={workspaceStats} />
+            <DomainChart data={workspaceStats.colorBreakdown} />
 
 
             {/* =====================================
