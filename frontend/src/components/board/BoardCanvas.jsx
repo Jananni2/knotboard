@@ -68,7 +68,11 @@ function BoardCanvas() {
 
     // Maximum capacity coming from backend
     const maxNoteCapacity = board?.maxNoteCapacity;
-
+useEffect(() => {
+    if (id) {
+        localStorage.setItem("selectedBoardId", id);
+    }
+}, [id]);
     // -----------------------------------------
     // Show undo toast after deletion
     // -----------------------------------------

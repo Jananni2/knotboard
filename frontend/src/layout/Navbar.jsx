@@ -17,9 +17,10 @@ function Navbar() {
     };
 
     // Get board ID from URL when we are inside /board/:id
-    const boardId = location.pathname.startsWith("/board/")
+     const boardId =
+    location.pathname.startsWith("/board/")
         ? location.pathname.split("/")[2]
-        : null;
+        : localStorage.getItem("selectedBoardId");
 
     return (
         <nav className="navbar">
