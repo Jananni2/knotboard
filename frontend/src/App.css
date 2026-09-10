@@ -2804,8 +2804,64 @@ select:disabled {
 
         text-align: left;
     }
+
 }
- 
+ /* =========================================
+   RECENT ACTIVITY
+========================================= */
+
+.activity-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-top: 15px;
+}
+
+.activity-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 12px 14px;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+
+    background: #f9fafb;
+    color: #334155;
+
+    font-size: 14px;
+    transition: background 0.2s ease, transform 0.15s ease;
+}
+
+.activity-item:hover {
+    background: #f1f5f9;
+    transform: translateY(-2px);
+}
+
+.activity-item strong {
+    font-weight: 700;
+    color: #2563eb;
+}
+
+.activity-item span {
+    margin-left: 6px;
+    color: #475569;
+}
+
+.activity-item small {
+    color: #64748b;
+    font-size: 12px;
+    white-space: nowrap;
+}
+
+/* Empty state inside stat-card */
+.stat-card p {
+    margin: 12px 0;
+    color: #94a3b8;
+    font-size: 14px;
+    text-align: center;
+}
+
 
 
  
