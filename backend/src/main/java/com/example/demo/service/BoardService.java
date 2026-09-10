@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.example.demo.dto.BoardCreateDto;
 import com.example.demo.dto.BoardDto;
+import com.example.demo.dto.BoardActivityDto;
 import com.example.demo.entity.AppUser;
 import com.example.demo.entity.BoardActivity;
 import com.example.demo.entity.BoardMember;
@@ -27,12 +28,19 @@ public class BoardService {
     private final BoardRepository boardRepository;
     private final BoardMemberRepository boardMemberRepository;
     private final BoardActivityRepository boardActivityRepository;
-public Page<BoardActivity> getActivities(
+ public Page<BoardActivityDto> getActivities(
         Long boardId,
         Pageable pageable
 ) {
     return boardActivityRepository
-            .findAllByBoard_IdOrderByTimestampDesc(boardId, pageable);
+            .findAllByBoard_IdOrderByTimestampDesc(boardId, pageable)
+            .map(activity -> BoardActivityDto.builder()
+                    .id(activity.getId())
+                    .actorName(activity.getActor().getUsername())
+                    .actionDescription(activity.getActionDescription())
+                    .timestamp(activity.getTimestamp())
+                    .build()
+            );
 }
     @Transactional
     public BoardDto createBoard(BoardCreateDto dto, AppUser facilitator) {
