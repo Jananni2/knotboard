@@ -9,7 +9,7 @@ function DomainChart({ data }) {
     return (
         <div className="stat-card">
 
-            <h3>Notes Distribution</h3>
+            <h3>Notes Distribution by theme</h3>
 
             <div className="domain-chart">
 
