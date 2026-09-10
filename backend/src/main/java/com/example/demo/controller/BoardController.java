@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import com.example.demo.entity.BoardActivity;
-
+ 
+import com.example.demo.dto.BoardActivityDto;
 import com.example.demo.dto.BoardCreateDto;
 import com.example.demo.dto.BoardDto;
 import com.example.demo.entity.AppUser;
@@ -39,8 +39,8 @@ public class BoardController {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(boardService.createBoard(dto, user));
     }
-@GetMapping("/{boardId}/activities")
-public ResponseEntity<Page<BoardActivity>> getActivities(
+ @GetMapping("/{boardId}/activities")
+public ResponseEntity<Page<BoardActivityDto>> getActivities(
         @PathVariable Long boardId,
         Pageable pageable
 ) {
