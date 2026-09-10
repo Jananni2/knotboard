@@ -70,7 +70,126 @@ select {
 /* =========================================
    BRAND
    ========================================= */
+/* =========================================================
+   RECENT ACTIVITY PAGE
+========================================================= */
 
+.stat-card {
+    background: #ffffff;
+    border-radius: 14px;
+    padding: 24px;
+    margin: 30px auto;
+    width: 90%;
+    max-width: 900px;
+    box-shadow: 0 4px 15px rgba(15, 31, 61, 0.08);
+    border: 1px solid #e5e7eb;
+}
+
+.stat-card h3 {
+    margin: 0 0 20px 0;
+    font-size: 22px;
+    font-weight: 700;
+    color: #172554;
+    border-bottom: 1px solid #e5e7eb;
+    padding-bottom: 15px;
+}
+
+/* Activity list */
+
+.activity-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* Individual activity */
+
+.activity-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+
+    padding: 16px 18px;
+
+    background: #f8fafc;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+
+    transition: all 0.2s ease;
+}
+
+.activity-item:hover {
+    background: #f1f5f9;
+    transform: translateY(-1px);
+    box-shadow: 0 3px 8px rgba(15, 31, 61, 0.06);
+}
+
+/* Actor + action */
+
+.activity-item div {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 4px;
+}
+
+.activity-item strong {
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.activity-item span {
+    font-size: 15px;
+    color: #475569;
+}
+
+/* Time */
+
+.activity-item small {
+    flex-shrink: 0;
+    font-size: 13px;
+    color: #64748b;
+    white-space: nowrap;
+}
+
+/* Empty state */
+
+.stat-card > p {
+    text-align: center;
+    color: #64748b;
+    padding: 30px 0;
+    margin: 0;
+    font-size: 15px;
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+    .stat-card {
+        width: 94%;
+        padding: 18px;
+        margin: 20px auto;
+    }
+
+    .stat-card h3 {
+        font-size: 19px;
+    }
+
+    .activity-item {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 8px;
+        padding: 14px;
+    }
+
+    .activity-item small {
+        font-size: 12px;
+    }
+}
 .navbar-brand {
     display: flex;
     align-items: center;
