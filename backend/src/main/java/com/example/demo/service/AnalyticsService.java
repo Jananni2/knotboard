@@ -44,15 +44,31 @@ public class AnalyticsService {
 
         return result;
     }
+ @Transactional(readOnly = true)
+public Map<String, Object> getGlobalStats() {
 
-    @Transactional(readOnly = true)
-    public Map<String, Object> getGlobalStats() {
+    Map<String, Object> result = new HashMap<>();
 
-        Map<String, Object> result = new HashMap<>();
+    List<StickyNote> notes = noteRepository.findAll();
 
-        result.put("totalNotes", noteRepository.count());
-        result.put("activeNotes", noteRepository.countByDeletedAtIsNull());
+    result.put("totalNotes", notes.size());
 
-        return result;
-    }
+    long activeNotes = notes.stream()
+            .filter(n -> n.getDeletedAt() == null)
+            .count();
+
+    result.put("activeNotes", activeNotes);
+
+    Map<String, Long> colorDistribution =
+            notes.stream()
+                    .filter(n -> n.getDeletedAt() == null)
+                    .collect(Collectors.groupingBy(
+                            StickyNote::getColorCode,
+                            Collectors.counting()
+                    ));
+
+    result.put("colorBreakdown", colorDistribution);
+
+    return result;
+}
 }
