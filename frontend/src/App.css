@@ -36,7 +36,101 @@ select {
     font-family: inherit;
 }
 
+/* =========================================================
+   DOMAIN CHART
+========================================================= */
 
+.stat-card {
+    background: #ffffff;
+    border-radius: 14px;
+    padding: 24px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+    border: 1px solid #e8edf3;
+}
+
+.stat-card h3 {
+    margin: 0 0 24px;
+    font-size: 18px;
+    font-weight: 600;
+    color: #1f2937;
+}
+
+/* Chart area */
+.domain-chart {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-around;
+    gap: 20px;
+    min-height: 220px;
+    padding: 20px 10px 10px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+/* Each bar + label */
+.domain-bar-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
+    min-width: 60px;
+    height: 200px;
+}
+
+/* Number above the bar */
+.domain-count {
+    font-size: 14px;
+    font-weight: 600;
+    color: #374151;
+}
+
+/* Bar */
+.domain-bar {
+    width: 38px;
+    min-height: 10px;
+    border-radius: 7px 7px 2px 2px;
+    transition: height 0.3s ease, transform 0.2s ease;
+}
+
+/* Small hover effect */
+.domain-bar:hover {
+    transform: translateY(-4px);
+}
+
+/* Color name below */
+.domain-label {
+    font-size: 12px;
+    color: #6b7280;
+    font-weight: 500;
+    text-transform: capitalize;
+    text-align: center;
+    word-break: break-word;
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 600px) {
+
+    .stat-card {
+        padding: 18px;
+    }
+
+    .domain-chart {
+        gap: 12px;
+        overflow-x: auto;
+        justify-content: flex-start;
+    }
+
+    .domain-bar-container {
+        min-width: 55px;
+    }
+
+    .domain-bar {
+        width: 30px;
+    }
+}
  
 /* =========================================
    KNOTBOARD NAVBAR
