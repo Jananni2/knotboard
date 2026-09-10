@@ -90,7 +90,7 @@ const initialState = {
     activeBoard: null,
     insights: {},
     workspaceStats: {
-        totalNotes: 0,
+        TotalNotes: 0,
         activeNotes: 0
     },
     loading: false,
