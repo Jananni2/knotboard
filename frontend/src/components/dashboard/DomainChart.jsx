@@ -35,7 +35,7 @@ function DomainChart({ data }) {
                                         height: `${(count / max) * 150}px`
                                     }}
                                 />
-
+         
                                 {/* Theme name */}
                                 <span className="domain-label">
                                     {colorCode}
