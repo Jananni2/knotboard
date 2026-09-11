@@ -40,8 +40,7 @@ function CapacityBar({
             </div>
         );
     }
-
-    // Prevent division by zero
+ 
     const percent =
         max > 0
             ? Math.min(
