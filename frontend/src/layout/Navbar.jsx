@@ -16,7 +16,7 @@ function Navbar() {
         navigate("/login");
     };
 
-    // Get board ID from URL when we are inside /board/:id
+     
      const boardId =
     location.pathname.startsWith("/board/")
         ? location.pathname.split("/")[2]

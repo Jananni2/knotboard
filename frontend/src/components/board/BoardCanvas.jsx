@@ -23,12 +23,12 @@ function BoardCanvas() {
     const { id } = useParams();
     const dispatch = useDispatch();
 
-    // Get active board from Redux
+     
     const board = useSelector(
         (state) => state.boards.activeBoard
     );
 
-    // Get notes from Redux
+     
     const {
         items,
         loading,
@@ -36,7 +36,7 @@ function BoardCanvas() {
         lastDeleted
     } = useSelector((state) => state.notes);
 
-    // Get logged-in user
+   
     const user = useSelector(
         (state) => state.auth?.user
     );
@@ -49,9 +49,7 @@ function BoardCanvas() {
     const [showNoteForm, setShowNoteForm] = useState(false);
     const [editedContent, setEditedContent] = useState({});
 
-    // -----------------------------------------
-    // Fetch board + notes
-    // -----------------------------------------
+   
     useEffect(() => {
         if (id) {
             dispatch(fetchBoardById(id));
@@ -59,23 +57,17 @@ function BoardCanvas() {
         }
     }, [id, dispatch]);
 
-    // -----------------------------------------
-    // Capacity values
-    // -----------------------------------------
-
-    // Number of notes currently displayed
+    
     const currentNoteCount = items.length;
 
-    // Maximum capacity coming from backend
+    
     const maxNoteCapacity = board?.maxNoteCapacity;
 useEffect(() => {
     if (id) {
         localStorage.setItem("selectedBoardId", id);
     }
 }, [id]);
-    // -----------------------------------------
-    // Show undo toast after deletion
-    // -----------------------------------------
+    
     useEffect(() => {
         if (lastDeleted) {
             setShowUndo(true);
@@ -88,9 +80,7 @@ useEffect(() => {
         }
     }, [lastDeleted]);
 
-    // -----------------------------------------
-    // Clear error after 5 seconds
-    // -----------------------------------------
+   
     useEffect(() => {
         if (error) {
             const timer = setTimeout(() => {
@@ -101,15 +91,13 @@ useEffect(() => {
         }
     }, [error, dispatch]);
 
-    // -----------------------------------------
-    // Start dragging
-    // -----------------------------------------
+    
     const handleMouseDown = (e, note) => {
         if (isStakeholder) {
             return;
         }
 
-        // Don't drag when clicking textarea
+      
         if (e.target.tagName === "TEXTAREA") {
             return;
         }
@@ -124,9 +112,7 @@ useEffect(() => {
         });
     };
 
-    // -----------------------------------------
-    // Finish dragging
-    // -----------------------------------------
+    
     const handleMouseUp = (e) => {
         if (!dragging) {
             return;
